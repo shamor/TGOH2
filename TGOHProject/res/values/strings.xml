@@ -9,5 +9,6 @@
     <string name="Last_Name">Last Name</string>
     <string name="Username">UserName</string>
     <string name="Password">Password</string>
+    <string name="back">Back</string>
 
 </resources>
