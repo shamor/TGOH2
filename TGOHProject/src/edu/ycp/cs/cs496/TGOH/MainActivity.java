@@ -5,13 +5,14 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setDefaultView();
 	}
 
 	@Override
@@ -24,8 +25,12 @@ public class MainActivity extends Activity {
 	public void setDefaultView(){
 		setContentView(R.layout.activity_main);
 		
-		Button Signin = (Button) findViewById(R.id.button1);
-		Button Signup = (Button) findViewById(R.id.button2);
+		Button Signin = (Button) findViewById(R.id.signin);
+		Button Signup = (Button) findViewById(R.id.signup);
+		
+		final EditText Username = (EditText) findViewById(R.id.Username);
+		final EditText Password = (EditText) findViewById(R.id.Password);
+		
 		
 		Signup.setOnClickListener(new View.OnClickListener() {
 			
@@ -33,6 +38,15 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				setContentView(R.layout.signuppage);
 				// setting a new account to the Database.
+				
+			}
+		});
+		
+		Signin.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
 				
 			}
 		});
