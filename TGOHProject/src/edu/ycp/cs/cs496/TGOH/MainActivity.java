@@ -36,9 +36,8 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				setContentView(R.layout.signuppage);
 				// setting a new account to the Database.
-				
+				setSigninPage();
 			}
 		});
 		
@@ -46,10 +45,35 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				
+				setContentView(R.layout.schedule_page);
 				
 			}
 		});
+	}
+	
+	public void setSigninPage(){
+		setContentView(R.layout.signuppage);
+		Button Signin = (Button) findViewById(R.id.button1);
+		Button Back = (Button) findViewById(R.id.button2);
+		
+		Signin.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setDefaultView();
+			}
+		});
+		
+		Back.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setDefaultView();
+			}
+		})
+		
 	}
 
 }
