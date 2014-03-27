@@ -1,4 +1,4 @@
-package edu.ycp.cs.cs496.User;
+package edu.ycp.cs.cs496.TGOH.User;
 
 public class User {
 	private String name;
