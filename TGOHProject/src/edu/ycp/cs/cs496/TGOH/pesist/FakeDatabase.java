@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs.cs496.TGOH.User.User;
-import edu.ycp.cs496.fruit.model.Item;
 
 public class FakeDatabase implements IDatabase {
 	private List<User> users; 
