@@ -47,17 +47,23 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				//still need a class selection page
 				setContentView(R.layout.schedule_page);
 				
 			}
 		});
 	}
 	
+	/**
+	 *Display the Sign up page 
+	 **/
 	public void setSigninPage(){
 		setContentView(R.layout.signuppage);
+		
 		Button Signin = (Button) findViewById(R.id.button1);
 		Button Back = (Button) findViewById(R.id.button2);
-		
+		// TODO: pull information from text boxes and add the new user to the database
+		//also error checking
 		Signin.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -71,7 +77,7 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				//take user back to original sign in page
 				setDefaultView();
 			}
 		});
