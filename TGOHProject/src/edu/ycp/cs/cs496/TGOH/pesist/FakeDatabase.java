@@ -4,11 +4,14 @@ import java.util.List;
 
 import edu.ycp.cs.cs496.TGOH.User.User;
 
+
 public class FakeDatabase implements IDatabase {
 	private List<User> users; 
 	public FakeDatabase() {
 		users = new ArrayList<User>(); 
-		
+		users.add(new User("Shamor", "Samantha", "Hamor", "sam"));
+		users.add(new User("Choward", "Cody", "Howard", "cody"));
+		users.add(new User("Jfiddle", "Jason", "Fiddle", "jason"));
 	}
 	
 	/**
