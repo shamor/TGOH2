@@ -4,34 +4,39 @@ import java.util.List;
 
 import edu.ycp.cs.cs496.TGOH.User.User;
 
-
 public class FakeDatabase implements IDatabase {
 	private List<User> users; 
 	public FakeDatabase() {
 		users = new ArrayList<User>(); 
-		users.add(new User("Shamor", "Samantha", "Hamor", "sam"));
-		users.add(new User("Choward", "Cody", "Howard", "cody"));
-		users.add(new User("Jfiddle", "Jason", "Fiddle", "jason"));
+		
 	}
 	
 	/**
 	 * Adds user to the database
 	 */
 	@Override
-	public void addUser(User user) {
+	public boolean addUser(User user) {
 		//add user to the list
-		users.add(user);
-		
+		if(users.add(user))
+			return true;
+		else
+			return false;
 	}
+	
 	@Override
-	public void deleteUser(User user) {
+	public boolean deleteUser(User user) {
 		// TODO Auto-generated method stub
-		for (User user1 : users) {
-			if (user1.getName().equals(user.getName())) {
-				users.remove(user1);
-			}
-		}
+		boolean check = false;
 		
+		for (User user1 : users) {
+			if (user1.getName().equals(user.getName())&&user1.getPassword().equals(user.getPassword())) {
+				if(users.remove(user1))
+					check = true;
+				else 
+					check = false;
+			}
+		}	
+		return check;
 	}
 		
 	@Override
@@ -43,7 +48,6 @@ public class FakeDatabase implements IDatabase {
 				return new User(user.getName(), user.getFirstName(), user.getLastName(), user.getPassword());
 			}
 		}
-		
 		// no such user in database
 		return null;
 		

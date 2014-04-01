@@ -5,10 +5,11 @@ import edu.ycp.cs.cs496.TGOH.User.User;
 public interface IDatabase {
 /**
  * Database persistance methods
+ * @return 
  */
-	public void addUser(User user);
+	public boolean addUser(User user);
 	
-	public void deleteUser(User user);
+	public boolean deleteUser(User user);
 	
 	public User getUser(User user); 
 }
