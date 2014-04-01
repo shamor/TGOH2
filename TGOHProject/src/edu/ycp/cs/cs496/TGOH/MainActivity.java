@@ -16,6 +16,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setDefaultView();
 	}
+	
+	// superman
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
