@@ -1,4 +1,4 @@
-package edu.ycp.cs496.TGOH.main;
+package edu.ycp.cs.cs496.TGOH.main;
 
 import java.util.Scanner;
 
