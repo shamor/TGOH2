@@ -10,5 +10,9 @@
     <string name="Username">UserName</string>
     <string name="Password">Password</string>
     <string name="back">Back</string>
+    <string name="Selection">Choose Your Class:</string>
+    <string name="btnRequestClass">Request New Class</string>
+    <string name="ReminderLbl">Reminder</string>
+    <string name="btnViewSchedule">View Schedule</string>
 
 </resources>
