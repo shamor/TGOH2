@@ -1,0 +1,27 @@
+/COM,ANSYS RELEASE 14.5    UP20120918       17:16:09    04/01/2014
+
+ *** ERROR ***                           CP =       1.544   TIME= 17:16:13
+ Data file H:\git\TGOH\TGOHProject\Thumbs.db has incorrect format, is    
+ missing READ/WRITE permission, or is empty for RESUME.                  
+
+ *** WARNING ***                         CP =       1.544   TIME= 17:16:13
+ WHILE PROCESSING FILE BASED INPUT (/INPUT OR MACRO) AN ERROR HAS        
+ OCCURRED.  SHOULD INPUT PROCESSING BE SUSPENDED?                        
+
+ *** ERROR ***                           CP =       2.777   TIME= 17:17:26
+ The program is unable to open file Thumbs.db.  If the suggestions in    
+ the associated error messages immediately preceding and/or following    
+ this error message do not help resolve the file issue, please send the  
+ data leading to this operation to your technical support provider,      
+ along with the system error code of 999, for help in determining the    
+ possible reasons as to why this file could not be opened.               
+
+ *** ERROR ***                           CP =       2.808   TIME= 17:17:42
+ The program is unable to open file Thumbs.db.  Unit 16 is already in    
+ use.  Please send the data leading to this operation to your technical  
+ support provider, as this will allow ANSYS, Inc to improve the          
+ program.                                                                
+
+ *** ERROR ***                           CP =       2.824   TIME= 17:17:44
+ Database file Thumbs.db exists but does not have READ/WRITE permission, 
+ so it cannot be overwritten.                                            
