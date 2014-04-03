@@ -48,9 +48,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// Jason will make a new method for the schedule page.
-				setSchedule_page();
+				setClass_Selection_Page();
 
-				
 			}
 		});
 	}
@@ -71,7 +70,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				setDefaultView();
+				setClass_Selection_Page();
 				// jason will implement controllers
 			}
 		});
@@ -86,19 +85,33 @@ public class MainActivity extends Activity {
 		});
 	}
 	
-	public void setSchedule_page(){
+	public void setClass_Selection_Page(){
 		setContentView(R.layout.class_selection_page);
 		
-		Button VS = (Button) findViewById(R.id.button1);
-		Button Req = (Button) findViewById(R.id.button2);
+		Button viewSchedule = (Button) findViewById(R.id.button2);
+		Button Req = (Button) findViewById(R.id.button1);
 		
-		VS.setOnClickListener(new View.OnClickListener() {
+		viewSchedule.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				setContentView(R.layout.schedule_page);
-				
+				setSchedule_Page();
 			}
 		});
+	}
+
+
+	public void setSchedule_Page(){
+		setContentView(R.layout.schedule_page);
+		
+		Button Back = (Button) findViewById(R.id.button1);
+		Back.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				setClass_Selection_Page();
+			}
+		});
+		
 	}
 }
