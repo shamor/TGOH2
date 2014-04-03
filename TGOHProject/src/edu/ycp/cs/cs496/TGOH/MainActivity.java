@@ -16,8 +16,6 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setDefaultView();
 	}
-	
-	// superman
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,13 +47,14 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				//still need a class selection page
 				// Jason will make a new method for the schedule page.
 				setSchedule_page();
+
 				
 			}
 		});
 	}
+	
 	
 	/**
 	 *Display the Sign up page 
