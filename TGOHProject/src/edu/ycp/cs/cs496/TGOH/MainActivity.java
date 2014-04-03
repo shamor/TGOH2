@@ -27,11 +27,11 @@ public class MainActivity extends Activity {
 	public void setDefaultView(){
 		setContentView(R.layout.activity_main);
 		
-		Button Signin = (Button) findViewById(R.id.signin);
-		Button Signup = (Button) findViewById(R.id.signup);
+		Button Signin = (Button) findViewById(R.id.btnSignIn);
+		Button Signup = (Button) findViewById(R.id.btnSignUp);
 		
-		final EditText Username = (EditText) findViewById(R.id.Username);
-		final EditText Password = (EditText) findViewById(R.id.Password);
+		final EditText Username = (EditText) findViewById(R.id.lblUserName);
+		final EditText Password = (EditText) findViewById(R.id.lblPassword);
 		
 		
 		Signup.setOnClickListener(new View.OnClickListener() {
