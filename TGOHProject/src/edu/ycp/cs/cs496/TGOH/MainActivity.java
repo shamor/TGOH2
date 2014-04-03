@@ -48,11 +48,12 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//still need a class selection page
-				setContentView(R.layout.schedule_page);
+				setContentView(R.layout.class_selection_page);
 				
 			}
 		});
 	}
+	
 	
 	/**
 	 *Display the Sign up page 
