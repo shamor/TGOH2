@@ -1,5 +1,12 @@
 package edu.ycp.cs.cs496.TGOH;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
+import edu.ycp.cs.cs496.TGOH.controller.adduser;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.res.Resources;
@@ -49,8 +56,6 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// Jason will make a new method for the schedule page.
 				setSchedule_page();
-
-				
 			}
 		});
 	}
@@ -64,6 +69,11 @@ public class MainActivity extends Activity {
 		
 		Button Signin = (Button) findViewById(R.id.button1);
 		Button Back = (Button) findViewById(R.id.button2);
+		
+		final EditText Username = (EditText) findViewById(R.id.UserName);
+		final EditText Password = (EditText) findViewById(R.id.PassSignUp);
+		final EditText FirstName = (EditText) findViewById(R.id.FirstNameSignin);
+		final EditText LastName = (EditText) findViewById(R.id.UserSignUp);
 		// TODO: pull information from text boxes and add the new user to the database
 		//also error checking
 		Signin.setOnClickListener(new View.OnClickListener() {
@@ -71,8 +81,23 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				setDefaultView();
-				// jason will implement controllers
+				adduser controller = new adduser();
+				try {
+					if(controller.postItem(FirstName.getText().toString(), LastName.getText().toString(), Username.getText().toString(), Password.getText().toString())){
+						// toast box: right
+						setDefaultView();
+					}else{
+						// toast box: error
+					}
+				} catch (JsonGenerationException e) {
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		
