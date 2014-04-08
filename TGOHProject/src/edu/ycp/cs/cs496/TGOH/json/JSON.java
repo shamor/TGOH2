@@ -1,4 +1,4 @@
-package edu.ycp.cs.cs496.TGOH.JSON;
+package edu.ycp.cs.cs496.TGOH.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
