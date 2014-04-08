@@ -104,8 +104,8 @@ public class MainActivity extends Activity {
 	public void setSchedule_Page(){
 		setContentView(R.layout.schedule_page);
 		
-		Button Back = (Button) findViewById(R.id.button1);
-		Back.setOnClickListener(new View.OnClickListener() {
+		Button Backing = (Button) findViewById(R.id.button1);
+		Backing.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
