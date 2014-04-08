@@ -23,9 +23,7 @@ public class GetUser {
 		return makeGetRequest(UserName);
 	}
 	
-	private User makeGetRequest(String Username) throws URISyntaxException, ClientProtocolException, IOException
-	{
-		// TODO: Implement method to issue get item request
+	private User makeGetRequest(String Username) throws URISyntaxException, ClientProtocolException, IOException{
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		

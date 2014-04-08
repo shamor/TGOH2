@@ -8,7 +8,6 @@ import org.apache.http.client.ClientProtocolException;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 
@@ -83,11 +82,6 @@ public class MainActivity extends Activity {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
-				
-				// Jason will make a new method for the schedule page.
-
-
 			}
 		});
 	}
