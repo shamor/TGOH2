@@ -8,12 +8,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -38,16 +40,15 @@ public class MainActivity extends Activity {
 		Button Signin = (Button) findViewById(R.id.btnSignIn);
 		Button Signup = (Button) findViewById(R.id.btnSignUp);
 		
-		final EditText Username = (EditText) findViewById(R.id.txtUserName);
-		final EditText Password = (EditText) findViewById(R.id.txtPassword);
-		
+		final EditText Username = (EditText) findViewById(R.id.UserName);
+		final EditText Password = (EditText) findViewById(R.id.Password);	
 		
 		Signup.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// setting a new account to the Database.
-				setSigninPage();
+				setSignupPage();
 			}
 		});
 		
@@ -69,7 +70,8 @@ public class MainActivity extends Activity {
         		}
 				
 				// Jason will make a new method for the schedule page.
-				setSchedule_page();
+				setClass_Selection_Page();
+
 			}
 		});
 	}
@@ -78,16 +80,11 @@ public class MainActivity extends Activity {
 	/**
 	 *Display the Sign up page 
 	 **/
-	public void setSigninPage(){
-		//setContentView(R.layout.signuppage);
+	public void setSignupPage(){
+		setContentView(R.layout.signuppage);
 		
 		Button Signin = (Button) findViewById(R.id.button1);
 		Button Back = (Button) findViewById(R.id.button2);
-		
-		final EditText Username = (EditText) findViewById(R.id.UserName);
-		final EditText Password = (EditText) findViewById(R.id.PassSignUp);
-		final EditText FirstName = (EditText) findViewById(R.id.FirstNameSignin);
-		final EditText LastName = (EditText) findViewById(R.id.UserSignUp);
 		// TODO: pull information from text boxes and add the new user to the database
 		//also error checking
 		Signin.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +111,9 @@ public class MainActivity extends Activity {
 				}	
 				setDefaultView();
 				// Jason will implement controllers
+				// TODO Auto-generated method stub
+				setClass_Selection_Page();
+				// jason will implement controllers
 			}
 		});
 		
@@ -127,19 +127,63 @@ public class MainActivity extends Activity {
 		});
 	}
 	
-	public void setSchedule_page(){
+	public void setClass_Selection_Page(){
 		setContentView(R.layout.class_selection_page);
 		
-		Button VS = (Button) findViewById(R.id.button1);
-		Button Req = (Button) findViewById(R.id.button2);
+		Button viewSchedule = (Button) findViewById(R.id.button2);
+		Button Req = (Button) findViewById(R.id.button1);
 		
-		VS.setOnClickListener(new View.OnClickListener() {
+		viewSchedule.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				setContentView(R.layout.schedule_page);
-				
+				setSchedule_Page();
 			}
 		});
+		
+		Req.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				setRequest_Page();
+			}
+		});
+	}
+
+
+	protected void setRequest_Page() {
+		setContentView(R.layout.activity_main);
+		
+		Spinner spin = (Spinner) findViewById(R.id.spinner1);
+		
+		Button submit = (Button) findViewById(R.id.button1);
+		
+		submit.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				boolean success = false; 
+				//send request for class to database
+				if(success){
+					
+				}else{
+					Toast.makeText(MainActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+	}
+
+	public void setSchedule_Page(){
+		setContentView(R.layout.schedule_page);
+		
+		Button Back = (Button) findViewById(R.id.button1);
+		Back.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				setClass_Selection_Page();
+			}
+		});
+		
 	}
 }
