@@ -16,5 +16,6 @@
     <string name="btnViewSchedule">View Schedule</string>
     <string name="Teacher_user_lbl">Enter Teacher\'s username:</string>
     <string name="class_selection_lbl">Select one of the available classes below:</string>
+     <string name="submit_string">Submit</string>
 
 </resources>

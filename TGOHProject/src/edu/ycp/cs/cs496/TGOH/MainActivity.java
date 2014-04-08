@@ -7,7 +7,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -30,7 +32,7 @@ public class MainActivity extends Activity {
 		Button Signin = (Button) findViewById(R.id.signin);
 		Button Signup = (Button) findViewById(R.id.signup);
 		
-		final EditText Username = (EditText) findViewById(R.id.Username);
+		final EditText Username = (EditText) findViewById(R.id.UserName);
 		final EditText Password = (EditText) findViewById(R.id.Password);
 		
 		
@@ -39,7 +41,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// setting a new account to the Database.
-				setSigninPage();
+				setSignupPage();
 			}
 		});
 		
@@ -58,7 +60,7 @@ public class MainActivity extends Activity {
 	/**
 	 *Display the Sign up page 
 	 **/
-	public void setSigninPage(){
+	public void setSignupPage(){
 		setContentView(R.layout.signuppage);
 		
 		Button Signin = (Button) findViewById(R.id.button1);
@@ -98,14 +100,44 @@ public class MainActivity extends Activity {
 				setSchedule_Page();
 			}
 		});
+		
+		Req.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				setRequest_Page();
+			}
+		});
 	}
 
+
+	protected void setRequest_Page() {
+		setContentView(R.layout.request_page);
+		
+		Spinner spin = (Spinner) findViewById(R.id.spinner1);
+		
+		Button submit = (Button) findViewById(R.id.button1);
+		
+		submit.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				boolean success = false; 
+				//send request for class to database
+				if(success){
+					
+				}else{
+					Toast.makeText(MainActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+	}
 
 	public void setSchedule_Page(){
 		setContentView(R.layout.schedule_page);
 		
-		Button Backing = (Button) findViewById(R.id.button1);
-		Backing.setOnClickListener(new View.OnClickListener() {
+		Button Back = (Button) findViewById(R.id.button1);
+		Back.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
