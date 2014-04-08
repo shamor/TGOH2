@@ -19,8 +19,8 @@ import edu.ycp.cs.cs496.TGOH.json.JSON;
 
 public class GetUser {
 
-	public User getUser(String itemName) throws ClientProtocolException, URISyntaxException, IOException {
-		return makeGetRequest(itemName);
+	public User getUser(String UserName) throws ClientProtocolException, URISyntaxException, IOException {
+		return makeGetRequest(UserName);
 	}
 	
 	private User makeGetRequest(String Username) throws URISyntaxException, ClientProtocolException, IOException

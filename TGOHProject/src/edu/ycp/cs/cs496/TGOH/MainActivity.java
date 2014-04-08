@@ -3,10 +3,13 @@ package edu.ycp.cs.cs496.TGOH;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.apache.http.client.ClientProtocolException;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.User.User;
+import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 
 import android.os.Bundle;
@@ -59,18 +62,31 @@ public class MainActivity extends Activity {
         		String userName = Username.getText().toString();
         		String passWord = Password.getText().toString();
         		
-        		if(userName.equals(null))
-        		{
-        			Toast.makeText(MainActivity.this, "Please enter a username.", Toast.LENGTH_SHORT).show();
-        		}
-        		else
-        		{
-        			//check to make sure the userName and passWord for the user are both correct
-        			
-        		}
+        		GetUser controller = new GetUser();
+					try {
+						if(controller.getUser(userName).getPassword().equals(passWord)){
+							Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+							setClass_Selection_Page();
+						}
+						else
+						{
+							//check to make sure the userName and passWord for the user are both correct
+							Toast.makeText(MainActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+						}
+					} catch (ClientProtocolException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 				
 				// Jason will make a new method for the schedule page.
-				setClass_Selection_Page();
+
 
 			}
 		});
@@ -99,8 +115,10 @@ public class MainActivity extends Activity {
 					if(controller.postItem(Username.getText().toString(), Password.getText().toString())){
 						// toast box: right
 						setDefaultView();
+						Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
 					}else{
 						// toast box: error
+						Toast.makeText(MainActivity.this, "wrong", Toast.LENGTH_SHORT).show();
 					}
 				} catch (JsonGenerationException e) {
 					// TODO Auto-generated catch block
