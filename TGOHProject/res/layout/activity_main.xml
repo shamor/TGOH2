@@ -9,7 +9,7 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/userlabel"
+        android:id="@+id/lblUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,54 +18,52 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/Username"
+        android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/userlabel"
-        android:layout_below="@+id/userlabel"
+        android:layout_alignLeft="@+id/lblUserName"
+        android:layout_below="@+id/lblUserName"
         android:ems="10"
         android:inputType="textPersonName" />
-    
-       <requestFocus />
+    	<requestFocus />
+
 
     <TextView
-        android:id="@+id/passwordlabel"
+        android:id="@+id/lblPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Username"
-        android:layout_below="@+id/Username"
+        android:layout_alignLeft="@+id/txtUserName"
+        android:layout_below="@+id/txtUserName"
         android:text="@string/Password"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/txtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordlabel"
-        android:layout_alignRight="@+id/Username"
-        android:layout_below="@+id/passwordlabel"
+        android:layout_alignLeft="@+id/lblPassword"
+        android:layout_alignRight="@+id/txtUserName"
+        android:layout_below="@+id/lblPassword"
         android:ems="10"
         android:inputType="textPassword" >
-
-     
     </EditText>
 
     <Button
-        android:id="@+id/signin"
+        android:id="@+id/btnSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Password"
-        android:layout_alignRight="@+id/passwordlabel"
-        android:layout_below="@+id/Password"
+        android:layout_alignLeft="@+id/txtPassword"
+        android:layout_alignRight="@+id/lblPassword"
+        android:layout_below="@+id/txtPassword"
         android:layout_marginTop="20dp"
         android:text="@string/Sign_In" />
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/btnSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/Password"
+        android:layout_toRightOf="@+id/txtPassword"
         android:text="@string/Sign_Up" />
 
 </RelativeLayout>

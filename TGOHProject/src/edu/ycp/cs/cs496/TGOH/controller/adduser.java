@@ -32,8 +32,8 @@ public class adduser {
 		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user", null, null);
 		
 		// Construct request
-		HttpPost request = new HttpPost(uri);
-		
+		HttpPost request = new HttpPost(uri){
+
 		if(FirstName != null && LastName != null && Username != null && Password != null){
 			User user = new User(FirstName, LastName, Username, Password);
 			StringWriter sw = new StringWriter();
