@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.User.User;
-import edu.ycp.cs.cs496.TGOH.model.json.JSON;
+import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 
 public class adduser {
 	public boolean postItem(String FirstName, String LastName, String Username, String Password) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
@@ -32,7 +32,7 @@ public class adduser {
 		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user", null, null);
 		
 		// Construct request
-		HttpPost request = new HttpPost(uri){
+		HttpPost request = new HttpPost(uri);
 
 		if(FirstName != null && LastName != null && Username != null && Password != null){
 			User user = new User(FirstName, LastName, Username, Password);

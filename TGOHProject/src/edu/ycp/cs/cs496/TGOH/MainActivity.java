@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 		Button Signup = (Button) findViewById(R.id.btnSignUp);
 		
 		final EditText Username = (EditText) findViewById(R.id.UserName);
-		final EditText Password = (EditText) findViewById(R.id.Password);	
+		final EditText Password = (EditText) findViewById(R.id.txtPassword);	
 		
 		Signup.setOnClickListener(new View.OnClickListener() {
 			
@@ -87,8 +87,9 @@ public class MainActivity extends Activity {
 		Button Back = (Button) findViewById(R.id.button2);
 		// TODO: pull information from text boxes and add the new user to the database
 		//also error checking
+		
+		
 		Signin.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
