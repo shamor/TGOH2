@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setDefaultView(); 
 	}
 
 	@Override
@@ -87,34 +87,34 @@ public class MainActivity extends Activity {
 		Button Back = (Button) findViewById(R.id.button2);
 		// TODO: pull information from text boxes and add the new user to the database
 		//also error checking
-		
-		
+        final EditText Username = (EditText) findViewById(R.id.UserName);
+        final EditText Password = (EditText) findViewById(R.id.PassSignUp);
+        
 		Signin.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				adduser controller = new adduser();
 				try {
-					if(controller.postItem(FirstName.getText().toString(), LastName.getText().toString(), Username.getText().toString(), Password.getText().toString())){
+					if(controller.postItem(Username.getText().toString(), Password.getText().toString())){
 						// toast box: right
 						setDefaultView();
 					}else{
 						// toast box: error
 					}
 				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}	
-				setDefaultView();
-				// Jason will implement controllers
-				// TODO Auto-generated method stub
-				setClass_Selection_Page();
-				// jason will implement controllers
 			}
 		});
 		

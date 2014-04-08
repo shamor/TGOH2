@@ -16,15 +16,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
+import edu.ycp.cs.cs496.TGOH.User.User;
 
 public class adduser {
-	public boolean postItem(String FirstName, String LastName, String Username, String Password) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
-		return makePostRequest(FirstName, LastName, Username, Password);
+	public boolean postItem(String Username, String Password) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
+		return makePostRequest(Username, Password);
 	}
 	
-	public boolean makePostRequest(String FirstName, String LastName, String Username, String Password) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
+	public boolean makePostRequest(String Username, String Password) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		
@@ -34,8 +34,8 @@ public class adduser {
 		// Construct request
 		HttpPost request = new HttpPost(uri);
 
-		if(FirstName != null && LastName != null && Username != null && Password != null){
-			User user = new User(FirstName, LastName, Username, Password);
+		if(Username != null && Password != null){
+			User user = new User(Username, Password);
 			StringWriter sw = new StringWriter();
 			JSON.getObjectMapper().writeValue(sw, user);
 			
