@@ -1,6 +1,5 @@
 package edu.ycp.cs.cs496.TGOH;
 
-import edu.ycp.cs.cs496.cs496_assign02.MobileInventoryClient;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.res.Resources;
@@ -33,7 +32,7 @@ public class MainActivity extends Activity {
 		Button Signin = (Button) findViewById(R.id.signin);
 		Button Signup = (Button) findViewById(R.id.signup);
 		
-		final EditText Username = (EditText) findViewById(R.id.Username);
+		final EditText Username = (EditText) findViewById(R.id.UserName);
 		final EditText Password = (EditText) findViewById(R.id.Password);
 		
 		
@@ -62,7 +61,7 @@ public class MainActivity extends Activity {
 	 *Display the Sign up page 
 	 **/
 	public void setSignupPage(){
-		setContentView(R.layout.signuppage);
+		//setContentView(R.layout.signuppage);
 		
 		Button Signin = (Button) findViewById(R.id.button1);
 		Button Back = (Button) findViewById(R.id.button2);
