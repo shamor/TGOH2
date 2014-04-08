@@ -7,12 +7,12 @@
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>User</servlet-name>
-		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.Userpage</servlet-class>
+		<servlet-class>edu.ycp.cs496.TGOH.servlets.User</servlet-class>
 	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
 	<servlet-mapping>
-		<servlet-name>Userpage</servlet-name>
+		<servlet-name>User</servlet-name>
 		<url-pattern>/User/*</url-pattern>
 	</servlet-mapping>
 

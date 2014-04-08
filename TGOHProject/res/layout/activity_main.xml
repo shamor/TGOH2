@@ -24,7 +24,7 @@
         android:layout_alignLeft="@+id/userlabel"
         android:layout_below="@+id/userlabel"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="text" />
     
        <requestFocus />
 
