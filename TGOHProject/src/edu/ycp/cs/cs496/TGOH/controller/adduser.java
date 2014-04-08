@@ -29,7 +29,7 @@ public class adduser {
  		HttpClient client = new DefaultHttpClient();
 		
 		// Construct URI
-		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/User", null, null);
+		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user", null, null);
 		
 		// Construct request
 		HttpPost request = new HttpPost(uri);

@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 import android.os.Bundle;
 import android.app.Activity;

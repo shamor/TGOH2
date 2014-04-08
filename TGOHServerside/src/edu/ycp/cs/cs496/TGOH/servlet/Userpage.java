@@ -1,9 +1,9 @@
 package edu.ycp.cs.cs496.TGOH.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +12,7 @@ import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.controller.AddController;
 import edu.ycp.cs.cs496.TGOH.controller.GetController;
 
-public class Userpage {
+public class Userpage extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
