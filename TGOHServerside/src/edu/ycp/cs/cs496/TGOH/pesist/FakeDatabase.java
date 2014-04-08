@@ -38,14 +38,13 @@ public class FakeDatabase implements IDatabase {
 		}	
 		return check;
 	}
-		
-	@Override
-	public User getUser(User user) {
+	
+	public User getUser(String Username) {
 
 		for (User user1 : users) {
-			if (user1.getName().equals(user.getName())) {
+			if (user1.getName().equals(Username)) {
 				// return a copy
-				return new User(user.getName(), user.getFirstName(), user.getLastName(), user.getPassword());
+				return new User(user1.getName(), user1.getFirstName(), user1.getLastName(), user1.getPassword());
 			}
 		}
 		// no such user in database

@@ -11,5 +11,5 @@ public interface IDatabase {
 	
 	public boolean deleteUser(User user);
 	
-	public User getUser(User user); 
+	public User getUser(String Username); 
 }
