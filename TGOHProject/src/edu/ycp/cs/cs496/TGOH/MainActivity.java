@@ -2,13 +2,11 @@ package edu.ycp.cs.cs496.TGOH;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.res.Resources;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {

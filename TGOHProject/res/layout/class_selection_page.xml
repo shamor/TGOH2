@@ -35,4 +35,12 @@
         android:layout_alignParentRight="true"
         android:text="@string/btnRequestClass" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/button2"
+        android:text="@string/submit_string" />
+
 </RelativeLayout>
