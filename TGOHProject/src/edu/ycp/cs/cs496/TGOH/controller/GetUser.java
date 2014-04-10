@@ -27,10 +27,8 @@ public class GetUser {
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		
- 		String msg = "/user/"+ Username;
 		// Construct URI
-		URI uri;
-		uri = URIUtils.createURI("http", "10.0.2.2", 8081, msg, null, null);
+		 URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/"+ Username, null, null);
 
 		// Construct request
 		HttpGet request = new HttpGet(uri);
@@ -38,6 +36,7 @@ public class GetUser {
 		// Execute request
 		HttpResponse response = client.execute(request);
 		
+		System.out.println(response.getStatusLine().getStatusCode());
 		// Parse response
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			// Add JSON object to request

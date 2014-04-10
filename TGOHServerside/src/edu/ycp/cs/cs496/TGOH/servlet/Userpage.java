@@ -18,13 +18,6 @@ public class Userpage extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
-		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
-			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			resp.setContentType("text/plain");
-			resp.getWriter().println("Getting entire inventory not supported yet");
-			return;
-		}
-		
 		// Get the item name
 		if (pathInfo.startsWith("/")) 
 			pathInfo = pathInfo.substring(1);
