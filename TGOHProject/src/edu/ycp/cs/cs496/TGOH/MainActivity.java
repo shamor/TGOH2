@@ -115,10 +115,10 @@ public class MainActivity extends Activity {
 					if(controller.postItem(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString())){
 						// toast box: right
 						setDefaultView();
-						Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+						Toast.makeText(MainActivity.this, "Added", Toast.LENGTH_SHORT).show();
 					}else{
 						// toast box: error
-						Toast.makeText(MainActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+						Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
 					}
 				} catch (JsonGenerationException e) {
 					// TODO Auto-generated catch block

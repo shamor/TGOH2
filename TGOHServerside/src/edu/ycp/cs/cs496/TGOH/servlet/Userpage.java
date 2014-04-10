@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.controller.AddController;
+import edu.ycp.cs.cs496.TGOH.controller.DeleteUserController;
 import edu.ycp.cs.cs496.TGOH.controller.GetController;
 
 public class Userpage extends HttpServlet{
@@ -65,4 +66,29 @@ public class Userpage extends HttpServlet{
 		// writing the operation out.
 		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
 	}
+	
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException
+	{
+		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
+		
+		DeleteUserController deleteUser = new DeleteUserController();
+		deleteUser.deleteUser(user);
+		
+		// send response
+		resp.setStatus(HttpServletResponse.SC_OK);
+		resp.setContentType("application/json");	
+		
+		GetController getUser = new GetController();
+		
+		JSON.getObjectMapper().writeValue(resp.getWriter(), getUser.getUser(user.getName()));
+	}
 }
+
+
+
+
+
+
+
+

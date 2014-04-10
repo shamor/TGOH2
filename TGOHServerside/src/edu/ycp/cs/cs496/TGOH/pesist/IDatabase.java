@@ -4,7 +4,7 @@ import edu.ycp.cs.cs496.TGOH.User.User;
 
 public interface IDatabase {
 /**
- * Database persistance methods
+ * Database persistence methods
  * @return 
  */
 	public boolean addUser(User user);
