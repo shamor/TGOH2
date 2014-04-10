@@ -65,8 +65,9 @@ public class MainActivity extends Activity {
 				String userName = Username.getText().toString();
 				String passWord = Password.getText().toString();
         		GetUser controller = new GetUser();
+        		//check to see if a user name is entered
 					try {
-						if(controller.getUser(userName).equals(userName)){
+						if(controller.getUser(userName).getPassword().equals(passWord)){
 							Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
 							setClass_Selection_Page();
 						}

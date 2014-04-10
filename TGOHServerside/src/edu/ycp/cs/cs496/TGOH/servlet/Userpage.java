@@ -18,12 +18,12 @@ public class Userpage extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
-		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
+		/*if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.setContentType("text/plain");
 			resp.getWriter().println("Getting entire inventory not supported yet");
 			return;
-		}
+		}*/
 		
 		// Get the item name
 		if (pathInfo.startsWith("/")) 
@@ -40,7 +40,7 @@ public class Userpage extends HttpServlet{
 			resp.getWriter().println("No such item: " + pathInfo);
 			return;
 		}
-		
+
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");
