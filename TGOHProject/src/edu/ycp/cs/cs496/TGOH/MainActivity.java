@@ -42,8 +42,9 @@ public class MainActivity extends Activity {
 		Button Signin = (Button) findViewById(R.id.btnSignIn);
 		Button Signup = (Button) findViewById(R.id.btnSignUp);
 		
-		final EditText Username = (EditText) findViewById(R.id.UserName);
-		final EditText Password = (EditText) findViewById(R.id.txtPassword);	
+
+		
+
 		
 		Signup.setOnClickListener(new View.OnClickListener() {
 			
@@ -55,12 +56,14 @@ public class MainActivity extends Activity {
 		});
 		
 		Signin.setOnClickListener(new View.OnClickListener() {
-			
+	
 			@Override
 			public void onClick(View v) {
-        		String userName = Username.getText().toString();
-        		String passWord = Password.getText().toString();
-        		
+				EditText Username = (EditText) findViewById(R.id.txtUserName);
+				EditText Password = (EditText) findViewById(R.id.txtPassword);
+				
+				String userName = Username.getText().toString();
+				String passWord = Password.getText().toString();
         		GetUser controller = new GetUser();
 					try {
 						if(controller.getUser(userName).getPassword().equals(passWord)){
@@ -100,6 +103,8 @@ public class MainActivity extends Activity {
 		//also error checking
         final EditText Username = (EditText) findViewById(R.id.UserName);
         final EditText Password = (EditText) findViewById(R.id.PassSignUp);
+        final EditText FirstName = (EditText) findViewById(R.id.UserName);
+        final EditText LastName = (EditText) findViewById(R.id.PassSignUp);
         
 		Signin.setOnClickListener(new View.OnClickListener() {
 			
@@ -107,7 +112,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				adduser controller = new adduser();
 				try {
-					if(controller.postItem(Username.getText().toString(), Password.getText().toString())){
+					if(controller.postItem(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString())){
 						// toast box: right
 						setDefaultView();
 						Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();

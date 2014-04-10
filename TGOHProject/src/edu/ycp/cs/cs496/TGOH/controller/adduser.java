@@ -20,11 +20,11 @@ import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.json.JSON;
 
 public class adduser {
-	public boolean postItem(String Username, String Password) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
-		return makePostRequest(Username, Password);
+	public boolean postItem(String Username, String Password, String FirstName, String LastName) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
+		return makePostRequest(Username, Password,FirstName, LastName);
 	}
 	
-	public boolean makePostRequest(String Username, String Password) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
+	public boolean makePostRequest(String Username, String Password, String FirstName, String LastName) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		
@@ -35,7 +35,7 @@ public class adduser {
 		HttpPost request = new HttpPost(uri);
 
 		if(Username != null && Password != null){
-			User user = new User(Username, Password);
+			User user = new User(Username, Password, FirstName, LastName);
 			StringWriter sw = new StringWriter();
 			JSON.getObjectMapper().writeValue(sw, user);
 			

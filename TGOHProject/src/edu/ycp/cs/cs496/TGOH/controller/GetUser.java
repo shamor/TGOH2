@@ -28,7 +28,6 @@ public class GetUser {
  		HttpClient client = new DefaultHttpClient();
 		
  		String msg = "/user/"+ Username;
- 		
 		// Construct URI
 		URI uri;
 		uri = URIUtils.createURI("http", "10.0.2.2", 8081, msg, null, null);
