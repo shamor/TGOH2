@@ -6,6 +6,7 @@ import edu.ycp.cs.cs496.TGOH.User.User;
 
 public class FakeDatabase implements IDatabase {
 	private List<User> users; 
+	
 	public FakeDatabase() {
 		users = new ArrayList<User>(); 
 		
