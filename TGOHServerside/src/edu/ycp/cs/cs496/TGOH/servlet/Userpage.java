@@ -33,7 +33,7 @@ public class Userpage extends HttpServlet{
 			resp.getWriter().println("No such item: " + pathInfo);
 			return;
 		}
-		
+
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");
