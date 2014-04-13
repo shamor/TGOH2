@@ -5,6 +5,7 @@ public class User {
 	private String FirstName;
 	private String LastName;
 	private String Password;
+	private String class1;
 	
 	
 	public User(){
@@ -16,6 +17,7 @@ public class User {
 		this.FirstName = FirstName;
 		this.LastName = LastName;
 		this.Password = Password;
+		this.class1 = class1;
 	}
 	
 	public String getName() {
