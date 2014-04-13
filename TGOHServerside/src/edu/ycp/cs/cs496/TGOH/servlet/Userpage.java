@@ -20,6 +20,7 @@ public class Userpage extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
+		
 		// Get the item name
 		if (pathInfo.startsWith("/")) 
 			pathInfo = pathInfo.substring(1);
@@ -29,7 +30,7 @@ public class Userpage extends HttpServlet{
 		User user = controller.getUser(pathInfo);
 		
 		if (user == null) {
-			// No such item, so return a OK response 
+			// No such item, so return a NOT FOUND response
 			resp.setStatus(HttpServletResponse.SC_OK);
 			resp.setContentType("text/plain");
 			resp.getWriter().println("No such item: " + pathInfo);

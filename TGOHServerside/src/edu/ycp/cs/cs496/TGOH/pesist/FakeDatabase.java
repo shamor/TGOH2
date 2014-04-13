@@ -7,7 +7,6 @@ import edu.ycp.cs.cs496.TGOH.User.User;
 
 public class FakeDatabase implements IDatabase {
 	private List<User> users; 
-	
 	public FakeDatabase() {
 		users = new ArrayList<User>(); 
 		
@@ -22,8 +21,8 @@ public class FakeDatabase implements IDatabase {
 	}
 	
 	public boolean deleteUser(User user) {
-		// TODO Auto-generated method stub
 		boolean check = false;
+		
 		for (User user1 : users) {
 			if (user1.getName().equals(user.getName())&&user1.getPassword().equals(user.getPassword())) {
 				if(users.remove(user1))
