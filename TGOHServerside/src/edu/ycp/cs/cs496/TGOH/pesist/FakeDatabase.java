@@ -26,7 +26,6 @@ public class FakeDatabase implements IDatabase {
 	
 	@Override
 	public boolean deleteUser(User user) {
-		// TODO Auto-generated method stub
 		boolean check = false;
 		
 		for (User user1 : users) {
