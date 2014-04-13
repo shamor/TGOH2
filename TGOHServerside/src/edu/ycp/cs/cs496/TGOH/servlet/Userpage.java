@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.controller.AddController;
+import edu.ycp.cs.cs496.TGOH.controller.AddingCourses;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUserController;
 import edu.ycp.cs.cs496.TGOH.controller.GetController;
 
@@ -47,11 +48,14 @@ public class Userpage extends HttpServlet{
 			throws ServletException, IOException {
 		
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
-		
-		// Use a GetItemByName controller to find the item in the database
-		AddController controller = new AddController();
-		controller.addUser(user);
-		
+		if(user == null){
+			// Use a GetItemByName controller to find the item in the database
+			AddController controller = new AddController();
+			controller.addUser(user);
+		}else{
+			AddingCourses controller = new AddingCourses();
+			controller.addCourse(user.getName(), user.getCourse().getCourse(0));
+		}
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");
