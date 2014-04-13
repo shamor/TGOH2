@@ -1,12 +1,15 @@
 package edu.ycp.cs.cs496.TGOH.User;
 
+import java.util.List;
+
+import edu.ycp.cs.cs496.TGOH.Classes.Courses;
+
 public class User {
 	private String name;
 	private String FirstName;
 	private String LastName;
 	private String Password;
-	private String class1;
-	
+	private Courses Course;
 	
 	public User(){
 		
@@ -17,7 +20,7 @@ public class User {
 		this.FirstName = FirstName;
 		this.LastName = LastName;
 		this.Password = Password;
-		this.class1 = class1;
+		this.Course = null;
 	}
 	
 	public String getName() {
@@ -50,5 +53,13 @@ public class User {
 	
 	public void setPassword(String password) {
 		Password = password;
+	}
+	
+	public Courses getCourse() {
+		return Course;
+	}
+	
+	public void setClass(Courses class1) {
+		Course = class1;
 	}
 }

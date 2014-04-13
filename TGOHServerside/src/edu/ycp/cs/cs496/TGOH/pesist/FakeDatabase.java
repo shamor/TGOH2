@@ -2,6 +2,7 @@ package edu.ycp.cs.cs496.TGOH.pesist;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ycp.cs.cs496.TGOH.Classes.Courses;
 import edu.ycp.cs.cs496.TGOH.User.User;
 
 public class FakeDatabase implements IDatabase {
@@ -12,10 +13,6 @@ public class FakeDatabase implements IDatabase {
 		
 	}
 	
-	/**
-	 * Adds user to the database
-	 */
-	@Override
 	public boolean addUser(User user) {
 		//add user to the list
 		if(users.add(user))
@@ -24,7 +21,6 @@ public class FakeDatabase implements IDatabase {
 			return false;
 	}
 	
-	@Override
 	public boolean deleteUser(User user) {
 		// TODO Auto-generated method stub
 		boolean check = false;
@@ -40,7 +36,6 @@ public class FakeDatabase implements IDatabase {
 	}
 	
 	public User getUser(String Username) {
-
 		for (User user1 : users) {
 			if (user1.getName().equals(Username)) {
 				// return a copy
@@ -49,7 +44,27 @@ public class FakeDatabase implements IDatabase {
 		}
 		// no such user in database
 		return null;
-		
 	}
-
+	
+	public Courses getCourses(String username, String course){
+		Courses class1 = new Courses();
+		for(User user1 : users){
+			if (user1.getName().equals(username)) {
+				 class1 = user1.getCourse();
+			}
+		}
+		return class1;
+	}
+	
+	public boolean addCourses(String username, String course){
+		for(User user1 : users){
+			if (user1.getName().equals(username)) {
+				if(user1.getCourse().addCourse(course))
+					return true;
+				else
+					return false;
+			}
+		}
+		return false;
+	}
 }
