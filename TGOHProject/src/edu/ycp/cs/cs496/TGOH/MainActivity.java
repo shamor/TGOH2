@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
 	public void setSignupPage(){
 		setContentView(R.layout.signuppage);
 		
-		Button Signin = (Button) findViewById(R.id.button1);
+		Button Signin = (Button) findViewById(R.id.btnSignUp);
 		Button Back = (Button) findViewById(R.id.button2);
 		// TODO: pull information from text boxes and add the new user to the database
 		//also error checking
@@ -151,7 +151,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.class_selection_page);
 		
 		Button viewSchedule = (Button) findViewById(R.id.button2);
-		Button Req = (Button) findViewById(R.id.button1);
+		Button Req = (Button) findViewById(R.id.btnRequestClass);
 		
 		viewSchedule.setOnClickListener(new View.OnClickListener() {
 			
@@ -176,7 +176,7 @@ public class MainActivity extends Activity {
 		
 		Spinner spin = (Spinner) findViewById(R.id.spinner1);
 		
-		Button submit = (Button) findViewById(R.id.button1);
+		Button submit = (Button) findViewById(R.id.btnSubmitString);
 		
 		submit.setOnClickListener(new View.OnClickListener() {
 			
@@ -196,7 +196,7 @@ public class MainActivity extends Activity {
 	public void setSchedule_Page(){
 		setContentView(R.layout.schedule_page);
 		
-		Button Back = (Button) findViewById(R.id.button1);
+		Button Back = (Button) findViewById(R.id.btnBack);
 		Back.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -205,5 +205,12 @@ public class MainActivity extends Activity {
 			}
 		});
 		
+	}
+	
+	public void setTeacher_Main_Page()
+	{
+		setContentView(R.layout.teacher_main_page);
+		
+		Button Back = (Button) findViewById(R.id.btnBack);
 	}
 }

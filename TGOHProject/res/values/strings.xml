@@ -17,6 +17,11 @@
     <string name="Teacher_user_lbl">Enter Teacher\'s username:</string>
     <string name="class_selection_lbl">Select one of the available classes below:</string>
     <string name="submit_string">Submit</string>
+    <string name="lblTeacherHomePage">Home Page</string>
+    <string name="btnAnnouncements">Announcements</string>
+    <string name="btnNotifications">Notifications</string>
+    <string name="btnQuiz">Make Quiz</string>
+    <string name="btnLogOut">Log Out</string>
 
 
 </resources>
