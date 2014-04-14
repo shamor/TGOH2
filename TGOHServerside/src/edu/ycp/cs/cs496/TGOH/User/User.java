@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.ycp.cs.cs496.TGOH.Classes.Courses;
 
+
 public class User {
 	private String name;
 	private String FirstName;
