@@ -1,6 +1,5 @@
 package edu.ycp.cs.cs496.TGOH.pesist;
 
-import edu.ycp.cs.cs496.TGOH.Classes.Courses;
 import edu.ycp.cs.cs496.TGOH.User.User;
 
 public interface IDatabase {
@@ -12,9 +11,5 @@ public interface IDatabase {
 	
 	public boolean deleteUser(User user);
 	
-	public User getUser(String Username);
-	
-	public Courses getCourses(String username, String course);
-	
-	public boolean addCourses(String username, String course);
+	public User getUser(String Username); 
 }
