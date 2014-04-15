@@ -3,13 +3,14 @@ package edu.ycp.cs.cs496.TGOH;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.apache.http.client.ClientProtocolException;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
+import edu.ycp.cs.cs496.TGOH.pesist.Database;
+import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -40,11 +41,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		Button Signin = (Button) findViewById(R.id.btnSignIn);
-		Button Signup = (Button) findViewById(R.id.btnSignUp);
-		
-
-		
-
+		Button Signup = (Button) findViewById(R.id.btnSignUp);	
 		
 		Signup.setOnClickListener(new View.OnClickListener() {
 			
@@ -65,8 +62,11 @@ public class MainActivity extends Activity {
 				String userName = Username.getText().toString();
 				String passWord = Password.getText().toString();
         		GetUser controller = new GetUser();
-        		//check to see if a user name is entered
+        		//Toast.makeText(MainActivity.this, userName + " " + passWord , Toast.LENGTH_SHORT).show();
+        		IDatabase db = Database.getInstance();
+        		Toast.makeText(MainActivity.this, db.getUser(userName).getPassword(), Toast.LENGTH_SHORT).show();
 					try {
+						Toast.makeText(MainActivity.this, "password = " + controller.getUser(userName).getPassword() , Toast.LENGTH_SHORT).show();
 						if(controller.getUser(userName).getPassword().equals(passWord)){
 							Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
 							setClass_Selection_Page();
@@ -76,17 +76,10 @@ public class MainActivity extends Activity {
 							//check to make sure the userName and passWord for the user are both correct
 							Toast.makeText(MainActivity.this, "wrong", Toast.LENGTH_SHORT).show();
 						}
-					} catch (ClientProtocolException e) {
-						// TODO Auto-generated catch block
+					} catch (Exception e) {
 						e.printStackTrace();
-					} catch (URISyntaxException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
+						Toast.makeText(MainActivity.this, "Invalid User" , Toast.LENGTH_SHORT).show();
+					} 
 			}
 		});
 	}
@@ -113,7 +106,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				adduser controller = new adduser();
 				try {
-					if(controller.postItem(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString())){
+					if(controller.postUser(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString())){
 						// toast box: right
 						setDefaultView();
 						Toast.makeText(MainActivity.this, "Added", Toast.LENGTH_SHORT).show();

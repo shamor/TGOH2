@@ -9,7 +9,8 @@ public class FakeDatabase implements IDatabase {
 	private List<User> users; 
 	public FakeDatabase() {
 		users = new ArrayList<User>(); 
-		
+		User userS = new User("s","s","s","s", null);
+		users.add(userS);
 	}
 	
 	public boolean addUser(User user) {
@@ -38,7 +39,7 @@ public class FakeDatabase implements IDatabase {
 		for (User user1 : users) {
 			if (user1.getName().equals(Username)) {
 				// return a copy
-				return new User(user1.getName(), user1.getFirstName(), user1.getLastName(), user1.getPassword());
+				return new User(user1.getName(), user1.getFirstName(), user1.getLastName(), user1.getPassword(), null);
 			}
 		}
 		// no such user in database

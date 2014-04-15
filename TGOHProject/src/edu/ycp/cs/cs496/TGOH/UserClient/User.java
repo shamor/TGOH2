@@ -1,21 +1,24 @@
-package edu.ycp.cs.cs496.TGOH.User;
+package edu.ycp.cs.cs496.TGOH.UserClient;
+
+import edu.ycp.cs.cs496.TGOH.Classes.Courses;
 
 public class User {
 	private String name;
 	private String FirstName;
 	private String LastName;
 	private String Password;
-	
+	private Courses Course;
 	
 	public User(){
 		
 	}
 	
-	public User(String name, String FirstName, String LastName, String Password){
+	public User(String name, String FirstName, String LastName, String Password, Courses course){
 		this.name = name;
 		this.FirstName = FirstName;
 		this.LastName = LastName;
 		this.Password = Password;
+		this.Course = course;
 	}
 	
 	public String getName() {
@@ -48,5 +51,12 @@ public class User {
 	
 	public void setPassword(String password) {
 		Password = password;
+	}
+	public Courses getCourse() {
+		return Course;
+	}
+	
+	public void setClass(Courses class1) {
+		Course = class1;
 	}
 }

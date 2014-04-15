@@ -31,9 +31,9 @@ public class Userpage extends HttpServlet{
 		
 		if (user == null) {
 			// No such item, so return a NOT FOUND response
-			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
-			resp.getWriter().println("No such item: " + pathInfo);
+			resp.getWriter().println("No such user: " + pathInfo);
 			return;
 		}
 
@@ -49,13 +49,13 @@ public class Userpage extends HttpServlet{
 			throws ServletException, IOException {
 		
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
-		if(user == null){
+		if(user != null){
 			// Use a GetItemByName controller to find the item in the database
 			AddController controller = new AddController();
 			controller.addUser(user);
 		}else{
-			AddingCourses controller = new AddingCourses();
-			controller.addCourse(user.getName(), user.getCourse().getCourse(0));
+			//AddingCourses controller = new AddingCourses();
+			//controller.addCourse(user.getName(), user.getCourse().getCourse(0));
 		}
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
