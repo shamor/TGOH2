@@ -302,6 +302,7 @@ public class MainActivity extends Activity {
 		list.add("boz");
 		list.add("gaz");
 		list.add("goz");
+		list.add("roz");
 		
 		// Add ListView with inventory
 		ArrayAdapter<String> la = new ArrayAdapter<String>(this, R.layout.teacher_notification_page, list);
