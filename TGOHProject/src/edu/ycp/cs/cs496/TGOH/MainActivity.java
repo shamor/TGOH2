@@ -2,13 +2,19 @@ package edu.ycp.cs.cs496.TGOH;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -17,8 +23,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
-import edu.ycp.cs.cs496.TGOH.pesist.Database;
-import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
 
 public class MainActivity extends Activity {
 
@@ -204,6 +208,112 @@ public class MainActivity extends Activity {
 	{
 		setContentView(R.layout.teacher_main_page);
 		
-		Button Back = (Button) findViewById(R.id.btnBack);
+		Button notify = (Button) findViewById(R.id.button2);
+		// Add onClickListener
+		notify.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				setTeacher_Notification_Page();
+			}
+		});
+		
+		//TODO: Add onClick events for the remaining buttons
+	}
+	
+	public void setTeacher_Notification_Page()
+	{
+		// Create Linear layout
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT);
+		
+		//Add Accept Button
+		Button acceptButton = new Button(this);
+		acceptButton.setText("Accept");
+		acceptButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		// Add back button onClickListener
+		acceptButton.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				//TODO: Adds the course to the user's list of courses.  Removes user from list.
+			}
+		});
+		
+		// Add button to layout
+		layout.addView(acceptButton);
+		
+		//Add Deny Button
+		Button denyButton = new Button(this);
+		denyButton.setText("Deny");
+		denyButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		// Add back button onClickListener
+		denyButton.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v)
+			{
+				//TODO: Removes user from list.  Sends sad message to user.
+			}
+		});
+		
+		// Add button to layout
+		layout.addView(denyButton);
+		
+		//Add Back Button
+		Button backButton = new Button(this);
+		backButton.setText("Back");
+		backButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		// Add back button onClickListener
+		backButton.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				setTeacher_Main_Page();
+			}
+		});
+		
+		// Add button to layout
+		layout.addView(backButton);
+		
+		//Add Check Box to go next to requests' names
+		CheckBox check = new CheckBox(this);
+		check.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		
+		// Add check to layout
+		layout.addView(check);
+		
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("foo");
+		list.add("bar");
+		list.add("baz");
+		list.add("boz");
+		list.add("gaz");
+		list.add("goz");
+		list.add("roz");
+		
+		// Add ListView with inventory
+		ArrayAdapter<String> la = new ArrayAdapter<String>(this, R.layout.teacher_notification_page, list);
+		ListView lv = new ListView(this);
+		lv.setAdapter(la);      
+		layout.addView(lv);
+		
+		// Make inventory view visible
+		setContentView(layout,llp);    			
+		
 	}
 }
