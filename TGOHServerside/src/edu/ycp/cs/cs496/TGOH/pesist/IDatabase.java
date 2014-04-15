@@ -17,4 +17,8 @@ public interface IDatabase {
 	public Courses getCourses(String username, String course);
 	
 	public boolean addCourses(String username, String course);
+	
+	public boolean addCourse(String Course);
+	
+	public String getCourseName(String Course);
 }

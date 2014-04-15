@@ -1,7 +1,5 @@
 package edu.ycp.cs.cs496.TGOH.User;
 
-import java.util.List;
-
 import edu.ycp.cs.cs496.TGOH.Classes.Courses;
 
 public class User {

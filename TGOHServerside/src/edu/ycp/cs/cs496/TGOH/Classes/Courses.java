@@ -17,8 +17,17 @@ public class Courses {
 		return Course;
 	}
 	
-	public String getCourse(int numbers) {
-		return Course.get(numbers);
+	public String FindCourse(String course){
+		for (String list : Course){
+			if(list.equals(course)){
+				return list;
+			}
+		}
+		return null;
+	}
+	
+	public String getCourse(int index) {
+		return Course.get(index);
 	}
 	
 	public void setCourse(List<String> course) {

@@ -42,10 +42,6 @@ public class MainActivity extends Activity {
 		Button Signin = (Button) findViewById(R.id.btnSignIn);
 		Button Signup = (Button) findViewById(R.id.btnSignUp);
 		
-
-		
-
-		
 		Signup.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -172,7 +168,7 @@ public class MainActivity extends Activity {
 
 
 	protected void setRequest_Page() {
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.request_page);
 		
 		Spinner spin = (Spinner) findViewById(R.id.spinner1);
 		

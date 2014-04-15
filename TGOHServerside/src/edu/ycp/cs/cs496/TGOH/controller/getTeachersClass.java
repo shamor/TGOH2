@@ -1,0 +1,13 @@
+package edu.ycp.cs.cs496.TGOH.controller;
+
+import edu.ycp.cs.cs496.TGOH.pesist.Database;
+import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
+
+public class getTeachersClass {
+
+	public String getCourses(String Course){
+		IDatabase db = Database.getInstance();
+		return db.getCourseName(Course);
+	}
+
+}
