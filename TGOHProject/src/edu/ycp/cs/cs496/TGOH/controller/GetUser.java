@@ -13,8 +13,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import edu.ycp.cs.cs496.TGOH.UserClient.User;
-import edu.ycp.cs.cs496.TGOH.json.JSON;
+import edu.ycp.cs.cs496.TGOH.User.User;
+import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 
 
 public class GetUser {

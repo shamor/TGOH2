@@ -1,7 +1,6 @@
 package edu.ycp.cs.cs496.TGOH.controller;
 
 import java.io.IOException;
-
 import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,7 +17,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.User.User;
-import edu.ycp.cs.cs496.TGOH.json.JSON;
+import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 
 public class AddCourse {
 	public boolean postCourse(String Username, String Course) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {

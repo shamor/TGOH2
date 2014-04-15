@@ -9,7 +9,7 @@ public class FakeDatabase implements IDatabase {
 	private List<User> users; 
 	public FakeDatabase() {
 		users = new ArrayList<User>(); 
-		User userS = new User("s","s","s","s", null);
+		User userS = new User("s","s","s","s");
 		users.add(userS);
 	}
 	
@@ -39,7 +39,7 @@ public class FakeDatabase implements IDatabase {
 		for (User user1 : users) {
 			if (user1.getName().equals(Username)) {
 				// return a copy
-				return new User(user1.getName(), user1.getFirstName(), user1.getLastName(), user1.getPassword(), null);
+				//return new User(user1.getName(), user1.getFirstName(), user1.getLastName(), user1.getPassword(), null);
 			}
 		}
 		// no such user in database
@@ -50,7 +50,7 @@ public class FakeDatabase implements IDatabase {
 		Courses class1 = new Courses();
 		for(User user1 : users){
 			if (user1.getName().equals(username)) {
-				 class1 = user1.getCourse();
+			//	 class1 = user1.getCourse();
 			}
 		}
 		return class1;
@@ -59,10 +59,10 @@ public class FakeDatabase implements IDatabase {
 	public boolean addCourses(String username, String course){
 		for(User user1 : users){
 			if (user1.getName().equals(username)) {
-				if(user1.getCourse().addCourse(course))
+				//if(user1.getCourse().addCourse(course))
 					return true;
-				else
-					return false;
+			//	else
+					//return false;
 			}
 		}
 		return false;

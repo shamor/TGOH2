@@ -15,12 +15,12 @@ public class User {
 		
 	}
 	
-	public User(String name, String FirstName, String LastName, String Password, Courses course){
+	public User(String name, String FirstName, String LastName, String Password){
 		this.name = name;
 		this.FirstName = FirstName;
 		this.LastName = LastName;
 		this.Password = Password;
-		this.Course = course;
+		Course = null;
 	}
 	
 	public String getName() {

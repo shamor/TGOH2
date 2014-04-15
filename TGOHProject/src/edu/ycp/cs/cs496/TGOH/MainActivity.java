@@ -3,6 +3,14 @@ package edu.ycp.cs.cs496.TGOH;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -11,15 +19,6 @@ import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 import edu.ycp.cs.cs496.TGOH.pesist.Database;
 import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -63,8 +62,8 @@ public class MainActivity extends Activity {
 				String passWord = Password.getText().toString();
         		GetUser controller = new GetUser();
         		//Toast.makeText(MainActivity.this, userName + " " + passWord , Toast.LENGTH_SHORT).show();
-        		IDatabase db = Database.getInstance();
-        		Toast.makeText(MainActivity.this, db.getUser(userName).getPassword(), Toast.LENGTH_SHORT).show();
+        		//IDatabase db = Database.getInstance();
+        		//Toast.makeText(MainActivity.this, db.getUser("s").getPassword(), Toast.LENGTH_SHORT).show();
 					try {
 						Toast.makeText(MainActivity.this, "password = " + controller.getUser(userName).getPassword() , Toast.LENGTH_SHORT).show();
 						if(controller.getUser(userName).getPassword().equals(passWord)){
