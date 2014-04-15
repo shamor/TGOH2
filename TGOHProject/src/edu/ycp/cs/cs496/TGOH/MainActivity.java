@@ -218,7 +218,18 @@ public class MainActivity extends Activity {
 	{
 		setContentView(R.layout.teacher_main_page);
 		
-		Button Back = (Button) findViewById(R.id.btnBack);
+		Button notify = (Button) findViewById(R.id.button2);
+		// Add onClickListener
+		notify.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				setTeacher_Notification_Page();
+			}
+		});
+		
+		//TODO: Add onClick events for the remaining buttons
 	}
 	
 	public void setTeacher_Notification_Page()
