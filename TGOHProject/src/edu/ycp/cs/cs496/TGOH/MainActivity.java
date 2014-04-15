@@ -99,13 +99,13 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.signuppage);
 		
 		Button Signin = (Button) findViewById(R.id.btnSignUp);
-		Button Back = (Button) findViewById(R.id.button2);
+		Button Back = (Button) findViewById(R.id.back);
 		// TODO: pull information from text boxes and add the new user to the database
 		//also error checking
-        final EditText Username = (EditText) findViewById(R.id.UserName);
+        final EditText Username = (EditText) findViewById(R.id.UserNameSignup);
         final EditText Password = (EditText) findViewById(R.id.PassSignUp);
-        final EditText FirstName = (EditText) findViewById(R.id.UserName);
-        final EditText LastName = (EditText) findViewById(R.id.PassSignUp);
+        final EditText FirstName = (EditText) findViewById(R.id.FirstNameSignup);
+        final EditText LastName = (EditText) findViewById(R.id.LastNameSignup);
         
 		Signin.setOnClickListener(new View.OnClickListener() {
 			
@@ -152,6 +152,7 @@ public class MainActivity extends Activity {
 		
 		Button viewSchedule = (Button) findViewById(R.id.button2);
 		Button Req = (Button) findViewById(R.id.btnRequestClass);
+		Button submit = (Button) findViewById(R.id.button3);
 		
 		viewSchedule.setOnClickListener(new View.OnClickListener() {
 			
@@ -172,7 +173,7 @@ public class MainActivity extends Activity {
 
 
 	protected void setRequest_Page() {
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.request_page);
 		
 		Spinner spin = (Spinner) findViewById(R.id.spinner1);
 		
