@@ -1,13 +1,15 @@
-package edu.ycp.cs.cs496.TGOH.Classes;
+package edu.ycp.cs.cs496.TGOH.temp;
 
 import java.util.List;
+
+// for the other database
 
 public class Courses {
 	private List<String> Course;
 	
 	public Courses(){
 		
-	}
+	} 
 	
 	public Courses(List<String> Course){
 		this.Course = Course;
@@ -17,8 +19,17 @@ public class Courses {
 		return Course;
 	}
 	
-	public String getCourse(int numbers) {
-		return Course.get(numbers);
+	public String FindCourse(String course){
+		for (String list : Course){
+			if(list.equals(course)){
+				return list;
+			}
+		}
+		return null;
+	}
+	
+	public String getCourse(int index) {
+		return Course.get(index);
 	}
 	
 	public void setCourse(List<String> course) {

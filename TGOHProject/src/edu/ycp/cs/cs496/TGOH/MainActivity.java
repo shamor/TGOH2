@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
 		});
 	}
 	
-	
+
 	/**
 	 *Display the Sign up page 
 	 **/
@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				adduser controller = new adduser();
 				try {
-					if(controller.postUser(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString())){
+					if(controller.postItem(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString(), false)){
 						// toast box: right
 						setDefaultView();
 						Toast.makeText(MainActivity.this, "Added", Toast.LENGTH_SHORT).show();
@@ -204,8 +204,7 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	public void setTeacher_Main_Page()
-	{
+	public void setTeacher_Main_Page(){
 		setContentView(R.layout.teacher_main_page);
 		
 		Button notify = (Button) findViewById(R.id.button2);

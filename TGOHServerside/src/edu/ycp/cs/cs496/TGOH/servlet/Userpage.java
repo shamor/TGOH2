@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
-import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.controller.AddController;
 import edu.ycp.cs.cs496.TGOH.controller.AddingCourses;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUserController;
 import edu.ycp.cs.cs496.TGOH.controller.GetController;
+import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class Userpage extends HttpServlet{
 	private static final long serialVersionUID = 1L;

@@ -13,8 +13,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
+import edu.ycp.cs.cs496.TGOH.temp.User;
+
 
 
 public class GetUser {
@@ -26,18 +27,15 @@ public class GetUser {
 	private User makeGetRequest(String Username) throws URISyntaxException, ClientProtocolException, IOException{
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
-		
- 		String msg = "/user/"+ Username;
 		// Construct URI
-		URI uri;
-		uri = URIUtils.createURI("http", "10.0.2.2", 8081, msg, null, null);
+		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/"+ Username, null, null);
 
 		// Construct request
 		HttpGet request = new HttpGet(uri);
 		
 		// Execute request
 		HttpResponse response = client.execute(request);
-		System.out.println("Here: " + msg + response.getStatusLine().getStatusCode()); 
+		
 		// Parse response
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			// Add JSON object to request
