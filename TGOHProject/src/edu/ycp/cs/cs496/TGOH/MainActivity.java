@@ -3,12 +3,14 @@ package edu.ycp.cs.cs496.TGOH;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,7 +26,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -57,7 +62,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// setting a new account to the Database.
-				setSignupPage();
+				//setSignupPage();
+				setTeacher_Main_Page();
 			}
 		});
 		
@@ -232,6 +238,11 @@ public class MainActivity extends Activity {
 		//TODO: Add onClick events for the remaining buttons
 	}
 	
+	// FIXME: get rid of this
+	static class User {
+		
+	}
+	
 	public void setTeacher_Notification_Page()
 	{
 		// Create Linear layout
@@ -298,16 +309,16 @@ public class MainActivity extends Activity {
 		// Add button to layout
 		layout.addView(backButton);
 		
-		//Add Check Box to go next to requests' names
-		CheckBox check = new CheckBox(this);
-		check.setLayoutParams(new LayoutParams(
-				LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT));
+		ScrollView scrollLayout = new ScrollView(this);
+		ScrollView.LayoutParams slp = new ScrollView.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT);
+		scrollLayout.setLayoutParams(slp);
+
+		//get students controller, populate an array/list with students
 		
-		// Add check to layout
-		layout.addView(check);
-		
-		ArrayList<String> list = new ArrayList<String>();
+		//TEST
+		List<String> list = new ArrayList<String>();
 		list.add("foo");
 		list.add("bar");
 		list.add("baz");
@@ -315,15 +326,38 @@ public class MainActivity extends Activity {
 		list.add("gaz");
 		list.add("goz");
 		list.add("roz");
+		list.add("Carl");
+		list.add("Cody");
+		list.add("codyhh09");
+		list.add("Bobo");
 		
-		// Add ListView with inventory
-		ArrayAdapter<String> la = new ArrayAdapter<String>(this, R.layout.teacher_notification_page, list);
-		ListView lv = new ListView(this);
-		lv.setAdapter(la);      
-		layout.addView(lv);
+		//int counter = 0;
+		//ArrayList<View> checks = new ArrayList<View>();
+		// Create Linear layout
+		LinearLayout layout2 = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		LinearLayout.LayoutParams llp2 = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT);
 		
+		
+		//Add Check Box to go next to requests' names
+		for (String students : list)
+		{
+			CheckBox check = new CheckBox(this);
+			check.setLayoutParams(new LayoutParams(
+					LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT));
+			check.setText(students);
+	
+			// Add check to layout
+			layout.addView(check);
+			//checks.add(check);
+			//counter++;
+		}
+		scrollLayout.addView(layout2);
 		// Make inventory view visible
-		setContentView(layout,llp);    			
+		setContentView(layout,llp);
 		
 	}
 }
