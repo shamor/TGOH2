@@ -10,7 +10,6 @@ import org.apache.http.client.ClientProtocolException;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 
@@ -125,7 +124,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				adduser controller = new adduser();
 				try {
-					if(controller.postItem(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString())){
+					if(controller.postItem(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString(), false)){
 						// toast box: right
 						setDefaultView();
 						Toast.makeText(MainActivity.this, "Added", Toast.LENGTH_SHORT).show();
@@ -220,8 +219,7 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	public void setTeacher_Main_Page()
-	{
+	public void setTeacher_Main_Page(){
 		setContentView(R.layout.teacher_main_page);
 		
 		Button notify = (Button) findViewById(R.id.button2);
