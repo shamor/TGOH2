@@ -16,10 +16,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import edu.ycp.cs.cs496.TGOH.json.JSON;
+import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
+
 public class adduser {
+
 	public boolean postItem(String Username, String Password, String FirstName, String LastName, boolean type) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
 		return makePostRequest(Username, Password,FirstName, LastName, type);
 	}

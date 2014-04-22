@@ -13,14 +13,13 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/FirstNameSignin"
+        android:id="@+id/FirstNameSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" >
+        android:inputType="text|textPersonName" >
 
         <requestFocus />
-        <requestFocus />
 
     </EditText>
 
@@ -32,28 +31,28 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/UserSignUp"
+        android:id="@+id/LastNameSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text|textPassword" />
+     />
 
     <TextView
-        android:id="@+id/UserNameSignUp"
+        android:id="@+id/UserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Username"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/UserName"
+        android:id="@+id/UserNameSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text|textPassword" />
+ 	 />
 
     <TextView
-        android:id="@+id/PasswordSignUp"
+        android:id="@+id/Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Password"
@@ -74,7 +73,7 @@
         android:text="@string/Sign_Up" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/back" />

@@ -2,23 +2,28 @@ package edu.ycp.cs.cs496.TGOH;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
-import org.apache.http.client.ClientProtocolException;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -40,7 +45,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		Button Signin = (Button) findViewById(R.id.btnSignIn);
-		Button Signup = (Button) findViewById(R.id.btnSignUp);
+		Button Signup = (Button) findViewById(R.id.btnSignUp);	
 		
 		Signup.setOnClickListener(new View.OnClickListener() {
 			
@@ -61,7 +66,7 @@ public class MainActivity extends Activity {
 				String userName = Username.getText().toString();
 				String passWord = Password.getText().toString();
         		GetUser controller = new GetUser();
-        		//check to see if a user name is entered
+        		
 					try {
 						if(controller.getUser(userName).getPassword().equals(passWord)){
 							Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
@@ -72,22 +77,15 @@ public class MainActivity extends Activity {
 							//check to make sure the userName and passWord for the user are both correct
 							Toast.makeText(MainActivity.this, "wrong", Toast.LENGTH_SHORT).show();
 						}
-					} catch (ClientProtocolException e) {
-						// TODO Auto-generated catch block
+					} catch (Exception e) {
 						e.printStackTrace();
-					} catch (URISyntaxException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
+						Toast.makeText(MainActivity.this, "Invalid User" , Toast.LENGTH_SHORT).show();
+					} 
 			}
 		});
 	}
 	
-	
+
 	/**
 	 *Display the Sign up page 
 	 **/
@@ -95,13 +93,13 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.signuppage);
 		
 		Button Signin = (Button) findViewById(R.id.btnSignUp);
-		Button Back = (Button) findViewById(R.id.button2);
-		// TODO: pull information from text boxes and add the new user to the database
+		Button Back = (Button) findViewById(R.id.back);
+		//pull information from text boxes and add the new user to the database
 		//also error checking
-        final EditText Username = (EditText) findViewById(R.id.UserName);
+        final EditText Username = (EditText) findViewById(R.id.UserNameSignup);
         final EditText Password = (EditText) findViewById(R.id.PassSignUp);
-        final EditText FirstName = (EditText) findViewById(R.id.UserName);
-        final EditText LastName = (EditText) findViewById(R.id.PassSignUp);
+        final EditText FirstName = (EditText) findViewById(R.id.FirstNameSignup);
+        final EditText LastName = (EditText) findViewById(R.id.LastNameSignup);
         
 		Signin.setOnClickListener(new View.OnClickListener() {
 			
@@ -145,9 +143,20 @@ public class MainActivity extends Activity {
 	
 	public void setClass_Selection_Page(){
 		setContentView(R.layout.class_selection_page);
+			
 		
+		//pull student's classes front the database and display them 
+		/*for(Courses course :courselist){
+		  		TextView ClassName = new TextView(this);
+		  		ClassName.setText(course.getName());
+		  		
+		  		//add the class name to the layout
+		  		R.layout.addView(ClassName);
+		  }
+		*/
 		Button viewSchedule = (Button) findViewById(R.id.button2);
 		Button Req = (Button) findViewById(R.id.btnRequestClass);
+		Button submit = (Button) findViewById(R.id.button3);
 		
 		viewSchedule.setOnClickListener(new View.OnClickListener() {
 			
@@ -206,6 +215,112 @@ public class MainActivity extends Activity {
 	public void setTeacher_Main_Page(){
 		setContentView(R.layout.teacher_main_page);
 		
-		Button Back = (Button) findViewById(R.id.btnBack);
+		Button notify = (Button) findViewById(R.id.button2);
+		// Add onClickListener
+		notify.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				setTeacher_Notification_Page();
+			}
+		});
+		
+		//TODO: Add onClick events for the remaining buttons
+	}
+	
+	public void setTeacher_Notification_Page()
+	{
+		// Create Linear layout
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT);
+		
+		//Add Accept Button
+		Button acceptButton = new Button(this);
+		acceptButton.setText("Accept");
+		acceptButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		// Add back button onClickListener
+		acceptButton.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				//TODO: Adds the course to the user's list of courses.  Removes user from list.
+			}
+		});
+		
+		// Add button to layout
+		layout.addView(acceptButton);
+		
+		//Add Deny Button
+		Button denyButton = new Button(this);
+		denyButton.setText("Deny");
+		denyButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		// Add back button onClickListener
+		denyButton.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v)
+			{
+				//TODO: Removes user from list.  Sends sad message to user.
+			}
+		});
+		
+		// Add button to layout
+		layout.addView(denyButton);
+		
+		//Add Back Button
+		Button backButton = new Button(this);
+		backButton.setText("Back");
+		backButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		// Add back button onClickListener
+		backButton.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				setTeacher_Main_Page();
+			}
+		});
+		
+		// Add button to layout
+		layout.addView(backButton);
+		
+		//Add Check Box to go next to requests' names
+		CheckBox check = new CheckBox(this);
+		check.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		
+		// Add check to layout
+		layout.addView(check);
+		
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("foo");
+		list.add("bar");
+		list.add("baz");
+		list.add("boz");
+		list.add("gaz");
+		list.add("goz");
+		list.add("roz");
+		
+		// Add ListView with inventory
+		ArrayAdapter<String> la = new ArrayAdapter<String>(this, R.layout.teacher_notification_page, list);
+		ListView lv = new ListView(this);
+		lv.setAdapter(la);      
+		layout.addView(lv);
+		
+		// Make inventory view visible
+		setContentView(layout,llp);    			
+		
 	}
 }

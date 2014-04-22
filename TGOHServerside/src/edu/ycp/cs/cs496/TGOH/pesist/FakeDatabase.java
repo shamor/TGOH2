@@ -2,11 +2,14 @@ package edu.ycp.cs.cs496.TGOH.pesist;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
+
 
 public class FakeDatabase implements IDatabase {
 	private List<User> users; 
-	
+
 	public FakeDatabase() {
 		users = new ArrayList<User>();
 		User user = new User("d","d","d","d",false);
@@ -19,7 +22,6 @@ public class FakeDatabase implements IDatabase {
 		users.add(user);
 	}
 	
-	// adding the user
 	public boolean addUser(User user) {
 		//add user to the list
 		if(users.add(user))
@@ -42,25 +44,39 @@ public class FakeDatabase implements IDatabase {
 		return check;
 	}
 	
+
 	// getting a user
 	public User getUser(String Username) {
 		for (User user1 : users) {
 			if (user1.getName().equals(Username)) {
 				// return a copy
-				return user1;
+				return new User(user1.getName(), user1.getFirstName(), user1.getLastName(), user1.getPassword(), true);
 			}
 		}
 		// no such user in database
 		return null;
 	}
 	
+
+	public Courses getCourses(String username, String course){
+		Courses class1 = new Courses();
+		for(User user1 : users){
+			if (user1.getName().equals(username)) {
+			//	 class1 = user1.getCourse();
+			}
+		}
+		return class1;
+	}
+	
+
 	public boolean addCourses(String username, String course){
 		for(User user1 : users){
 			if (user1.getName().equals(username)) {
+
 				if(user1.addCourse(course))
 					return true;
-				else
-					return false;
+			//	else
+					//return false;
 			}
 		}
 		return false;

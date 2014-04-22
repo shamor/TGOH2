@@ -13,9 +13,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-
-import edu.ycp.cs.cs496.TGOH.json.JSON;
+import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.temp.User;
+
 
 
 public class GetUser {
@@ -40,7 +40,7 @@ public class GetUser {
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			// Add JSON object to request
 			HttpEntity entity = response.getEntity();
-			
+			System.out.println("Before return " ); 
 			// Parse JSON
 			return JSON.getObjectMapper().readValue(entity.getContent(), User.class);
 		} 
