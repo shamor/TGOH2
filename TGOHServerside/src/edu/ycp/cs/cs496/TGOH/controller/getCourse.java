@@ -4,7 +4,7 @@ import edu.ycp.cs.cs496.TGOH.pesist.Database;
 import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
 
 public class getCourse {
-	public String getUser(String Username, String Course){
+	public String getCourseName(String Username, String Course){
 		IDatabase db = Database.getInstance();
 		return db.getCourse(Username, Course);
 	}

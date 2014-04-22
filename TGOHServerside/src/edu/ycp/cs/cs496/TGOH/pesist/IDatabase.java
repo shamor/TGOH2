@@ -2,6 +2,7 @@ package edu.ycp.cs.cs496.TGOH.pesist;
 
 import java.util.List;
 
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public interface IDatabase {
@@ -15,10 +16,12 @@ public interface IDatabase {
 	
 	public User getUser(String Username);
 
-	public boolean addCourses(String username, String course);
+	public boolean addACourse(String username, Courses course);
 
-	public String getCourse(String Username, String Course);
+	public List<Courses> getCourses(String Username, String Course);
 	
-	public List<String> getAllCourse(String Username);
+	public List<Courses> getAllCourse(String Username);
+
+	public String getCourse(String username, String course);
 
 }
