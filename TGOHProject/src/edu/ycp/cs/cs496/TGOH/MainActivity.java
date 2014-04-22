@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -65,11 +66,8 @@ public class MainActivity extends Activity {
 				String userName = Username.getText().toString();
 				String passWord = Password.getText().toString();
         		GetUser controller = new GetUser();
-        		//Toast.makeText(MainActivity.this, userName + " " + passWord , Toast.LENGTH_SHORT).show();
-        		//IDatabase db = Database.getInstance();
-        		//Toast.makeText(MainActivity.this, db.getUser("s").getPassword(), Toast.LENGTH_SHORT).show();
+        		
 					try {
-						Toast.makeText(MainActivity.this, "password = " + controller.getUser(userName).getPassword() , Toast.LENGTH_SHORT).show();
 						if(controller.getUser(userName).getPassword().equals(passWord)){
 							Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
 							setClass_Selection_Page();
@@ -96,7 +94,7 @@ public class MainActivity extends Activity {
 		
 		Button Signin = (Button) findViewById(R.id.btnSignUp);
 		Button Back = (Button) findViewById(R.id.back);
-		// TODO: pull information from text boxes and add the new user to the database
+		//pull information from text boxes and add the new user to the database
 		//also error checking
         final EditText Username = (EditText) findViewById(R.id.UserNameSignup);
         final EditText Password = (EditText) findViewById(R.id.PassSignUp);
@@ -145,7 +143,17 @@ public class MainActivity extends Activity {
 	
 	public void setClass_Selection_Page(){
 		setContentView(R.layout.class_selection_page);
+			
 		
+		//pull student's classes front the database and display them 
+		/*for(Courses course :courselist){
+		  		TextView ClassName = new TextView(this);
+		  		ClassName.setText(course.getName());
+		  		
+		  		//add the class name to the layout
+		  		R.layout.addView(ClassName);
+		  }
+		*/
 		Button viewSchedule = (Button) findViewById(R.id.button2);
 		Button Req = (Button) findViewById(R.id.btnRequestClass);
 		Button submit = (Button) findViewById(R.id.button3);
