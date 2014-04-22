@@ -54,6 +54,7 @@ public class Userpage extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
+
 		if(user != null){
 			// Use a GetItemByName controller to find the item in the database
 		AddController controller = new AddController();
@@ -65,6 +66,7 @@ public class Userpage extends HttpServlet{
 		// writing the operation out.
 		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
 	}}
+
 	
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
