@@ -14,21 +14,19 @@ import org.apache.http.client.utils.URIUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
-
-
-public class GetUser {
-
-	public User getUser(String UserName) throws ClientProtocolException, URISyntaxException, IOException {
+public class GetCourses {
+	public Courses[] getCourses(String UserName) throws ClientProtocolException, URISyntaxException, IOException {
 		return makeGetRequest(UserName);
 	}
 	
-	private User makeGetRequest(String Username) throws URISyntaxException, ClientProtocolException, IOException{
+	private Courses[] makeGetRequest(String Username) throws URISyntaxException, ClientProtocolException, IOException{
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		// Construct URI
-		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/"+ Username, null, null);
+		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/"+ Username + "/" + "courses", null, null);
 
 		// Construct request
 		HttpGet request = new HttpGet(uri);
@@ -41,7 +39,7 @@ public class GetUser {
 			// Add JSON object to request
 			HttpEntity entity = response.getEntity();
 			// Parse JSON
-			return JSON.getObjectMapper().readValue(entity.getContent(), User.class);
+			return JSON.getObjectMapper().readValue(entity.getContent(), Courses[].class);
 		} 
 		
 		// Return null if invalid response
