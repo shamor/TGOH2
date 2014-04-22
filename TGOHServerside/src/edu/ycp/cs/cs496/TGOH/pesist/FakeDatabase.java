@@ -8,7 +8,15 @@ public class FakeDatabase implements IDatabase {
 	private List<User> users; 
 	
 	public FakeDatabase() {
-		users = new ArrayList<User>(); 
+		users = new ArrayList<User>();
+		User user = new User("d","d","d","d",false);
+		User user1 = new User("c","c","c","c",false);
+		user.addCourse("CS101");
+		user.addCourse("CS191");
+		user.addCourse("CS108");
+		user.addCourse("CS107");
+		users.add(user1);
+		users.add(user);
 	}
 	
 	// adding the user
@@ -56,5 +64,13 @@ public class FakeDatabase implements IDatabase {
 			}
 		}
 		return false;
+	}
+	
+	public String getCourse(String Username, String Course){
+		return getUser(Username).findCourse(Course);
+	}
+	
+	public List<String> getAllCourse(String Username){
+		return getUser(Username).getCourse();
 	}
 }

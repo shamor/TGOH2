@@ -1,5 +1,7 @@
 package edu.ycp.cs.cs496.TGOH.pesist;
 
+import java.util.List;
+
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public interface IDatabase {
@@ -14,4 +16,8 @@ public interface IDatabase {
 	public User getUser(String Username);
 
 	public boolean addCourses(String username, String course);
+	
+	public String getCourse(String Username, String Course);
+	
+	public List<String> getAllCourse(String Username);
 }
