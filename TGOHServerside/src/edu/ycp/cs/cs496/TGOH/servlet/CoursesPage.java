@@ -3,7 +3,6 @@ package edu.ycp.cs.cs496.TGOH.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,13 +11,15 @@ import edu.ycp.cs.cs496.TGOH.controller.AddController;
 import edu.ycp.cs.cs496.TGOH.controller.AddingCourses;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUserController;
 import edu.ycp.cs.cs496.TGOH.controller.GetController;
+import edu.ycp.cs.cs496.TGOH.controller.getCourse;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
-public class Userpage extends HttpServlet{
-	private static final long serialVersionUID = 1L;
+public class CoursesPage {
+private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
+		String pathInfo1 = req.getPathInfo();
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
 			// FIXME: add support for accessing the entire inventory
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -28,12 +29,14 @@ public class Userpage extends HttpServlet{
 		}
 		
 		// Get the item name
-		if (pathInfo.startsWith("/")) 
+		if (pathInfo.startsWith("/"))
 			pathInfo = pathInfo.substring(1);
+			pathInfo1 = pathInfo1.substring(2);
+		
 
 		// Use a GetItemByName controller to find the item in the database
-		GetController controller = new GetController();
-		User user = controller.getUser(pathInfo);
+		getCourse controller = new getCourse();
+		String user = controller.getUser(pathInfo, pathInfo1);
 		
 		if (user == null) {
 			// No such item, so return a NOT FOUND response
@@ -54,9 +57,10 @@ public class Userpage extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
+		String course = JSON.getObjectMapper().readValue(req.getReader(), String.class);
 			// Use a GetItemByName controller to find the item in the database
-		AddController controller = new AddController();
-		controller.addUser(user);
+		AddingCourses controller = new AddingCourses();
+		controller.addCourse(user.getName(), course);
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");
@@ -79,12 +83,5 @@ public class Userpage extends HttpServlet{
 		
 		JSON.getObjectMapper().writeValue(resp.getWriter(), getUser.getUser(user.getName()));
 	}
+
 }
-
-
-
-
-
-
-
-
