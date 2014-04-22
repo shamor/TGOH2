@@ -7,14 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.cs.cs496.TGOH.Classes.Courses;
-import edu.ycp.cs.cs496.TGOH.Classes.ListCourses;
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
-import edu.ycp.cs.cs496.TGOH.controller.TeachersAddCourse;
-import edu.ycp.cs.cs496.TGOH.controller.getTeachersClass;
 
 public class TeachersClasses extends HttpServlet{
-		private static final long serialVersionUID = 1L;
+/*		private static final long serialVersionUID = 1L;
 		
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 				throws ServletException, IOException {
@@ -77,5 +73,5 @@ public class TeachersClasses extends HttpServlet{
 			//GetController getUser = new GetController();
 			
 			//JSON.getObjectMapper().writeValue(resp.getWriter(), getUser.getUser(user.getName()));
-		}
+		}*/
 	}

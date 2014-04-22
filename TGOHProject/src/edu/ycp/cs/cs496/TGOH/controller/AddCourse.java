@@ -17,8 +17,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import edu.ycp.cs.cs496.TGOH.User.User;
 import edu.ycp.cs.cs496.TGOH.json.JSON;
+import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class AddCourse {
 	public boolean postCourse(String Username, String Course) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
