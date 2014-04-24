@@ -52,22 +52,22 @@ private static final long serialVersionUID = 1L;
 
 		// Use a GetItemByName controller to find the item in the database
 		getCourse controller = new getCourse();
-		String coursename = controller.getCourseName(UserpathInfo, ClasspathInfo);
+		//String coursename = controller.getCourseName(UserpathInfo, ClasspathInfo);
 		
-		if (coursename == null) {
+		//if (coursename == null) {
 			// No such item, so return a NOT FOUND response
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
 			resp.getWriter().println("No such course: " + pathInfo +  " in which you are enrolled");
 			return;
-		}
+		//}
 
 		// Set status code and content type
-		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.setContentType("application/json");
+		//resp.setStatus(HttpServletResponse.SC_OK);
+		//resp.setContentType("application/json");
 		
 		// Return the item in JSON format
-		JSON.getObjectMapper().writeValue(resp.getWriter(), coursename);
+		//JSON.getObjectMapper().writeValue(resp.getWriter(), coursename);
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

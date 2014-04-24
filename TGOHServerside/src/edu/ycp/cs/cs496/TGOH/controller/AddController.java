@@ -5,8 +5,8 @@ import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class AddController {
-	public boolean addUser(User user){
+	public void addUser(User user){
 		IDatabase db = Database.getInstance();
-		return db.addUser(user);
+		db.addUser(user);
 	}
 }
