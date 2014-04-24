@@ -16,22 +16,14 @@ public class FakeDatabase implements IDatabase {
 		User user = new User("d","d","d","d",false);
 		User user1 = new User("c","c","c","c",false);
 		Courses usercourse = new Courses();
-		
-		usercourse.addCourse("CS101");
-		usercourse.addCourse("CS191");
-		usercourse.addCourse("CS108");
-		usercourse.addCourse("CS107");
 		user.addCourse(usercourse);
 		users.add(user1);
 		users.add(user);
 	}
 	
-	public boolean addUser(User user) {
+	public void addUser(User user) {
 		//add user to the list
-		if(users.add(user))
-			return true;
-		else
-			return false;
+		users.add(user);
 	}
 	
 	// deleting a user
@@ -62,7 +54,7 @@ public class FakeDatabase implements IDatabase {
 	}
 	
 
-	public List<Courses> getCourses(String username, String course){
+	public List<Courses> getCourses(String username, Courses course){
 		//Courses class1 = new Courses();
 		for(User user1 : users){
 			if (user1.getName().equals(username)) {
@@ -79,10 +71,7 @@ public class FakeDatabase implements IDatabase {
 	public boolean addACourse(String username, Courses course){
 		for(User user1 : users){
 			if (user1.getName().equals(username)) {
-				if(user1.addCourse(course))
-					return true;
-			//	else
-					//return false;
+				user1.addCourse(course);
 			}
 		}
 		return false;

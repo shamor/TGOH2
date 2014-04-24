@@ -1,6 +1,7 @@
 package edu.ycp.cs.cs496.TGOH.temp;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -8,7 +9,7 @@ public class User {
 	private String FirstName;
 	private String LastName;
 	private String Password;
-	private List<String> course;
+	private List<Courses> course;
 	private boolean type;
 	
 	public User(){
@@ -21,7 +22,7 @@ public class User {
 		this.LastName = LastName;
 		this.Password = Password;
 		this.type = type;
-		this.course = null;
+		this.course = new ArrayList<Courses>();
 	}
 	
 	public String getName() {
@@ -64,32 +65,29 @@ public class User {
 		this.type = type;
 	}
 	
-	public List<String> getCourse() {
+	public List<Courses> getCourse() {
 		return course;
 	}
 	
-	public void setCourse(List<String> class1) {
+	public void setCourse(List<Courses> class1) {
 		course = class1;
 	}
 	
-	public boolean addCourse(String Course){
-		if(course.add(Course))
-			return true;
-		else
-			return false;
+	public void addCourse(Courses usercourse){
+		course.add(usercourse);
 	}
 	
-	public String findCourse(String Course){
-		String y = null;
-		for(String x : course){
+	public Courses findCourse(String Course){
+		Courses y = null;
+		for(Courses x : course){
 			if(x.equals(Course))
 				y = x;
 		}
 		return y;
 	}
 	
-	public boolean removeCourse(String Course){
-		if(course.remove(Course))
+	public boolean removeCourse(String Coursename){
+		if(course.remove(Coursename))
 			return true;
 		else
 			return false;

@@ -10,7 +10,7 @@ public interface IDatabase {
  * Database persistence methods
  * @return 
  */
-	public boolean addUser(User user);
+	public void addUser(User user);
 	
 	public boolean deleteUser(User user);
 	
@@ -18,10 +18,10 @@ public interface IDatabase {
 
 	public boolean addACourse(String username, Courses course);
 
-	public List<Courses> getCourses(String Username, String Course);
+	public List<Courses> getCourses(String Username, Courses course);
 	
 	public List<Courses> getAllCourse(String Username);
 
-	public String getCourse(String username, String course);
+	public Courses getCourse(String username, String course);
 
 }
