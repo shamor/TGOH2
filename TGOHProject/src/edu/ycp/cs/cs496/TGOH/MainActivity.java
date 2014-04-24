@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.client.ClientProtocolException;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +29,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
 
 public class MainActivity extends Activity {
 
@@ -313,18 +316,36 @@ public class MainActivity extends Activity {
 		//get students controller, populate an array/list with students
 		
 		//TEST
-		List<String> list = new ArrayList<String>();
-		list.add("foo");
-		list.add("bar");
-		list.add("baz");
-		list.add("boz");
-		list.add("gaz");
-		list.add("goz");
-		list.add("roz");
-		list.add("Carl");
-		list.add("Cody");
-		list.add("codyhh09");
-		list.add("Bobo");
+		List<Courses> list = new ArrayList<Courses>();
+		List<String> courseName = new ArrayList<String>();
+		GetUser con = new GetUser(); 
+		try {
+			list = con.getUser("d").getCourse();
+			for(Courses c : list){
+				courseName.add(c.getCourse(0));
+			}
+			
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//list.add("foo");
+		//list.add("bar");
+		//list.add("baz");
+		//list.add("boz");
+		//list.add("gaz");
+		//list.add("goz");
+		//list.add("roz");
+		//list.add("Carl");
+		//list.add("Cody");
+		//list.add("codyhh09");
+		//list.add("Bobo");
 		
 		//int counter = 0;
 		//ArrayList<View> checks = new ArrayList<View>();
@@ -337,7 +358,7 @@ public class MainActivity extends Activity {
 		
 		
 		//Add Check Box to go next to requests' names
-		for (String students : list)
+		for (String students : courseName)
 		{
 			CheckBox check = new CheckBox(this);
 			check.setLayoutParams(new LayoutParams(

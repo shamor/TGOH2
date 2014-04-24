@@ -88,7 +88,7 @@ public class FakeDatabase implements IDatabase {
 		return false;
 	}
 	
-	public String getCourse(String Username, String Course){
+	public Courses getCourse(String Username, String Course){
 		return getUser(Username).findCourse(Course);
 	}
 	
