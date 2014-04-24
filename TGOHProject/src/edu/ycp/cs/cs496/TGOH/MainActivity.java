@@ -307,12 +307,12 @@ public class MainActivity extends Activity {
 		// Add button to layout
 		layout.addView(backButton);
 		
-		ScrollView scrollLayout = new ScrollView(this);
+		ScrollView scrollView = new ScrollView(this);
 		ScrollView.LayoutParams slp = new ScrollView.LayoutParams(
-				LinearLayout.LayoutParams.FILL_PARENT,
-				LinearLayout.LayoutParams.FILL_PARENT);
-		scrollLayout.setLayoutParams(slp);
-
+				ScrollView.LayoutParams.FILL_PARENT,
+				ScrollView.LayoutParams.FILL_PARENT);
+		scrollView.setLayoutParams(slp);
+		layout.addView(scrollView);
 		//get students controller, populate an array/list with students
 		
 		//TEST
@@ -331,9 +331,11 @@ public class MainActivity extends Activity {
 		
 		//int counter = 0;
 		//ArrayList<View> checks = new ArrayList<View>();
-		// Create Linear layout
-		LinearLayout layout2 = new LinearLayout(this);
-		layout.setOrientation(LinearLayout.VERTICAL);
+		
+		
+		// Create Linear layout for ScrollView
+		LinearLayout layout4Checks = new LinearLayout(this);
+		layout4Checks.setOrientation(LinearLayout.VERTICAL);
 		LinearLayout.LayoutParams llp2 = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.FILL_PARENT,
 				LinearLayout.LayoutParams.FILL_PARENT);
@@ -349,13 +351,14 @@ public class MainActivity extends Activity {
 			check.setText(students);
 	
 			// Add check to layout
-			layout.addView(check);
+			layout4Checks.addView(check);
 			//checks.add(check);
 			//counter++;
 		}
-		scrollLayout.addView(layout2);
+		scrollView.addView(layout4Checks);
 		// Make inventory view visible
 		setContentView(layout,llp);
+		//setContentView(scrollLayout,slp);
 		
 	}
 }

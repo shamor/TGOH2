@@ -2,6 +2,7 @@ package edu.ycp.cs.cs496.TGOH.pesist;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class FakeDatabase implements IDatabase {
@@ -65,11 +66,11 @@ public class FakeDatabase implements IDatabase {
 		return false;
 	}
 	
-	public String getCourse(String Username, String Course){
+	public Courses getCourse(String Username, String Course){
 		return getUser(Username).findCourse(Course);
 	}
 	
-	public List<String> getAllCourse(String Username){
-		return getUser(Username).getCourse();
+	public List<Courses> getAllCourses(String Username){
+		return getUser(Username).getAllCourses();
 	}
 }

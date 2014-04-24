@@ -19,6 +19,6 @@ public interface IDatabase {
 
 	public String getCourse(String Username, String Course);
 	
-	public List<String> getAllCourse(String Username);
+	public List<String> getAllCourses(String Username);
 
 }
