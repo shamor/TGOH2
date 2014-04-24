@@ -5,20 +5,18 @@ import java.util.List;
 // for the other database
 
 public class Courses {
-	private String Coursename;
-	private List<String> Announcements;
-	private List<String> Notifications;
+	private List<String> Course;
 	
 	public Courses(){
 		
 	} 
 	
-	public Courses(String Coursename){
-		this.Coursename = Coursename;
+	public Courses(List<String> Course){
+		this.Course = Course;
 	}
 	
-	public String getCoursesname() {
-		return Coursename;
+	public List<String> getAllCourses() {
+		return Course;
 	}
 	
 	public String FindCourse(String course){

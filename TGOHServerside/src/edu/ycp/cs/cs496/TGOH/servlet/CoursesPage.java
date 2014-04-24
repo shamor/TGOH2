@@ -77,8 +77,8 @@ private static final long serialVersionUID = 1L;
 			// Use a GetItemByName controller to find the item in the database
 		Courses newcourse = new Courses();
 		newcourse.addCourse(course);
-		AddingCourses controller = new AddingCourses();
-		controller.addCourse(user.getName(), newcourse);
+		//A//ddingCourses controller = new AddingCourses();
+		//controller.addCourse(user.getName(), newcourse);
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");

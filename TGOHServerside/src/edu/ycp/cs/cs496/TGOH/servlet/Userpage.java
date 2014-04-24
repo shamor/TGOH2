@@ -28,10 +28,6 @@ public class Userpage extends HttpServlet{
 		// Get the item name
 		if (pathInfo.startsWith("/")) 
 			pathInfo = pathInfo.substring(1);
-		if(pathInfo.contains("/")){
-			CoursesPage courseServlet = new CoursesPage();
-			courseServlet.doGet(req,resp);
-		}
 
 		// Use a GetItemByName controller to find the item in the database
 		GetController controller = new GetController();
@@ -57,17 +53,15 @@ public class Userpage extends HttpServlet{
 		
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
 
-		if(user != null){
-			// Use a GetUser controller to find the item in the database
-			AddController controller = new AddController();
-			controller.addUser(user);
-			// Set status code and content type
-			resp.setStatus(HttpServletResponse.SC_OK);
-			resp.setContentType("application/json");
-			
-			// writing the operation out.
-			JSON.getObjectMapper().writeValue(resp.getWriter(), user);
-		}
+		// Use a GetUser controller to find the item in the database
+		AddController controller = new AddController();
+		controller.addUser(user);
+		// Set status code and content type
+		resp.setStatus(HttpServletResponse.SC_OK);
+		resp.setContentType("application/json");
+		
+		// writing the operation out.
+		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
 	}
 
 	
