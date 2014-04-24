@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.controller.AddController;
-import edu.ycp.cs.cs496.TGOH.controller.AddingCourses;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUserController;
 import edu.ycp.cs.cs496.TGOH.controller.GetController;
 import edu.ycp.cs.cs496.TGOH.temp.User;
@@ -20,10 +19,9 @@ public class Userpage extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
-			// FIXME: add support for accessing the entire inventory
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.setContentType("text/plain");
-			resp.getWriter().println("Getting entire inventory not supported yet");
+			resp.getWriter().println("Getting entire UserList not supported yet");
 			return;
 		}
 		
@@ -39,7 +37,7 @@ public class Userpage extends HttpServlet{
 			// No such item, so return a NOT FOUND response
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
-			resp.getWriter().println("No such item: " + pathInfo);
+			resp.getWriter().println("No such user: " + pathInfo);
 			return;
 		}
 
@@ -54,19 +52,18 @@ public class Userpage extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
-			if(user == null){
-			// Use a GetItemByName controller to find the item in the database
-			AddController controller = new AddController();
-			controller.addUser(user);
-	
-			// Set status code and content type
-			resp.setStatus(HttpServletResponse.SC_OK);
-			resp.setContentType("application/json");
-			
-			// writing the operation out.
-			JSON.getObjectMapper().writeValue(resp.getWriter(), user);
-		}
+
+		// Use a GetUser controller to find the item in the database
+		AddController controller = new AddController();
+		controller.addUser(user);
+		// Set status code and content type
+		resp.setStatus(HttpServletResponse.SC_OK);
+		resp.setContentType("application/json");
+		
+		// writing the operation out.
+		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
 	}
+
 	
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);

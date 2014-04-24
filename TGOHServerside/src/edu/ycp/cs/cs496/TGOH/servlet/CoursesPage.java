@@ -12,6 +12,7 @@ import edu.ycp.cs.cs496.TGOH.controller.AddingCourses;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUserController;
 import edu.ycp.cs.cs496.TGOH.controller.GetController;
 import edu.ycp.cs.cs496.TGOH.controller.getCourse;
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class CoursesPage {
@@ -19,30 +20,45 @@ private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
-		String pathInfo1 = req.getPathInfo();
+		String UserpathInfo = "";//the user name associated with the request
+		String ClasspathInfo = "";//the user name associated with the request
+		
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
-			// FIXME: add support for accessing the entire inventory
+			//accessing all classes
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.setContentType("text/plain");
-			resp.getWriter().println("Getting entire inventory not supported yet");
+			resp.getWriter().println("Getting entire class list not supported yet");
 			return;
 		}
 		
-		// Get the item name
-		if (pathInfo.startsWith("/"))
-			pathInfo = pathInfo.substring(1);
-			pathInfo1 = pathInfo1.substring(2);
-		
+		// Get the user name
+		if (pathInfo.startsWith("/")) {
+			UserpathInfo = pathInfo.substring(1);
+		}//get class name
+		if(UserpathInfo.contains("/")){
+			int i = UserpathInfo.indexOf("/");
+			ClasspathInfo = UserpathInfo.substring(i+1);
+			UserpathInfo = UserpathInfo.substring(0, i);
+		}
+		if (pathInfo == "courses" || pathInfo.equals("") || pathInfo.equals("/")) {
+			//accessing all classes
+			
+			
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			resp.setContentType("text/plain");
+			resp.getWriter().println("Getting entire class list not supported yet");
+			return;
+		}
 
-		// Use a GetItemByName controller to find the item in the database
+		// Use a controller to find in the database
 		getCourse controller = new getCourse();
-		String user = controller.getUser(pathInfo, pathInfo1);
+		String coursename = controller.getCourseName(UserpathInfo, ClasspathInfo).getCourse(0);
 		
-		if (user == null) {
+		if (coursename == null) {
 			// No such item, so return a NOT FOUND response
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
-			resp.getWriter().println("No such item: " + pathInfo);
+			resp.getWriter().println("No such course: " + pathInfo +  " in which you are enrolled");
 			return;
 		}
 
@@ -51,7 +67,7 @@ private static final long serialVersionUID = 1L;
 		resp.setContentType("application/json");
 		
 		// Return the item in JSON format
-		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
+		JSON.getObjectMapper().writeValue(resp.getWriter(), coursename);
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -59,8 +75,10 @@ private static final long serialVersionUID = 1L;
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
 		String course = JSON.getObjectMapper().readValue(req.getReader(), String.class);
 			// Use a GetItemByName controller to find the item in the database
-		AddingCourses controller = new AddingCourses();
-		controller.addCourse(user.getName(), course);
+		Courses newcourse = new Courses();
+		newcourse.addCourse(course);
+		//A//ddingCourses controller = new AddingCourses();
+		//controller.addCourse(user.getName(), newcourse);
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");

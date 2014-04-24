@@ -5,16 +5,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.client.ClientProtocolException;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import edu.ycp.cs.cs496.TGOH.controller.GetUser;
-import edu.ycp.cs.cs496.TGOH.controller.adduser;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +21,12 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
+import edu.ycp.cs.cs496.TGOH.controller.GetUser;
+import edu.ycp.cs.cs496.TGOH.controller.adduser;
 
 public class MainActivity extends Activity {
 
@@ -50,19 +48,15 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		Button Signin = (Button) findViewById(R.id.btnSignIn);
-		Button Signup = (Button) findViewById(R.id.btnSignUp);
-		
-
-		
-
+		Button Signup = (Button) findViewById(R.id.btnSignUp);	
 		
 		Signup.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// setting a new account to the Database.
-				//setSignupPage();
-				setTeacher_Main_Page();
+				setSignupPage();
+				//setTeacher_Main_Page();
 			}
 		});
 		
@@ -76,7 +70,7 @@ public class MainActivity extends Activity {
 				String userName = Username.getText().toString();
 				String passWord = Password.getText().toString();
         		GetUser controller = new GetUser();
-        		//check to see if a user name is entered
+        		
 					try {
 						if(controller.getUser(userName).getPassword().equals(passWord)){
 							Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
@@ -87,22 +81,15 @@ public class MainActivity extends Activity {
 							//check to make sure the userName and passWord for the user are both correct
 							Toast.makeText(MainActivity.this, "wrong", Toast.LENGTH_SHORT).show();
 						}
-					} catch (ClientProtocolException e) {
-						// TODO Auto-generated catch block
+					} catch (Exception e) {
 						e.printStackTrace();
-					} catch (URISyntaxException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
+						Toast.makeText(MainActivity.this, "Invalid User" , Toast.LENGTH_SHORT).show();
+					} 
 			}
 		});
 	}
 	
-	
+
 	/**
 	 *Display the Sign up page 
 	 **/
@@ -111,7 +98,7 @@ public class MainActivity extends Activity {
 		
 		Button Signin = (Button) findViewById(R.id.btnSignUp);
 		Button Back = (Button) findViewById(R.id.back);
-		// TODO: pull information from text boxes and add the new user to the database
+		//pull information from text boxes and add the new user to the database
 		//also error checking
         final EditText Username = (EditText) findViewById(R.id.UserNameSignup);
         final EditText Password = (EditText) findViewById(R.id.PassSignUp);
@@ -160,7 +147,17 @@ public class MainActivity extends Activity {
 	
 	public void setClass_Selection_Page(){
 		setContentView(R.layout.class_selection_page);
+			
 		
+		//pull student's classes front the database and display them 
+		/*for(Courses course :courselist){
+		  		TextView ClassName = new TextView(this);
+		  		ClassName.setText(course.getName());
+		  		
+		  		//add the class name to the layout
+		  		R.layout.addView(ClassName);
+		  }
+		*/
 		Button viewSchedule = (Button) findViewById(R.id.button2);
 		Button Req = (Button) findViewById(R.id.btnRequestClass);
 		Button submit = (Button) findViewById(R.id.button3);

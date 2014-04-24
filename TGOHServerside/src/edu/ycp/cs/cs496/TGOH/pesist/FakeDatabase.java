@@ -5,6 +5,7 @@ import java.util.List;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
+
 public class FakeDatabase implements IDatabase {
 	private List<User> users; 
 
@@ -12,20 +13,15 @@ public class FakeDatabase implements IDatabase {
 		users = new ArrayList<User>();
 		User user = new User("d","d","d","d",false);
 		User user1 = new User("c","c","c","c",false);
-		user.addCourse("CS101");
-		user.addCourse("CS191");
-		user.addCourse("CS108");
-		user.addCourse("CS107");
+		Courses usercourse = new Courses();
+		user.addCourse(usercourse);
 		users.add(user1);
 		users.add(user);
 	}
 	
-	public boolean addUser(User user) {
+	public void addUser(User user) {
 		//add user to the list
-		if(users.add(user))
-			return true;
-		else
-			return false;
+		users.add(user);
 	}
 	
 	// deleting a user
@@ -42,25 +38,35 @@ public class FakeDatabase implements IDatabase {
 		return check;
 	}
 	
+
 	// getting a user
 	public User getUser(String Username) {
 		for (User user1 : users) {
 			if (user1.getName().equals(Username)) {
 				// return a copy
-				return user1;
+				return new User(user1.getName(), user1.getFirstName(), user1.getLastName(), user1.getPassword(), true);
 			}
 		}
 		// no such user in database
 		return null;
 	}
 	
-	public boolean addCourses(String username, String course){
+
+	public List<Courses> getUserCourses(String username){
 		for(User user1 : users){
 			if (user1.getName().equals(username)) {
-				if(user1.addCourse(course))
-					return true;
-				else
-					return false;
+					return user1.getAllCourses();
+			}
+		}
+		//user not found
+		return null;
+	}
+	
+
+	public boolean addACourse(String username, Courses course){
+		for(User user1 : users){
+			if (user1.getName().equals(username)) {
+				user1.addCourse(course);
 			}
 		}
 		return false;
@@ -68,9 +74,5 @@ public class FakeDatabase implements IDatabase {
 	
 	public Courses getCourse(String Username, String Course){
 		return getUser(Username).findCourse(Course);
-	}
-	
-	public List<Courses> getAllCourses(String Username){
-		return getUser(Username).getAllCourses();
 	}
 }
