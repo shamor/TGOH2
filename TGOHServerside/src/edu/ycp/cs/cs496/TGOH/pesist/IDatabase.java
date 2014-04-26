@@ -18,10 +18,8 @@ public interface IDatabase {
 
 	public boolean addACourse(String username, Courses course);
 
-	public List<Courses> getCourses(String Username, Courses course);
+	public Courses getCourse(String Username, String course);
 	
-	public List<Courses> getAllCourse(String Username);
-
-	public Courses getCourse(String username, String course);
+	public List<Courses> getAllCourses(String Username);
 
 }

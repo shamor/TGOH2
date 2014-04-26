@@ -16,7 +16,7 @@ public class FakeDatabase implements IDatabase {
 		User user = new User("d","d","d","d",false);
 		User user1 = new User("c","c","c","c",false);
 		Courses usercourse = new Courses();
-		user.addCourse(usercourse);
+		//user.addCourse(usercourse);
 		users.add(user1);
 		users.add(user);
 	}
@@ -52,21 +52,7 @@ public class FakeDatabase implements IDatabase {
 		// no such user in database
 		return null;
 	}
-	
-
-	public List<Courses> getCourses(String username, Courses course){
-		//Courses class1 = new Courses();
-		for(User user1 : users){
-			if (user1.getName().equals(username)) {
-			//	 class1 = user1.getCourse();
-					return user1.getCourse();
-			}
-		}
-		//user not found
-		return null;
-		//return class1;
-	}
-	
+		
 
 	public boolean addACourse(String username, Courses course){
 		for(User user1 : users){
@@ -81,7 +67,9 @@ public class FakeDatabase implements IDatabase {
 		return getUser(Username).findCourse(Course);
 	}
 	
-	public List<Courses> getAllCourse(String Username){
+	public List<Courses> getAllCourses(String Username){
 		return getUser(Username).getCourse();
 	}
+
+
 }

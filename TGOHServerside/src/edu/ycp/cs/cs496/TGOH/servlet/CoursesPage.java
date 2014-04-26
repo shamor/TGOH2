@@ -1,6 +1,7 @@
 package edu.ycp.cs.cs496.TGOH.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.controller.AddController;
 import edu.ycp.cs.cs496.TGOH.controller.AddingCourses;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUserController;
+import edu.ycp.cs.cs496.TGOH.controller.GetAllCourses;
 import edu.ycp.cs.cs496.TGOH.controller.GetController;
 import edu.ycp.cs.cs496.TGOH.controller.getCourse;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
@@ -20,7 +22,6 @@ private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
-		String UserpathInfo = "";//the user name associated with the request
 		String ClasspathInfo = "";//the user name associated with the request
 		
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
@@ -31,18 +32,14 @@ private static final long serialVersionUID = 1L;
 			return;
 		}
 		
-		// Get the user name
+		// Get the class name
 		if (pathInfo.startsWith("/")) {
-			UserpathInfo = pathInfo.substring(1);
-		}//get class name
-		if(UserpathInfo.contains("/")){
-			int i = UserpathInfo.indexOf("/");
-			ClasspathInfo = UserpathInfo.substring(i+1);
-			UserpathInfo = UserpathInfo.substring(0, i);
-		}
-		if (pathInfo == "courses" || pathInfo.equals("") || pathInfo.equals("/")) {
-			//accessing all classes
+			ClasspathInfo = pathInfo.substring(1);
+		
+			GetAllCourses allcourses = new GetAllCourses(); 
+		//	List<Courses> theCourses = 	allcourses.getAllCourses(UserpathInfo); 
 			
+		
 			
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.setContentType("text/plain");
@@ -52,22 +49,22 @@ private static final long serialVersionUID = 1L;
 
 		// Use a GetItemByName controller to find the item in the database
 		getCourse controller = new getCourse();
-		String coursename = controller.getCourseName(UserpathInfo, ClasspathInfo);
+		//String coursename = controller.getCourseName(UserpathInfo, ClasspathInfo);
 		
-		if (coursename == null) {
+		//if (coursename == null) {
 			// No such item, so return a NOT FOUND response
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
 			resp.getWriter().println("No such course: " + pathInfo +  " in which you are enrolled");
 			return;
-		}
+		//}
 
 		// Set status code and content type
-		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.setContentType("application/json");
+		//resp.setStatus(HttpServletResponse.SC_OK);
+		//resp.setContentType("application/json");
 		
 		// Return the item in JSON format
-		JSON.getObjectMapper().writeValue(resp.getWriter(), coursename);
+	//	JSON.getObjectMapper().writeValue(resp.getWriter(), coursename);
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
