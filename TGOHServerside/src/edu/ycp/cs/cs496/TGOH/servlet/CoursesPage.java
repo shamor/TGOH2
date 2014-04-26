@@ -33,9 +33,15 @@ private static final long serialVersionUID = 1L;
 		if (pathInfo.startsWith("/")) 
 			pathInfo = pathInfo.substring(1);
 
+<<<<<<< HEAD
+		// Use a controller to find in the database
+		getCourse controller = new getCourse();
+		String coursename = controller.getCourseName(UserpathInfo, ClasspathInfo).getCourse(0);
+=======
 		// Use a GetItemByName controller to find the item in the database
 		getCourseController controller = new getCourseController();
 		Courses course = controller.(pathInfo);
+>>>>>>> refs/remotes/Cody/master
 		
 		if (user == null) {
 			// No such item, so return a NOT FOUND response

@@ -11,9 +11,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,9 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -242,14 +240,35 @@ public class MainActivity extends Activity {
 	
 	public void setTeacher_Notification_Page()
 	{
-		// Create Linear layout
+		setContentView(R.layout.teacher_notification_page);/*
+// Create Linear layout
 		LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
-		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.FILL_PARENT,
-				LinearLayout.LayoutParams.FILL_PARENT);
+		RelativeLayout.LayoutParams llp = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.FILL_PARENT,
+				RelativeLayout.LayoutParams.FILL_PARENT);
 		
-		//Add Accept Button
+//Add Log Off Button
+		Button logOutButton = new Button(this);
+		logOutButton.setText(R.string.btnLogOut);
+		logOutButton.setLayoutParams(new LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		
+		// Add back button onClickListener
+		logOutButton.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View v)
+			{
+				//TODO: Log Out
+			}
+		});		
+		
+		// Add button to layout
+		layout.addView(logOutButton);
+		
+//Add Accept Button
 		Button acceptButton = new Button(this);
 		acceptButton.setText("Accept");
 		acceptButton.setLayoutParams(new LayoutParams(
@@ -268,7 +287,7 @@ public class MainActivity extends Activity {
 		// Add button to layout
 		layout.addView(acceptButton);
 		
-		//Add Deny Button
+//Add Deny Button
 		Button denyButton = new Button(this);
 		denyButton.setText("Deny");
 		denyButton.setLayoutParams(new LayoutParams(
@@ -287,7 +306,7 @@ public class MainActivity extends Activity {
 		// Add button to layout
 		layout.addView(denyButton);
 		
-		//Add Back Button
+//Add Back Button
 		Button backButton = new Button(this);
 		backButton.setText("Back");
 		backButton.setLayoutParams(new LayoutParams(
@@ -306,12 +325,12 @@ public class MainActivity extends Activity {
 		// Add button to layout
 		layout.addView(backButton);
 		
-		ScrollView scrollLayout = new ScrollView(this);
+		ScrollView scrollView = new ScrollView(this);
 		ScrollView.LayoutParams slp = new ScrollView.LayoutParams(
-				LinearLayout.LayoutParams.FILL_PARENT,
-				LinearLayout.LayoutParams.FILL_PARENT);
-		scrollLayout.setLayoutParams(slp);
-
+				ScrollView.LayoutParams.FILL_PARENT,
+				ScrollView.LayoutParams.FILL_PARENT);
+		scrollView.setLayoutParams(slp);
+		layout.addView(scrollView);
 		//get students controller, populate an array/list with students
 		
 		//TEST
@@ -348,9 +367,11 @@ public class MainActivity extends Activity {
 		
 		//int counter = 0;
 		//ArrayList<View> checks = new ArrayList<View>();
-		// Create Linear layout
-		LinearLayout layout2 = new LinearLayout(this);
-		layout.setOrientation(LinearLayout.VERTICAL);
+		
+		
+		// Create Linear layout for ScrollView
+		LinearLayout layout4Checks = new LinearLayout(this);
+		layout4Checks.setOrientation(LinearLayout.VERTICAL);
 		LinearLayout.LayoutParams llp2 = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.FILL_PARENT,
 				LinearLayout.LayoutParams.FILL_PARENT);
@@ -358,6 +379,7 @@ public class MainActivity extends Activity {
 		
 		//Add Check Box to go next to requests' names
 		for (String students : courseName)
+
 		{
 			CheckBox check = new CheckBox(this);
 			check.setLayoutParams(new LayoutParams(
@@ -366,13 +388,12 @@ public class MainActivity extends Activity {
 			check.setText(students);
 	
 			// Add check to layout
-			layout.addView(check);
+			layout4Checks.addView(check);
 			//checks.add(check);
 			//counter++;
 		}
-		scrollLayout.addView(layout2);
+		scrollView.addView(layout4Checks);
 		// Make inventory view visible
-		setContentView(layout,llp);
-		
+		setContentView(layout,llp);*/
 	}
 }

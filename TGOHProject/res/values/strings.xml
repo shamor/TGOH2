@@ -27,6 +27,14 @@
     <string name="studentlbl">Student</string>
     <string name="teacherlbl">Teacher</string>
      <string name="Announcementslbl">Announcements</string>
+    <string name="lblCourseHomePage">Course Home Page</string>
+    <string name="btnDeleteCourse">Delete This Course</string>
+    <string name="lblTeacherCourseSelectionPage">Select Your Course:</string>
+    <string name="btnCreateCourse">Create a New Course</string>
+    <string name="lblEnterCourse">Enter Course Number (AAA.###)</string>
+    <string name="lblPendingTeachers">Pending Teachers:</string>
+    <string name="btnAccept">Accept</string>
+    <string name="btnDeny">Deny</string>
 
 
 </resources>
