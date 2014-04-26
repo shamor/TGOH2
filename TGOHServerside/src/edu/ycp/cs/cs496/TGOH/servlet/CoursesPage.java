@@ -8,54 +8,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
-import edu.ycp.cs.cs496.TGOH.controller.AddController;
+import edu.ycp.cs.cs496.TGOH.controller.AddUserController;
 import edu.ycp.cs.cs496.TGOH.controller.AddingCourses;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUserController;
-import edu.ycp.cs.cs496.TGOH.controller.GetAllCourses;
-import edu.ycp.cs.cs496.TGOH.controller.GetController;
-import edu.ycp.cs.cs496.TGOH.controller.getCourse;
+import edu.ycp.cs.cs496.TGOH.controller.GetUserController;
+import edu.ycp.cs.cs496.TGOH.controller.getCourseController;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class CoursesPage {
 private static final long serialVersionUID = 1L;
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	/*protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
-		String ClasspathInfo = "";//the user name associated with the request
-		
+
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
-			//accessing all classes
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.setContentType("text/plain");
-			resp.getWriter().println("Getting entire class list not supported yet");
+			resp.getWriter().println("Getting entire UserList not supported yet");
 			return;
 		}
 		
-		// Get the class name
-		if (pathInfo.startsWith("/")) {
-			ClasspathInfo = pathInfo.substring(1);
-		
-			GetAllCourses allcourses = new GetAllCourses(); 
-		//	List<Courses> theCourses = 	allcourses.getAllCourses(UserpathInfo); 
-			
-		
-			
-			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			resp.setContentType("text/plain");
-			resp.getWriter().println("Getting entire class list not supported yet");
-			return;
-		}
+		// Get the item name
+		if (pathInfo.startsWith("/")) 
+			pathInfo = pathInfo.substring(1);
 
 		// Use a GetItemByName controller to find the item in the database
-		getCourse controller = new getCourse();
-		//String coursename = controller.getCourseName(UserpathInfo, ClasspathInfo);
+		getCourseController controller = new getCourseController();
+		Courses course = controller.(pathInfo);
 		
-		//if (coursename == null) {
+		if (user == null) {
 			// No such item, so return a NOT FOUND response
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
-			resp.getWriter().println("No such course: " + pathInfo +  " in which you are enrolled");
+			resp.getWriter().println("No such user: " + pathInfo);
 			return;
 		//}
 
@@ -64,7 +50,7 @@ private static final long serialVersionUID = 1L;
 		//resp.setContentType("application/json");
 		
 		// Return the item in JSON format
-	//	JSON.getObjectMapper().writeValue(resp.getWriter(), coursename);
+		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -94,9 +80,9 @@ private static final long serialVersionUID = 1L;
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");	
 		
-		GetController getUser = new GetController();
+		GetUserController getUser = new GetUserController();
 		
 		JSON.getObjectMapper().writeValue(resp.getWriter(), getUser.getUser(user.getName()));
-	}
+	}*/
 
 }

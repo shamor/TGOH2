@@ -4,7 +4,7 @@ import edu.ycp.cs.cs496.TGOH.pesist.Database;
 import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
-public class GetController {
+public class GetUserController {
 	public User getUser(String Username){
 		IDatabase db = Database.getInstance();
 		return db.getUser(Username);

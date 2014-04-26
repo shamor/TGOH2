@@ -1,6 +1,8 @@
 package edu.ycp.cs.cs496.TGOH.servlet;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
-import edu.ycp.cs.cs496.TGOH.controller.AddController;
+import edu.ycp.cs.cs496.TGOH.controller.AddUserController;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUserController;
-import edu.ycp.cs.cs496.TGOH.controller.GetController;
+import edu.ycp.cs.cs496.TGOH.controller.GetAllCourses;
+import edu.ycp.cs.cs496.TGOH.controller.GetUserController;
+import edu.ycp.cs.cs496.TGOH.controller.getCourseController;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class Userpage extends HttpServlet{
@@ -18,6 +22,8 @@ public class Userpage extends HttpServlet{
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
+		String pathInfo1 = null;
+		String pathInfo2 = null;
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.setContentType("text/plain");
@@ -26,35 +32,53 @@ public class Userpage extends HttpServlet{
 		}
 		
 		// Get the item name
-		if (pathInfo.startsWith("/")) 
+		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);
-
+			if(pathInfo.contains("/")){
+				pathInfo1 = pathInfo.substring(0,pathInfo.indexOf("/"));System.out.println(pathInfo1);
+			}
+		}
 		// Use a GetItemByName controller to find the item in the database
-		GetController controller = new GetController();
-		User user = controller.getUser(pathInfo);
+		GetUserController controller = new GetUserController();
+		User user = controller.getUser(pathInfo1);
 		
 		if (user == null) {
 			// No such item, so return a NOT FOUND response
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
-			resp.getWriter().println("No such user: " + pathInfo);
+			resp.getWriter().println("No such user: " + pathInfo1);
 			return;
 		}
-
-		// Set status code and content type
-		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.setContentType("application/json");
 		
-		// Return the item in JSON format
-		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
+		pathInfo2 = pathInfo.substring(pathInfo.indexOf("/"), pathInfo.length()-1);
+		
+		if(!pathInfo2.isEmpty()){
+			getCourseController get = new getCourseController();
+			String course = get.getCourseName(pathInfo1, pathInfo2);
+			
+			// Set status code and content type
+			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setContentType("application/json");
+			
+			// Return the item in JSON format
+			JSON.getObjectMapper().writeValue(resp.getWriter(), course);
+		}
+		else{
+			// Set status code and content type
+			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setContentType("application/json");
+			
+			// Return the item in JSON format
+			JSON.getObjectMapper().writeValue(resp.getWriter(), user);
+		}
+		
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
-
 		// Use a GetUser controller to find the item in the database
-		AddController controller = new AddController();
+		AddUserController controller = new AddUserController();
 		controller.addUser(user);
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
@@ -75,9 +99,9 @@ public class Userpage extends HttpServlet{
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");	
 		
-		GetController getUser = new GetController();
+		GetUserController getUser = new GetUserController();
 		
-		JSON.getObjectMapper().writeValue(resp.getWriter(), getUser.getUser(user.getName()));
+		JSON.getObjectMapper().writeValue(resp.getWriter(), getUser.getUser(user.getUserName()));
 	}
 }
 

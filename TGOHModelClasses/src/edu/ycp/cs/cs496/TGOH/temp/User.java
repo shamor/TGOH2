@@ -5,32 +5,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-	private String name;
+	private String Username;
 	private String FirstName;
 	private String LastName;
 	private String Password;
-	private List<Courses> course;
+	private List<String> course;
 	private boolean type;
 	
 	public User(){
 		
 	}
 	
-	public User(String name, String FirstName, String LastName, String Password, boolean type){
-		this.name = name;
+	public User(String Username, String FirstName, String LastName, String Password, boolean type){
+		this.Username = Username;
 		this.FirstName = FirstName;
 		this.LastName = LastName;
 		this.Password = Password;
 		this.type = type;
-		this.course = new ArrayList<Courses>();
+		this.course = new ArrayList<String>();
 	}
 	
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return Username;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String name) {
+		this.Username = name;
 	}
 	
 	public String getFirstName() {
@@ -65,21 +65,21 @@ public class User {
 		this.type = type;
 	}
 	
-	public List<Courses> getCourse() {
+	public List<String> getCourse() {
 		return course;
 	}
 	
-	public void setCourse(List<Courses> class1) {
+	public void setCourse(List<String> class1) {
 		course = class1;
 	}
 	
-	public void addCourse(Courses usercourse){
+	public void addCourse(String usercourse){
 		course.add(usercourse);
 	}
 	
-	public Courses findCourse(String Course){
-		Courses y = null;
-		for(Courses x : course){
+	public String findCourse(String Course){
+		String y = null;
+		for(String x : course){
 			if(x.equals(Course))
 				y = x;
 		}
