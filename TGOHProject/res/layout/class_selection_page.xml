@@ -13,13 +13,22 @@
         android:text="@string/Selection" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="@string/btnViewSchedule" />
-    
+
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/btnLogOut" />
+
     <Button
         android:id="@+id/btnRequestClass"
         android:layout_width="wrap_content"
@@ -27,13 +36,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="@string/btnRequestClass" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button2"
-        android:text="@string/submit_string" />
 
 </RelativeLayout>

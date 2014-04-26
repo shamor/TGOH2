@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.client.ClientProtocolException;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +16,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,6 +28,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
 
 public class MainActivity extends Activity {
 
@@ -40,7 +45,9 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-    // Method for displaying data entry view
+    /**DONE(FOR NOW)
+     * This will take us to the sign in page
+     */
 	public void setDefaultView(){
 		setContentView(R.layout.activity_main);
 		
@@ -53,7 +60,6 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// setting a new account to the Database.
 				setSignupPage();
-				//setTeacher_Main_Page();
 			}
 		});
 		
@@ -70,13 +76,17 @@ public class MainActivity extends Activity {
         		
 					try {
 						if(controller.getUser(userName).getPassword().equals(passWord)){
-							Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
-							setClass_Selection_Page();
+							if(controller.getUser(userName).getType()){
+								setClass_Selection_Page();
+							}else{
+								//go to teacher page
+								setTeacher_Notification_Page();
+							}
 						}
 						else
 						{
 							//check to make sure the userName and passWord for the user are both correct
-							Toast.makeText(MainActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+							Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -87,8 +97,9 @@ public class MainActivity extends Activity {
 	}
 	
 
-	/**
+	/**DONE(FOR NOW)
 	 *Display the Sign up page 
+	 *User enters firstname/lastname/username/passowrd/usertype
 	 **/
 	public void setSignupPage(){
 		setContentView(R.layout.signuppage);
@@ -101,34 +112,36 @@ public class MainActivity extends Activity {
         final EditText Password = (EditText) findViewById(R.id.PassSignUp);
         final EditText FirstName = (EditText) findViewById(R.id.FirstNameSignup);
         final EditText LastName = (EditText) findViewById(R.id.LastNameSignup);
-        
-		Signin.setOnClickListener(new View.OnClickListener() {
+        final EditText Passwordcheck = (EditText) findViewById(R.id.editText1);
+        final RadioButton isStudent = (RadioButton) findViewById(R.id.studentradio);
+		
+        Signin.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				adduser controller = new adduser();
-				try {
-					if(controller.postItem(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString(), false)){
-						// toast box: right
-						setDefaultView();
-						Toast.makeText(MainActivity.this, "Added", Toast.LENGTH_SHORT).show();
-					}else{
-						// toast box: error
-						Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-					}
-				} catch (JsonGenerationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JsonMappingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
+				if(Password.getText().toString().equals(Passwordcheck.getText().toString())){//check to see if passwords entered are equal
+					adduser controller = new adduser();
+					boolean type = isStudent.isChecked();
+					try {
+						if(controller.postItem(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString(), type)){
+							// toast box: right
+							setDefaultView();
+							if(type == true){
+								Toast.makeText(MainActivity.this, "Welcome to TGOH, please log in", Toast.LENGTH_SHORT).show();
+							}else{
+								Toast.makeText(MainActivity.this, "You have requested to be a teacher. Your request is pending...", Toast.LENGTH_SHORT).show();
+							}
+						}else{
+							// toast box: error
+							Toast.makeText(MainActivity.this, "Error: try again", Toast.LENGTH_SHORT).show();
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						Toast.makeText(MainActivity.this, "Invalid Request." , Toast.LENGTH_SHORT).show();
+					}	
+				}else{//Inform users that their passwords do not match each other
+					Toast.makeText(MainActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 		
@@ -140,8 +153,14 @@ public class MainActivity extends Activity {
 				setDefaultView();
 			}
 		});
+		
+		
 	}
 	
+	/**
+	 * This is for students to select a class and view their schedule
+	 * 
+	 */
 	public void setClass_Selection_Page(){
 		setContentView(R.layout.class_selection_page);
 			
@@ -155,9 +174,8 @@ public class MainActivity extends Activity {
 		  		R.layout.addView(ClassName);
 		  }
 		*/
-		Button viewSchedule = (Button) findViewById(R.id.button2);
+		Button viewSchedule = (Button) findViewById(R.id.btnback);
 		Button Req = (Button) findViewById(R.id.btnRequestClass);
-		Button submit = (Button) findViewById(R.id.button3);
 		
 		viewSchedule.setOnClickListener(new View.OnClickListener() {
 			
@@ -180,23 +198,7 @@ public class MainActivity extends Activity {
 	protected void setRequest_Page() {
 		setContentView(R.layout.request_page);
 		
-		Spinner spin = (Spinner) findViewById(R.id.spinner1);
 		
-		Button submit = (Button) findViewById(R.id.btnSubmitString);
-		
-		submit.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				boolean success = false; 
-				//send request for class to database
-				if(success){
-					
-				}else{
-					Toast.makeText(MainActivity.this, "Failure", Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
 	}
 
 	public void setSchedule_Page(){
@@ -216,7 +218,7 @@ public class MainActivity extends Activity {
 	public void setTeacher_Main_Page(){
 		setContentView(R.layout.teacher_main_page);
 		
-		Button notify = (Button) findViewById(R.id.button2);
+		Button notify = (Button) findViewById(R.id.button1);
 		// Add onClickListener
 		notify.setOnClickListener(new View.OnClickListener() 
 		{
@@ -331,18 +333,36 @@ public class MainActivity extends Activity {
 		//get students controller, populate an array/list with students
 		
 		//TEST
-		List<String> list = new ArrayList<String>();
-		list.add("foo");
-		list.add("bar");
-		list.add("baz");
-		list.add("boz");
-		list.add("gaz");
-		list.add("goz");
-		list.add("roz");
-		list.add("Carl");
-		list.add("Cody");
-		list.add("codyhh09");
-		list.add("Bobo");
+		List<Courses> list = new ArrayList<Courses>();
+		List<String> courseName = new ArrayList<String>();
+		GetUser con = new GetUser(); 
+		try {
+			list = con.getUser("d").getCourse();
+			for(Courses c : list){
+				courseName.add(c.getCourse(0));
+			}
+			
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//list.add("foo");
+		//list.add("bar");
+		//list.add("baz");
+		//list.add("boz");
+		//list.add("gaz");
+		//list.add("goz");
+		//list.add("roz");
+		//list.add("Carl");
+		//list.add("Cody");
+		//list.add("codyhh09");
+		//list.add("Bobo");
 		
 		//int counter = 0;
 		//ArrayList<View> checks = new ArrayList<View>();
@@ -356,8 +376,13 @@ public class MainActivity extends Activity {
 				LinearLayout.LayoutParams.FILL_PARENT);
 		
 		
+<<<<<<< HEAD
 //Add Check Box to go next to requests' names
 		for (String students : list)
+=======
+		//Add Check Box to go next to requests' names
+		for (String students : courseName)
+>>>>>>> refs/remotes/sam/master
 		{
 			CheckBox check = new CheckBox(this);
 			check.setLayoutParams(new LayoutParams(

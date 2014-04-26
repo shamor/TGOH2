@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-	<LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:orientation="vertical"
-	    android:padding="5dp" >
+		<Button
+		    android:id="@+id/button1"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_alignParentTop="true"
+		    android:text="@string/btnLogOut" />
 
-	    <TabWidget
-	        android:id="@android:id/tabs"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" />
-        
-	    <FrameLayout
-	        android:id="@android:id/tabcontent"
-	        android:layout_width="fill_parent"
-	        android:layout_height="297dp"
-	        android:layout_weight="0.33"
-	        android:padding="5dp" >
-	    </FrameLayout>
+		<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentTop="true"
+		    android:text="@string/Announcementslbl"
+		    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-	    <Button
-	        android:id="@+id/btnBack"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/back" />
-	</LinearLayout>
+		<Button
+		    android:id="@+id/btnBack"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentRight="true"
+		    android:text="@string/back" />
+	  
+	</RelativeLayout>
 
-</TabHost>
