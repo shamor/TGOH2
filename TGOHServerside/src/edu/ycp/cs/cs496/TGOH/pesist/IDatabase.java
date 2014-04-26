@@ -16,12 +16,11 @@ public interface IDatabase {
 	
 	public User getUser(String Username);
 
-	public boolean addACourse(String username, Courses course);
-
-	public List<Courses> getCourses(String Username, Courses course);
+	public void addACourse(String username, String course);
 	
-	public List<Courses> getAllCourse(String Username);
+	public List<String> getAllCourse(String Username);
 
-	public Courses getCourse(String username, String course);
-
+	public String getCourse(String username, String course);
+	
+	public void deleteCourse(String Username, String Course);
 }
