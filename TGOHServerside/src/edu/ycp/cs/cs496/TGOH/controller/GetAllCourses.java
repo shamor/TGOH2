@@ -7,8 +7,10 @@ import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
 
 public class GetAllCourses {
+
 	public List<String> getAllCourses(String Username){
 		IDatabase db = Database.getInstance();
 		return db.getAllCourse(Username);
+
 	}
 }

@@ -19,12 +19,12 @@ public class FakeDatabase implements IDatabase {
 		users.add(user1);
 		users.add(user);
 	}
-	
+
 	public void addUser(User user) {
 		//add user to the list
 		users.add(user);
 	}
-	
+
 	// getting a user
 	public User getUser(String Username) {
 		for (User user1 : users) {
@@ -36,7 +36,7 @@ public class FakeDatabase implements IDatabase {
 		// no such user in database
 		return null;
 	}
-	
+
 	// deleting a user
 	public boolean deleteUser(User user) {
 		if(users.remove(getUser(user.getUserName())))
@@ -48,15 +48,15 @@ public class FakeDatabase implements IDatabase {
 	public void addACourse(String username, String course){
 		getUser(username).addCourse(course);
 	}
-	
+
 	public String getCourse(String Username, String Course){
 		return getUser(Username).findCourse(Course);
 	}
-	
+
 	public List<String> getAllCourse(String Username){
 		return getUser(Username).getCourse();
 	}
-	
+
 	public void deleteCourse(String Username, String Course){
 		getUser(Username).removeCourse(Course);
 	}

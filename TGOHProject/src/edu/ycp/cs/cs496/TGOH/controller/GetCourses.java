@@ -26,7 +26,7 @@ public class GetCourses {
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		// Construct URI
-		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/"+ Username + "/" + "courses", null, null);
+		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/courses/"+ Username, null, null);
 
 		// Construct request
 		HttpGet request = new HttpGet(uri);

@@ -23,4 +23,5 @@ public interface IDatabase {
 	public String getCourse(String username, String course);
 	
 	public void deleteCourse(String Username, String Course);
+
 }

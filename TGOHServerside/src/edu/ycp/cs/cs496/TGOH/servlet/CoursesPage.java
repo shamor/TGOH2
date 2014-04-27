@@ -1,6 +1,7 @@
 package edu.ycp.cs.cs496.TGOH.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ private static final long serialVersionUID = 1L;
 	
 	/*protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
+
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.setContentType("text/plain");
@@ -47,11 +49,11 @@ private static final long serialVersionUID = 1L;
 			resp.setContentType("text/plain");
 			resp.getWriter().println("No such user: " + pathInfo);
 			return;
-		}
+		//}
 
 		// Set status code and content type
-		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.setContentType("application/json");
+		//resp.setStatus(HttpServletResponse.SC_OK);
+		//resp.setContentType("application/json");
 		
 		// Return the item in JSON format
 		JSON.getObjectMapper().writeValue(resp.getWriter(), user);

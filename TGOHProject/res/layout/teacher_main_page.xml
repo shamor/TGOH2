@@ -34,16 +34,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/textView1"
         android:layout_below="@+id/button4"
         android:layout_marginTop="14dp"
         android:text="@string/btnAnnouncements" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnNotify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/textView1"
+        android:layout_alignRight="@+id/button1"
         android:layout_below="@+id/button1"
         android:layout_marginTop="32dp"
         android:text="@string/btnNotifications" />
