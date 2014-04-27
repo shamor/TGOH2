@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -26,8 +25,6 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
