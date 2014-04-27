@@ -34,13 +34,15 @@ public class Userpage extends HttpServlet{
 		// Get the item name
 		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);
-			if(pathInfo.contains("/")){
+			/*if(pathInfo.contains("/")){
 				pathInfo1 = pathInfo.substring(0,pathInfo.indexOf("/"));System.out.println(pathInfo1);
-			}
+			}*/
 		}
 		// Use a GetItemByName controller to find the item in the database
 		GetUserController controller = new GetUserController();
-		User user = controller.getUser(pathInfo1);
+		User user = controller.getUser(pathInfo);
+		System.out.println(pathInfo);
+		
 		
 		if (user == null) {
 			// No such item, so return a NOT FOUND response
@@ -49,8 +51,8 @@ public class Userpage extends HttpServlet{
 			resp.getWriter().println("No such user: " + pathInfo1);
 			return;
 		}
-		
-		pathInfo2 = pathInfo.substring(pathInfo.indexOf("/"), pathInfo.length()-1);
+		System.out.println(user.getFirstName()); 
+		/*pathInfo2 = pathInfo.substring(pathInfo.indexOf("/"), pathInfo.length()-1);
 		
 		if(!pathInfo2.isEmpty()){
 			getCourseController get = new getCourseController();
@@ -63,14 +65,14 @@ public class Userpage extends HttpServlet{
 			// Return the item in JSON format
 			JSON.getObjectMapper().writeValue(resp.getWriter(), course);
 		}
-		else{
+		else{*/
 			// Set status code and content type
 			resp.setStatus(HttpServletResponse.SC_OK);
 			resp.setContentType("application/json");
 			
 			// Return the item in JSON format
 			JSON.getObjectMapper().writeValue(resp.getWriter(), user);
-		}
+		//}
 		
 	}
 	

@@ -19,28 +19,6 @@
         android:layout_alignParentRight="true"
         android:text="@string/submit_string" />
 
-    <EditText
-        android:id="@+id/txtCourseNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:inputType="text"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtCourseNumber"
-        android:layout_marginTop="20dp"
-        android:text="@string/class_selection_lbl"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <Button
         android:id="@+id/button1"
         style="?android:attr/buttonStyleSmall"
@@ -51,12 +29,34 @@
         android:text="@string/btnLogOut" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/txtteachername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/button1"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtteachername"
+        android:text="@string/class_selection_lbl"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSubmitString"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2" >
+
+    </ListView>
 
 </RelativeLayout>

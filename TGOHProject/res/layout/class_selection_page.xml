@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
    >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/Selection" />
-
     <Button
         android:id="@+id/btnback"
         android:layout_width="wrap_content"
@@ -36,5 +28,25 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="@string/btnRequestClass" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnback"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button1" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignParentLeft="true"
+        android:text="@string/Selection"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
