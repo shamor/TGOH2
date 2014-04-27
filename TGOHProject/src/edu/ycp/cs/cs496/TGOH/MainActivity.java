@@ -52,8 +52,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// setting a new account to the Database.
-				//setSignupPage();
-				setTeacher_Main_Page();
+				setSignupPage();
+				//setTeacher_Main_Page();
 			}
 		});
 		
