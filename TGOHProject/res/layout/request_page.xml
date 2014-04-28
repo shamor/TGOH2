@@ -28,8 +28,27 @@
         android:layout_alignParentTop="true"
         android:text="@string/btnLogOut" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="53dp"
+        android:text="@string/class_selection_lbl"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <EditText
         android:id="@+id/txtteachername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtCourseNumber"
+        android:ems="10"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/txtCourseNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
