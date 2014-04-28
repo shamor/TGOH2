@@ -12,6 +12,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
+        android:id="@+id/btnSubmitString"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/submit_string" />
+
+    <Button
         android:id="@+id/button1"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -20,27 +28,27 @@
         android:layout_alignParentTop="true"
         android:text="@string/btnLogOut" />
 
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSubmitString"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2" >
+
+    </ListView>
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="53dp"
+        android:layout_below="@+id/txtteachername"
         android:text="@string/class_selection_lbl"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtCourseNumber"
-        android:ems="10"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/txtCourseNumber"
+        android:id="@+id/txtteachername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

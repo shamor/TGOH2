@@ -17,9 +17,6 @@
 	<servlet-mapping>
 	    <servlet-name>Userpage</servlet-name>
 		<url-pattern>/user/*</url-pattern>
-	    
-		<servlet-name>Userpage</servlet-name>
-		<url-pattern>/user/*/course/*</url-pattern>
 		
 		<servlet-name>CoursesPage</servlet-name>
 		<url-pattern>/courses/*</url-pattern>

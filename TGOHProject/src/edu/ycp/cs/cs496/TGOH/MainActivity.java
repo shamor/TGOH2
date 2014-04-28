@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -71,6 +72,7 @@ public class MainActivity extends Activity {
 				//setSignupPage();
 				//setTeacher_Main_Page();
 				setTeacher_Selection_Page();
+				//setRequest_Page(); 
 			}
 		});
 		
@@ -174,7 +176,6 @@ public class MainActivity extends Activity {
 	
 	/**
 	 * This is for students to select a class and view their schedule
-	 * 
 	 */
 	public void setClass_Selection_Page()
 	{
@@ -188,19 +189,55 @@ public class MainActivity extends Activity {
 			setContentView(R.layout.class_selection_page);
 				
 			
-			//pull student's classes front the database and display them 
-			/*for(Courses course :courselist){
-			  		TextView ClassName = new TextView(this);
-			  		ClassName.setText(course.getName());
-			  		
-			  		//add the class name to the layout
-			  		R.layout.addView(ClassName);
-			  }
-			*/
 			Button viewSchedule = (Button) findViewById(R.id.btnback);
 			Button Req = (Button) findViewById(R.id.btnRequestClass);
+			ListView lview = (ListView) findViewById(R.id.listView1);
 			Button LogOut = (Button) findViewById(R.id.button1);
 			
+			//when needed this can be set to hold data pulled from database
+			List<String> classes = new ArrayList<String>();
+			
+			classes.add("101");
+			classes.add("102");
+			classes.add("103");
+			classes.add("104");
+			classes.add("105");
+			classes.add("106");
+			classes.add("107");
+			
+			ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
+			lview.setAdapter(la);      
+		
+			
+			viewSchedule.setOnClickListener(new View.OnClickListener() {
+	
+				@Override
+				public void onClick(View v) {
+					setSchedule_Page();
+				}
+			});
+			
+			Req.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					setRequest_Page();
+				}
+			});
+	
+				setContentView(R.layout.class_selection_page);
+					
+				
+				//pull student's classes front the database and display them 
+				/*for(Courses course :courselist){
+				  		TextView ClassName = new TextView(this);
+				  		ClassName.setText(course.getName());
+				  		
+				  		//add the class name to the layout
+				  		R.layout.addView(ClassName);
+				  }
+				*/
+
 			viewSchedule.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
@@ -252,8 +289,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	
-	protected void setRequest_Page() {
+	public void setRequest_Page() {
 		if(username.equals(""))
 		{
 			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
@@ -263,6 +299,21 @@ public class MainActivity extends Activity {
 		{
 			setContentView(R.layout.request_page);
 			
+			ListView lview = (ListView) findViewById(R.id.listView1);
+			//when needed this can be set to hold data pulled from database
+			List<String> classes = new ArrayList<String>();
+			
+			classes.add("101");
+			classes.add("102");
+			classes.add("103");
+			classes.add("104");
+			classes.add("105");
+			classes.add("106");
+			classes.add("107");
+			
+			ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
+			lview.setAdapter(la);      
+					
 			Button LogOut = (Button) findViewById(R.id.button1);
 			
 			LogOut.setOnClickListener(new View.OnClickListener() {
@@ -302,7 +353,7 @@ public class MainActivity extends Activity {
 			{
 				@Override
 				// Logs the user out and brings back to sign-in page.
-				public void onClick(View v) 
+				public void onClick(View v)
 				{
 					setDefaultView();
 				}
@@ -345,7 +396,6 @@ public class MainActivity extends Activity {
 					setDefaultView();
 				}
 			});
-		//}
 	}
 	
 	public void setTeacher_Notification_Page()
