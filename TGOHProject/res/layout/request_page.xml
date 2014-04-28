@@ -19,6 +19,7 @@
         android:layout_alignParentRight="true"
         android:text="@string/submit_string" />
 
+<<<<<<< HEAD
     <Button
         android:id="@+id/button1"
         style="?android:attr/buttonStyleSmall"
@@ -30,6 +31,10 @@
 
     <ListView
         android:id="@+id/listView1"
+=======
+    <EditText
+        android:id="@+id/txtCourseNumber"
+>>>>>>> Cody/master
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnSubmitString"

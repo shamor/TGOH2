@@ -24,17 +24,16 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
-import edu.ycp.cs.cs496.TGOH.temp.Courses;
 
 public class MainActivity extends Activity {
 	public String username = "";
@@ -627,7 +626,7 @@ public class MainActivity extends Activity {
 		//}
 	}
 	
-	protected void setCreate_Course()
+	public void setCreate_Course()
 	{
 		if(username.equals(""))
 		{
@@ -636,7 +635,17 @@ public class MainActivity extends Activity {
 		}
 		else
 		{
-			setContentView(R.layout.create_course);
+			Button LogOut = (Button) findViewById(R.id.button1);
+			
+			LogOut.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				// Logs the user out and brings back to sign-in page.
+				public void onClick(View v) 
+				{
+					setDefaultView();
+				}
+			});
 		}
 	}
 
