@@ -35,4 +35,7 @@
     <string name="studentlbl">Student</string>
     <string name="teacherlbl">Teacher</string>
     <string name="Announcementslbl">Announcements</string>
+    <string name="teachernotaccept">Add checked student(s)</string>
+    <string name="teachernotdeny">"Deny checked student(s) "</string>
+    <string name="teachernotopen">"Students awaiting approval to class"</string>
 </resources>

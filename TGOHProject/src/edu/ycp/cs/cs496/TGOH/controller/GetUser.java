@@ -35,7 +35,7 @@ public class GetUser {
 		
 		// Execute request
 		HttpResponse response = client.execute(request);
-		
+
 		// Parse response
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			// Add JSON object to request

@@ -31,6 +31,7 @@ public class Userpage extends HttpServlet{
 		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);
 		}
+		
 		// Use a GetItemByName controller to find the item in the database
 		GetUserController controller = new GetUserController();
 		User user = controller.getUser(pathInfo);
@@ -48,7 +49,6 @@ public class Userpage extends HttpServlet{
 		
 		// Return the item in JSON format
 		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
-		
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
