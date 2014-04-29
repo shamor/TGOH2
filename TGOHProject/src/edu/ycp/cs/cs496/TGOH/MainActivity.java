@@ -68,10 +68,11 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// setting a new account to the Database.
-				//setSignupPage();
+				setSignupPage();
 				//setTeacher_Main_Page();
-				setTeacher_Selection_Page();
-				//setRequest_Page(); 
+				//setTeacher_Selection_Page();
+				//setRequest_Page();
+				//setClass_Selection_Page();
 			}
 		});
 		
@@ -87,19 +88,20 @@ public class MainActivity extends Activity {
         		GetUser controller = new GetUser();
         		
 					try {
-						if(controller.getUser(userName).getPassword().equals(passWord)){
-							if(controller.getUser(userName).getType()){
+						if(controller.getUser(userName).getPassword().equals(passWord))
+						{
+							//if(controller.getUser(userName).getType()){
 								username = userName;
-								if(username.equals("master"))
-									setMaster_Notification_Page();
-								else
-								{
+								//if(username.equals("master"))
+								//	setMaster_Notification_Page();
+								//else
+								//{
 									setClass_Selection_Page();
-								}
-							}else{
+								//}
+							//}else{
 								//go to teacher page
-								setTeacher_Notification_Page();
-							}
+							//	setTeacher_Notification_Page();
+							//}
 						}
 						else
 						{
@@ -205,28 +207,15 @@ public class MainActivity extends Activity {
 			classes.add("107");
 			
 			ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
-			lview.setAdapter(la);      
+			lview.setAdapter(la);
 		
-			
-			viewSchedule.setOnClickListener(new View.OnClickListener() {
-	
+			lview.setOnItemClickListener(new OnItemClickListener() {
 				@Override
-				public void onClick(View v) {
-					setSchedule_Page();
+				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
+					CharSequence msg = "You selected " + ((TextView) view).getText();
+					Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 				}
 			});
-			
-			Req.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					setRequest_Page();
-				}
-			});
-	
-				setContentView(R.layout.class_selection_page);
-					
-				
 				//pull student's classes front the database and display them 
 				/*for(Courses course :courselist){
 				  		TextView ClassName = new TextView(this);
@@ -312,15 +301,32 @@ public class MainActivity extends Activity {
 			
 			ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
 			lview.setAdapter(la);      
-					
-			Button LogOut = (Button) findViewById(R.id.button1);
 			
-			LogOut.setOnClickListener(new View.OnClickListener() {
-				
+			Button LogOut = (Button) findViewById(R.id.button1);
+			Button Back = (Button) findViewById(R.id.button2);
+			
+			lview.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
+					CharSequence msg = "You selected " + ((TextView) view).getText();
+					Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+				}
+			});
+			
+			LogOut.setOnClickListener(new View.OnClickListener() 
+			{
 				@Override
 				public void onClick(View v) {
 					// Logs the user out and brings back to sign-in page.
 					setDefaultView();
+				}
+			});
+			
+			Back.setOnClickListener(new View.OnClickListener() 
+			{
+				@Override
+				public void onClick(View v) {
+					setClass_Selection_Page();
 				}
 			});
 		}
@@ -362,13 +368,13 @@ public class MainActivity extends Activity {
 	
 	public void setTeacher_Main_Page()
 	{
-		//if(username.equals(""))
-		//{
-			//Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
-			//setDefaultView();
-		//}
-		//else
-		//{
+		if(username.equals(""))
+		{
+			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
+			setDefaultView();
+		}
+		else
+		{
 			setContentView(R.layout.teacher_main_page);
 			
 			Button notify = (Button) findViewById(R.id.btnNotify);
@@ -395,6 +401,7 @@ public class MainActivity extends Activity {
 					setDefaultView();
 				}
 			});
+		}
 	}
 	
 	public void setTeacher_Notification_Page()
@@ -565,13 +572,13 @@ public class MainActivity extends Activity {
 	}
 	public void setTeacher_Selection_Page()
 	{
-		//if(username.equals(""))
-		//{
-			//Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
-			//setDefaultView();
-		//}
-		//else
-		//{
+		if(username.equals(""))
+		{
+			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
+			setDefaultView();
+		}
+		else
+		{
 			setContentView(R.layout.teacher_selection_page);
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
@@ -623,7 +630,7 @@ public class MainActivity extends Activity {
 					setCreate_Course();
 				}
 			});
-		//}
+		}
 	}
 	
 	public void setCreate_Course()
