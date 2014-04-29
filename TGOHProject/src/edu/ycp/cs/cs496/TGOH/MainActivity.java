@@ -14,15 +14,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 
@@ -78,7 +77,6 @@ public class MainActivity extends Activity {
 						Toast.makeText(MainActivity.this,controller.getUser(userName).getUserName().toString() + ": " + controller.getUser(userName).getPassword().toString() , Toast.LENGTH_SHORT).show();
 						
 						if(controller.getUser(userName).getPassword().equals(passWord)){
-							
 								username = userName;
 								if(username.equals("master")){
 									setMaster_Notification_Page();
@@ -180,8 +178,9 @@ public class MainActivity extends Activity {
 			
 			Button viewSchedule = (Button) findViewById(R.id.btnback);
 			Button Req = (Button) findViewById(R.id.btnRequestClass);
-			Button LogOut = (Button) findViewById(R.id.button1);
 			ListView lview = (ListView) findViewById(R.id.listView1);
+			Button LogOut = (Button) findViewById(R.id.button1);
+		
 			
 			//when needed this can be set to hold data pulled from database
 			List<String> classes = new ArrayList<String>();
@@ -206,7 +205,7 @@ public class MainActivity extends Activity {
 				}
 			});
 		
-			
+
 			viewSchedule.setOnClickListener(new View.OnClickListener() {
 	
 				@Override
@@ -235,6 +234,31 @@ public class MainActivity extends Activity {
 	}
 
 
+	public void setStudent_Home_Page()
+	{
+		if(username.equals(""))
+		{
+			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
+			setDefaultView();
+		}
+		else
+		{
+			setContentView(R.layout.studenthomepage);
+			
+			Button LogOut = (Button) findViewById(R.id.button1);
+			
+			LogOut.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// Logs the user out and brings back to sign-in page.
+					setDefaultView();
+				}
+			});
+		}
+	}
+	
+
 	public void setRequest_Page() {
 		if(username.equals(""))
 		{
@@ -245,11 +269,14 @@ public class MainActivity extends Activity {
 		{
 			setContentView(R.layout.request_page);
 			
+		      
+			
 			Button LogOut = (Button) findViewById(R.id.button1);
+			Button Back = (Button) findViewById(R.id.button2);
 			
 			ListView lview = (ListView) findViewById(R.id.listView1);
 			//when needed this can be set to hold data pulled from database
-					List<String> classes = new ArrayList<String>();
+			List<String> classes = new ArrayList<String>();
 					
 					classes.add("101");
 					classes.add("102");
@@ -262,15 +289,34 @@ public class MainActivity extends Activity {
 					ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
 					lview.setAdapter(la);  
 			
-			LogOut.setOnClickListener(new View.OnClickListener() {
-				
+
+			lview.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
+					CharSequence msg = "You selected " + ((TextView) view).getText();
+					Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+				}
+			});
+			
+			LogOut.setOnClickListener(new View.OnClickListener() 
+			{
 				@Override
 				public void onClick(View v) {
 					// Logs the user out and brings back to sign-in page.
 					setDefaultView();
 				}
 			});
-		}		
+
+			
+			Back.setOnClickListener(new View.OnClickListener() 
+			{
+				@Override
+				public void onClick(View v) {
+					setClass_Selection_Page();
+				}
+			});
+		}
+
 	}
 
 	public void setSchedule_Page(){
@@ -298,7 +344,7 @@ public class MainActivity extends Activity {
 			{
 				@Override
 				// Logs the user out and brings back to sign-in page.
-				public void onClick(View v) 
+				public void onClick(View v)
 				{
 					setDefaultView();
 				}
@@ -306,15 +352,17 @@ public class MainActivity extends Activity {
 		}
 		
 	}
+	
+	public void setTeacher_Main_Page()
+	{
+		if(username.equals(""))
+		{
+			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
+			setDefaultView();
+		}
+		else
+		{
 
-	public void setTeacher_Main_Page(){
-		//if(username.equals(""))
-		//{
-			//Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
-			//setDefaultView();
-		//}
-		//else
-		//{
 			setContentView(R.layout.teacher_main_page);
 			
 			Button notify = (Button) findViewById(R.id.back);
@@ -338,31 +386,6 @@ public class MainActivity extends Activity {
 				// Logs the user out and brings back to sign-in page.
 				public void onClick(View v) 
 				{
-					setDefaultView();
-				}
-			});
-		//}
-	}
-	
-
-	public void setStudent_Home_Page()
-	{
-		if(username.equals(""))
-		{
-			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
-			setDefaultView();
-		}
-		else
-		{
-			setContentView(R.layout.studenthomepage);
-			
-			Button LogOut = (Button) findViewById(R.id.button1);
-			
-			LogOut.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// Logs the user out and brings back to sign-in page.
 					setDefaultView();
 				}
 			});
@@ -570,12 +593,22 @@ public class MainActivity extends Activity {
 		}
 		else
 		{
-			setContentView(R.layout.create_course);
+			Button LogOut = (Button) findViewById(R.id.button1);
+			
+			LogOut.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				// Logs the user out and brings back to sign-in page.
+				public void onClick(View v) 
+				{
+					setDefaultView();
+				}
+			});
 		}
 	}
 
-	public void setMaster_Notification_Page()
-	{
+	public void setMaster_Notification_Page(){
+	
 		if(username.equals(""))
 		{
 			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
@@ -586,6 +619,62 @@ public class MainActivity extends Activity {
 			setContentView(R.layout.master_notifications_page);
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
+			
+			// Create Linear layout
+			LinearLayout layout = new LinearLayout(this);
+			layout.setOrientation(LinearLayout.VERTICAL);
+			RelativeLayout.LayoutParams llp = new RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.FILL_PARENT,
+					RelativeLayout.LayoutParams.FILL_PARENT);
+			
+			ScrollView scrollView = new ScrollView(this);
+			ScrollView.LayoutParams slp = new ScrollView.LayoutParams(
+					ScrollView.LayoutParams.FILL_PARENT,
+					ScrollView.LayoutParams.FILL_PARENT);
+			scrollView.setLayoutParams(slp);
+			layout.addView(scrollView);
+			
+			List<String> list = new ArrayList<String>();
+			List<String> courseName = new ArrayList<String>();
+			
+			list.add("foo");
+			list.add("bar");
+			list.add("baz");
+			list.add("boz");
+			list.add("gaz");
+			list.add("goz");
+			list.add("roz");
+			list.add("Carl");
+			list.add("Cody");
+			list.add("codyhh09");
+			list.add("Bobo");
+			
+			// Create Linear layout for ScrollView
+			LinearLayout layout4Checks = new LinearLayout(this);
+			layout4Checks.setOrientation(LinearLayout.VERTICAL);
+			LinearLayout.LayoutParams llp2 = new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.FILL_PARENT,
+					LinearLayout.LayoutParams.FILL_PARENT);
+			
+			
+			//Add Check Box to go next to requests' names
+			for (String students : courseName)
+			{
+				CheckBox check = new CheckBox(this);
+				check.setLayoutParams(new LayoutParams(
+						LayoutParams.WRAP_CONTENT,
+						LayoutParams.WRAP_CONTENT));
+				check.setText(students);
+		
+				// Add check to layout
+				layout4Checks.addView(check);
+				//checks.add(check);
+				//counter++;
+			}
+			
+			scrollView.addView(layout4Checks);
+			// Make inventory view visible
+			setContentView(layout,llp);
 			
 			LogOut.setOnClickListener(new View.OnClickListener()
 			{

@@ -20,6 +20,7 @@
         android:layout_alignParentTop="true"
         android:text="@string/btnLogOut" />
 
+
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
@@ -50,5 +51,17 @@
         android:layout_below="@+id/txtteachername"
         android:text="@string/class_selection_lbl"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/back" />
+
 
 </RelativeLayout>
