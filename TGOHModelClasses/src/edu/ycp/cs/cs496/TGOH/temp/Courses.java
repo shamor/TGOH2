@@ -3,12 +3,16 @@ package edu.ycp.cs.cs496.TGOH.temp;
 import java.util.ArrayList;
 import java.util.List;
 
+// FIXME: should be "Course" (singular)
 public class Courses {
+	private int id;
 	private String Coursename;
-	private String Teacher;
+	private String Teacher; // maybe should be user id of instructor?
+	/*
 	private List<String> Notification;
 	private List<String> AcceptStudent;
 	private List<String> PendingStudent;
+	*/
 	
 	public Courses(){
 		
@@ -16,19 +20,36 @@ public class Courses {
 	
 	public Courses(String Coursename){
 		this.Coursename = Coursename;
-		this.Notification = new ArrayList<String>();
-		this.AcceptStudent = new ArrayList<String>();
-		this.PendingStudent = new ArrayList<String>();
+//		this.Notification = new ArrayList<String>();
+//		this.AcceptStudent = new ArrayList<String>();
+//		this.PendingStudent = new ArrayList<String>();
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setCourse(String courseName) {
+		this.Coursename = courseName;
 	}
 	
 	public String getCourse() {
 		return Coursename;
 	}
 	
+	public void setTeacher(String teacher) {
+		Teacher = teacher;
+	}
+	
 	public String getTeacher() {
 		return Teacher;
 	}
-	
+
+	/*
 	public String findNotification(String notify){
 		for (String list : Notification){
 			if(list.equals(notify)){
@@ -97,4 +118,5 @@ public class Courses {
 		else 
 			return false;
 	}
+	*/
 }

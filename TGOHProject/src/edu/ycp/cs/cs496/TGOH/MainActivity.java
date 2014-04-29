@@ -180,7 +180,6 @@ public class MainActivity extends Activity {
 			Button Req = (Button) findViewById(R.id.btnRequestClass);
 			ListView lview = (ListView) findViewById(R.id.listView1);
 			Button LogOut = (Button) findViewById(R.id.button1);
-		
 			
 			//when needed this can be set to hold data pulled from database
 			List<String> classes = new ArrayList<String>();
@@ -204,7 +203,6 @@ public class MainActivity extends Activity {
 					Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 				}
 			});
-		
 
 			viewSchedule.setOnClickListener(new View.OnClickListener() {
 	
@@ -257,7 +255,6 @@ public class MainActivity extends Activity {
 			});
 		}
 	}
-	
 
 	public void setRequest_Page() {
 		if(username.equals(""))
@@ -307,7 +304,6 @@ public class MainActivity extends Activity {
 				}
 			});
 
-			
 			Back.setOnClickListener(new View.OnClickListener() 
 			{
 				@Override
@@ -316,7 +312,6 @@ public class MainActivity extends Activity {
 				}
 			});
 		}
-
 	}
 
 	public void setSchedule_Page(){
@@ -424,7 +419,7 @@ public class MainActivity extends Activity {
 			//Accept Button
 			Button acceptButton = (Button) findViewById(R.id.btnaccept);
 			// Add accept button onClickListener
-			acceptButton.setOnClickListener(new View.OnClickListener() 
+			acceptButton.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
 				public void onClick(View v) 
@@ -437,7 +432,7 @@ public class MainActivity extends Activity {
 			//Add Deny Button
 			Button denyButton = (Button) findViewById(R.id.btndeny);
 			// Add Deny button onClickListener
-			denyButton.setOnClickListener(new View.OnClickListener() 
+			denyButton.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
 				public void onClick(View v)
@@ -453,7 +448,7 @@ public class MainActivity extends Activity {
 			backButton.setOnClickListener(new View.OnClickListener() 
 			{
 				@Override
-				public void onClick(View v) 
+				public void onClick(View v)
 				{
 					setTeacher_Main_Page();
 				}
@@ -498,7 +493,7 @@ public class MainActivity extends Activity {
 			
 			
 			// Access Linear layout for ScrollView
-			LinearLayout layout4Checks = (LinearLayout) findViewById(R.id.linearLayout1) ;
+			LinearLayout layout4Checks = (LinearLayout) findViewById(R.id.linearLayout1);
 		
 			//Add Check Box to go next to requests' names
 			for (String students : list)
@@ -607,8 +602,10 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	public void setMaster_Notification_Page(){
-	
+
+	public void setMaster_Notification_Page()
+	{
+
 		if(username.equals(""))
 		{
 			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();

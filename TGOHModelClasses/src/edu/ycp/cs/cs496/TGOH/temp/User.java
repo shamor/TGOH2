@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+	private int id;
 	private String Username;
 	private String FirstName;
 	private String LastName;
 	private String Password;
-	private List<String> course;
 	private boolean type;
 	
 	public User(){
@@ -22,7 +22,15 @@ public class User {
 		this.LastName = LastName;
 		this.Password = Password;
 		this.type = type;
-		this.course = new ArrayList<String>();
+		//this.course = new ArrayList<String>();
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public String getUserName() {
@@ -64,7 +72,7 @@ public class User {
 	public void setType(boolean type) {
 		this.type = type;
 	}
-	
+/*	
 	public List<String> getCourse() {
 		return course;
 	}
@@ -93,4 +101,5 @@ public class User {
 			return false;
 		
 	}
+*/
 }

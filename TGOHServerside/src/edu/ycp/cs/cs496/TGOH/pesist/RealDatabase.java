@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
+import edu.ycp.cs.cs496.TGOH.temp.Registration;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class RealDatabase implements IDatabase{
@@ -41,30 +43,6 @@ public class RealDatabase implements IDatabase{
 	public User getUser(String Username) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void addACourse(String username, String course) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<String> getAllCourse(String Username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCourse(String username, String course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteCourse(String Username, String Course) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -202,6 +180,54 @@ public class RealDatabase implements IDatabase{
 		System.out.println("Loading initial data...");
 		db.loadInitialData();
 		System.out.println("Done!");
+	}
+
+	@Override
+	public Courses getCourse(int coursename) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Courses addCourse(String Coursename) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteCourse(int Coursename) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Registration registerUserForCourse(User user, Courses course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void RemovingUserFromCourse(User user, Courses course) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Registration findpendingUserForCourse(User user, Courses course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Registration findApproveUserForCourse(User user, Courses course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Courses[] getCoursefromUser(int user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

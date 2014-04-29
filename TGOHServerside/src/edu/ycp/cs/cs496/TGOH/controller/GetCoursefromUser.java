@@ -3,10 +3,11 @@ package edu.ycp.cs.cs496.TGOH.controller;
 import edu.ycp.cs.cs496.TGOH.pesist.Database;
 import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
+import edu.ycp.cs.cs496.TGOH.temp.User;
 
-public class AddingCourses {
-	public void addCourse(String Username, String Course){
+public class GetCoursefromUser {
+	public Courses[] getCoursefromUser(int user){
 		IDatabase db = Database.getInstance();
-		db.addACourse(Username, Course);
+		return db.getCoursefromUser(user);
 	}
 }
