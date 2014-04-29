@@ -58,8 +58,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// setting a new account to the Database.
-				//setSignupPage();
-				setRequest_Page(); 
+				setSignupPage();
 			}
 		});
 		
@@ -76,27 +75,26 @@ public class MainActivity extends Activity {
         		
 					try {
 						if(controller.getUser(userName).getPassword().equals(passWord)){
-							if(controller.getUser(userName).getType()){
+							
 								username = userName;
-								if(username.equals("master"))
+								if(username.equals("master")){
 									setMaster_Notification_Page();
-								else
-								{
-									setClass_Selection_Page();
+								}else{
+									if(controller.getUser(userName).getType()){
+										//user is student, go to student page
+										setClass_Selection_Page();
+									}else{
+										//user is teacher, go to teacher page
+										setTeacher_Notification_Page();
+									}
 								}
-							}else{
-								//go to teacher page
-								setTeacher_Notification_Page();
-							}
-						}
-						else
-						{
+						}else{
 							//check to make sure the userName and passWord for the user are both correct
 							Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
-						Toast.makeText(MainActivity.this, "Invalid User" , Toast.LENGTH_SHORT).show();
+						Toast.makeText(MainActivity.this, "User does not exsist" , Toast.LENGTH_SHORT).show();
 					}
 			}
 		});
@@ -195,6 +193,15 @@ public class MainActivity extends Activity {
 			
 			ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
 			lview.setAdapter(la);      
+			
+			lview.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
+					// TODO Auto-generated method stub
+					CharSequence msg = "You selected " + ((TextView) view).getText();
+					Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+				}
+			});
 		
 			
 			viewSchedule.setOnClickListener(new View.OnClickListener() {
@@ -360,7 +367,10 @@ public class MainActivity extends Activity {
 	}
 	
 
-	
+	/**
+	 * Displays the students who are pending for
+	 * a given course the teacher teaches
+	 */
 	public void setTeacher_Notification_Page()
 	{
 		if(username.equals(""))
@@ -371,40 +381,23 @@ public class MainActivity extends Activity {
 		else
 		{	
 			setContentView(R.layout.teacher_notification_page);
-	// Create Linear layout
-			LinearLayout layout = new LinearLayout(this);
-			layout.setOrientation(LinearLayout.VERTICAL);
-			RelativeLayout.LayoutParams llp = new RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.FILL_PARENT,
-					RelativeLayout.LayoutParams.FILL_PARENT);
-			/*		
-	//Add Log Off Button
-			Button logOutButton = new Button(this);
-			logOutButton.setText(R.string.btnLogOut);
-			logOutButton.setLayoutParams(new LayoutParams(
-					LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT));
 			
-			// Add back button onClickListener
+			//Log Off Button
+			Button logOutButton = (Button) findViewById(R.id.btnlogout);
+			// Add log-off button onClickListener
 			logOutButton.setOnClickListener(new View.OnClickListener() 
 			{
 				@Override
 				public void onClick(View v)
 				{
-					//TODO: Log Out
+					// Logs the user out and brings back to sign-in page.
+					setDefaultView();
 				}
 			});		
 			
-			// Add button to layout
-			layout.addView(logOutButton);
-			
-	//Add Accept Button
-			Button acceptButton = new Button(this);
-			acceptButton.setText("Accept");
-			acceptButton.setLayoutParams(new LayoutParams(
-					LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT));
-			// Add back button onClickListener
+			//Accept Button
+			Button acceptButton = (Button) findViewById(R.id.btnaccept);
+			// Add accept button onClickListener
 			acceptButton.setOnClickListener(new View.OnClickListener() 
 			{
 				@Override
@@ -414,16 +407,10 @@ public class MainActivity extends Activity {
 				}
 			});
 			
-			// Add button to layout
-			layout.addView(acceptButton);
 			
-	//Add Deny Button
-			Button denyButton = new Button(this);
-			denyButton.setText("Deny");
-			denyButton.setLayoutParams(new LayoutParams(
-					LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT));
-			// Add back button onClickListener
+			//Add Deny Button
+			Button denyButton = (Button) findViewById(R.id.btndeny);
+			// Add Deny button onClickListener
 			denyButton.setOnClickListener(new View.OnClickListener() 
 			{
 				@Override
@@ -433,15 +420,9 @@ public class MainActivity extends Activity {
 				}
 			});
 			
-			// Add button to layout
-			layout.addView(denyButton);
 			
-	//Add Back Button
-			Button backButton = new Button(this);
-			backButton.setText("Back");
-			backButton.setLayoutParams(new LayoutParams(
-					LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT));
+			//Add Back Button
+			Button backButton = (Button) findViewById(R.id.btnback);
 			// Add back button onClickListener
 			backButton.setOnClickListener(new View.OnClickListener() 
 			{
@@ -451,22 +432,13 @@ public class MainActivity extends Activity {
 					setTeacher_Main_Page();
 				}
 			});
+
+			ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView1);
 			
-			// Add button to layout
-			layout.addView(backButton);
-			*/
-			ScrollView scrollView = new ScrollView(this);
-			ScrollView.LayoutParams slp = new ScrollView.LayoutParams(
-					ScrollView.LayoutParams.FILL_PARENT,
-					ScrollView.LayoutParams.FILL_PARENT);
-			scrollView.setLayoutParams(slp);
-			layout.addView(scrollView);
-			//get students controller, populate an array/list with students
-			
-	//		//TEST
+			//TEST
 			List<String> list = new ArrayList<String>();
-			List<String> courseName = new ArrayList<String>();
-			GetUser con = new GetUser(); 
+		//	List<String> courseName = new ArrayList<String>();
+			//GetUser con = new GetUser(); 
 	//		try {
 	//			list = con.getUser("d").getCourse();
 	//			for(Courses c : list){
@@ -499,16 +471,11 @@ public class MainActivity extends Activity {
 			ArrayList<View> checks = new ArrayList<View>();
 			
 			
-			// Create Linear layout for ScrollView
-			LinearLayout layout4Checks = new LinearLayout(this);
-			layout4Checks.setOrientation(LinearLayout.VERTICAL);
-			LinearLayout.LayoutParams llp2 = new LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.FILL_PARENT,
-					LinearLayout.LayoutParams.FILL_PARENT);
-			
-			
+			// Access Linear layout for ScrollView
+			LinearLayout layout4Checks = (LinearLayout) findViewById(R.id.linearLayout1) ;
+		
 			//Add Check Box to go next to requests' names
-			for (String students : courseName)
+			for (String students : list)
 	
 			{
 				CheckBox check = new CheckBox(this);
@@ -522,20 +489,21 @@ public class MainActivity extends Activity {
 				//checks.add(check);
 				//counter++;
 			}
-			scrollView.addView(layout4Checks);
-			// Make inventory view visible
-			setContentView(layout,llp);
 		}
 	}
+	
+	/**
+	 * Page which displays classes the teacher is teaching
+	 */
 	public void setTeacher_Selection_Page()
 	{
-		//if(username.equals(""))
-		//{
-			//Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
-			//setDefaultView();
-		//}
-		//else
-		//{
+		if(username.equals(""))
+		{
+			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
+			setDefaultView();
+		}
+		else
+		{
 			setContentView(R.layout.teacher_selection_page);
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
@@ -587,10 +555,10 @@ public class MainActivity extends Activity {
 					setCreate_Course();
 				}
 			});
-		//}
+		}
 	}
 	
-	protected void setCreate_Course()
+	public void setCreate_Course()
 	{
 		if(username.equals(""))
 		{
