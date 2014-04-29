@@ -38,4 +38,5 @@
     <string name="teachernotaccept">Add checked student(s)</string>
     <string name="teachernotdeny">"Deny checked student(s) "</string>
     <string name="teachernotopen">"Students awaiting approval to class"</string>
+    <string name="lblDeny">Reject pending students</string>
 </resources>
