@@ -22,7 +22,7 @@
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
         </LinearLayout>
@@ -59,17 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/btnaccept"
-        android:layout_toLeftOf="@+id/textView2"
         android:text="@string/btnDeny" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/teachernotopen"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/textView2"
@@ -79,6 +69,15 @@
         android:layout_alignBottom="@+id/btndeny"
         android:layout_toRightOf="@+id/btndeny"
         android:text="@string/teachernotdeny"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/scrollView1"
+        android:text="@string/teachernotopen"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
