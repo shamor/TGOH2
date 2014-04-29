@@ -68,11 +68,12 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// setting a new account to the Database.
-				setSignupPage();
+				//setSignupPage();
 				//setTeacher_Main_Page();
 				//setTeacher_Selection_Page();
 				//setRequest_Page();
 				//setClass_Selection_Page();
+				setMaster_Notification_Page();
 			}
 		});
 		
@@ -90,18 +91,18 @@ public class MainActivity extends Activity {
 					try {
 						if(controller.getUser(userName).getPassword().equals(passWord))
 						{
-							//if(controller.getUser(userName).getType()){
+							if(controller.getUser(userName).getType()){
 								username = userName;
-								//if(username.equals("master"))
-								//	setMaster_Notification_Page();
-								//else
-								//{
+								if(username.equals("master"))
+									setMaster_Notification_Page();
+								else
+								{
 									setClass_Selection_Page();
-								//}
-							//}else{
+								}
+							}else{
 								//go to teacher page
-							//	setTeacher_Notification_Page();
-							//}
+								setTeacher_Notification_Page();
+							}
 						}
 						else
 						{
@@ -658,16 +659,72 @@ public class MainActivity extends Activity {
 
 	public void setMaster_Notification_Page()
 	{
-		if(username.equals(""))
-		{
-			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
-			setDefaultView();
-		}
-		else
-		{
+//		if(username.equals(""))
+//		{
+//			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
+//			setDefaultView();
+//		}
+//		else
+//		{
 			setContentView(R.layout.master_notifications_page);
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
+			
+			// Create Linear layout
+			LinearLayout layout = new LinearLayout(this);
+			layout.setOrientation(LinearLayout.VERTICAL);
+			RelativeLayout.LayoutParams llp = new RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.FILL_PARENT,
+					RelativeLayout.LayoutParams.FILL_PARENT);
+			
+			ScrollView scrollView = new ScrollView(this);
+			ScrollView.LayoutParams slp = new ScrollView.LayoutParams(
+					ScrollView.LayoutParams.FILL_PARENT,
+					ScrollView.LayoutParams.FILL_PARENT);
+			scrollView.setLayoutParams(slp);
+			layout.addView(scrollView);
+			
+			List<String> list = new ArrayList<String>();
+			List<String> courseName = new ArrayList<String>();
+			
+			list.add("foo");
+			list.add("bar");
+			list.add("baz");
+			list.add("boz");
+			list.add("gaz");
+			list.add("goz");
+			list.add("roz");
+			list.add("Carl");
+			list.add("Cody");
+			list.add("codyhh09");
+			list.add("Bobo");
+			
+			// Create Linear layout for ScrollView
+			LinearLayout layout4Checks = new LinearLayout(this);
+			layout4Checks.setOrientation(LinearLayout.VERTICAL);
+			LinearLayout.LayoutParams llp2 = new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.FILL_PARENT,
+					LinearLayout.LayoutParams.FILL_PARENT);
+			
+			
+			//Add Check Box to go next to requests' names
+			for (String students : courseName)
+			{
+				CheckBox check = new CheckBox(this);
+				check.setLayoutParams(new LayoutParams(
+						LayoutParams.WRAP_CONTENT,
+						LayoutParams.WRAP_CONTENT));
+				check.setText(students);
+		
+				// Add check to layout
+				layout4Checks.addView(check);
+				//checks.add(check);
+				//counter++;
+			}
+			
+			scrollView.addView(layout4Checks);
+			// Make inventory view visible
+			setContentView(layout,llp);
 			
 			LogOut.setOnClickListener(new View.OnClickListener()
 			{
@@ -679,5 +736,5 @@ public class MainActivity extends Activity {
 				}
 			});
 		}
-	}
+//	}
 }
