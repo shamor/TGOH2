@@ -29,6 +29,7 @@
 
     </ListView>
 
+
     <EditText
         android:id="@+id/txtteachername"
         android:layout_width="match_parent"

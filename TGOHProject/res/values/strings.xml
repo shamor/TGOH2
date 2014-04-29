@@ -26,7 +26,7 @@
     <string name="usertype">Are you a student or teacher?</string>
     <string name="studentlbl">Student</string>
     <string name="teacherlbl">Teacher</string>
-     <string name="Announcementslbl">Announcements</string>
+    <string name="Announcementslbl">Announcements</string>
     <string name="lblCourseHomePage">Course Home Page</string>
     <string name="btnDeleteCourse">Delete This Course</string>
     <string name="lblTeacherCourseSelectionPage">Select Your Course:</string>
@@ -38,6 +38,5 @@
     <string name="teachernotaccept">Add checked student(s)</string>
     <string name="teachernotdeny">"Deny checked student(s) "</string>
     <string name="teachernotopen">"Students awaiting approval to class"</string>
-
 
 </resources>
