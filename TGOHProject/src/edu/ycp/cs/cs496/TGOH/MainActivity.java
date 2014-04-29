@@ -74,6 +74,8 @@ public class MainActivity extends Activity {
         		GetUser controller = new GetUser();
         		
 					try {
+						Toast.makeText(MainActivity.this,controller.getUser(userName).getUserName().toString() + ": " + controller.getUser(userName).getPassword().toString() , Toast.LENGTH_SHORT).show();
+						
 						if(controller.getUser(userName).getPassword().equals(passWord)){
 							
 								username = userName;
@@ -85,7 +87,7 @@ public class MainActivity extends Activity {
 										setClass_Selection_Page();
 									}else{
 										//user is teacher, go to teacher page
-										setTeacher_Notification_Page();
+										setTeacher_Selection_Page();
 									}
 								}
 						}else{
@@ -127,7 +129,7 @@ public class MainActivity extends Activity {
 					adduser controller = new adduser();
 					boolean type = isStudent.isChecked();
 					try {
-						if(controller.postItem(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString(), type)){
+						if(controller.postUser(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString(), type)){
 							// toast box: right
 							setDefaultView();
 							if(type == true){

@@ -41,8 +41,6 @@ public class Userpage extends HttpServlet{
 		// Use a GetItemByName controller to find the item in the database
 		GetUserController controller = new GetUserController();
 		User user = controller.getUser(pathInfo);
-		System.out.println(pathInfo);
-		
 		
 		if (user == null) {
 			// No such item, so return a NOT FOUND response
@@ -51,7 +49,6 @@ public class Userpage extends HttpServlet{
 			resp.getWriter().println("No such user: " + pathInfo1);
 			return;
 		}
-		System.out.println(user.getFirstName()); 
 		/*pathInfo2 = pathInfo.substring(pathInfo.indexOf("/"), pathInfo.length()-1);
 		
 		if(!pathInfo2.isEmpty()){

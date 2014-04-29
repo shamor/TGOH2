@@ -12,14 +12,6 @@
         android:layout_alignParentTop="true"
         android:text="@string/btnLogOut" />
 
-    <Button
-        android:id="@+id/btnaccept"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/btnAccept" />
-
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
@@ -43,31 +35,31 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btnback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/btnlogout"
-        android:text="@string/back" />
-
-
-    <Button
         android:id="@+id/btndeny"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/btnaccept"
         android:text="@string/btnDeny" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/teachernotopen"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnlogout"
-        android:layout_alignBottom="@+id/btnlogout"
-        android:layout_toRightOf="@+id/btnaccept"
+        android:layout_alignBaseline="@+id/btnaccept"
+        android:layout_alignBottom="@+id/btnaccept"
+        android:layout_alignRight="@+id/textView2"
         android:text="@string/teachernotaccept"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-         />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/textView2"
@@ -76,7 +68,23 @@
         android:layout_alignBaseline="@+id/btndeny"
         android:layout_alignBottom="@+id/btndeny"
         android:layout_toRightOf="@+id/btndeny"
-        android:text="Small Text"
+        android:text="@string/teachernotdeny"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/btnaccept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnlogout"
+        android:text="@string/btnAccept" />
+
+    <Button
+        android:id="@+id/btnback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnaccept"
+        android:text="@string/back" />
 
 </RelativeLayout>

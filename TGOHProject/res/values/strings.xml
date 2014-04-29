@@ -35,7 +35,9 @@
     <string name="lblPendingTeachers">Pending Teachers:</string>
     <string name="btnAccept">Accept</string>
     <string name="btnDeny">Deny</string>
-    <string name="teachernotaccept">Add checked student(s) to class</string>
+    <string name="teachernotaccept">Add checked student(s)</string>
+    <string name="teachernotdeny">"Deny checked student(s) "</string>
+    <string name="teachernotopen">"Students awaiting approval to class"</string>
 
 
 </resources>

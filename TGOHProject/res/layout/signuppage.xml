@@ -62,7 +62,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/LastName"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text|textPersonName" > </EditText>
 
     <TextView
         android:id="@+id/UserName"
@@ -81,7 +81,7 @@
         android:layout_alignRight="@+id/PassSignUp"
         android:layout_below="@+id/UserName"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text|textNoSuggestions" />
 
     <TextView
         android:id="@+id/Password"
