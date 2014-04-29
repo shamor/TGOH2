@@ -39,7 +39,7 @@
         android:layout_above="@+id/button2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/button3" >
+        android:layout_below="@+id/backbtn" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/backbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -58,12 +58,12 @@
         android:text="@string/btnAccept" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/submitbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button3"
-        android:layout_alignBottom="@+id/button3"
-        android:layout_toRightOf="@+id/button3"
+        android:layout_alignBaseline="@+id/backbtn"
+        android:layout_alignBottom="@+id/backbtn"
+        android:layout_toRightOf="@+id/backbtn"
         android:text="@string/btnDeny" />
 
 </RelativeLayout>

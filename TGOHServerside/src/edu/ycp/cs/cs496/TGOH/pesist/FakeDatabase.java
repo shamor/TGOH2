@@ -19,7 +19,7 @@ public class FakeDatabase implements IDatabase {
 
 	public FakeDatabase() {
 		users = new ArrayList<User>();
-		User user = new User("d","d","d","d",false);
+		User user = new User("d","d","d","d",true);
 		user.setId(1);
 		User user1 = new User("c","c","c","c",false);
 		user1.setId(2);

@@ -14,11 +14,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +25,7 @@ import edu.ycp.cs.cs496.TGOH.controller.adduser;
 
 public class MainActivity extends Activity {
 	public String username = "";
-	//public String master = "master";
+	public String coursename = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +69,14 @@ public class MainActivity extends Activity {
 				
 				String userName = Username.getText().toString();
 				String passWord = Password.getText().toString();
-        		GetUser controller = new GetUser();
         		
+				GetUser controller = new GetUser();
+        			//get a user object from the database
 					try {
-						Toast.makeText(MainActivity.this,controller.getUser(userName).getUserName().toString() + ": " + controller.getUser(userName).getPassword().toString() , Toast.LENGTH_SHORT).show();
-						
 						if(controller.getUser(userName).getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
-									setMaster_Notification_Page();
+										setMaster_Notification_Page();
 								}else{
 									if(controller.getUser(userName).getType()){
 										//user is student, go to student page
@@ -160,10 +157,9 @@ public class MainActivity extends Activity {
 		});
 	}
 	
-	/**
+	/**(Needs to implement database) 
 	 * This is for students to select a class and view their schedule
 	 */
-
 	public void setClass_Selection_Page(){
 	
 		if(username.equals(""))
@@ -181,7 +177,7 @@ public class MainActivity extends Activity {
 			ListView lview = (ListView) findViewById(R.id.listView1);
 			Button LogOut = (Button) findViewById(R.id.button1);
 			
-			//when needed this can be set to hold data pulled from database
+			//TODO: when needed this can be set to hold data pulled from database
 			List<String> classes = new ArrayList<String>();
 			
 			classes.add("101");
@@ -198,9 +194,14 @@ public class MainActivity extends Activity {
 			lview.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
-					// TODO Auto-generated method stub
-					CharSequence msg = "You selected " + ((TextView) view).getText();
-					Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+					//pull item from listview - go to homepage associated with the class
+					String coursename = "";
+					
+					coursename = ((TextView) view).getText().toString();
+					setStudent_Home_Page(coursename);
+					Toast.makeText(MainActivity.this, "You've selected: " + coursename, Toast.LENGTH_SHORT).show();
+					
+					
 				}
 			});
 
@@ -231,8 +232,11 @@ public class MainActivity extends Activity {
 		}
 	}
 
-
-	public void setStudent_Home_Page()
+	/**(Needs to implement database)
+	 * Displays a student's course homepage 
+	 * @param coursename name of the course that homepage is displayed for
+	 */
+	public void setStudent_Home_Page(String coursename)
 	{
 		if(username.equals(""))
 		{
@@ -243,7 +247,11 @@ public class MainActivity extends Activity {
 		{
 			setContentView(R.layout.studenthomepage);
 			
+			TextView classlbl = (TextView) findViewById(R.id.classlbl);
+			classlbl.setText("for: " + coursename); 
+			
 			Button LogOut = (Button) findViewById(R.id.button1);
+			Button back = (Button) findViewById(R.id.button2);
 			
 			LogOut.setOnClickListener(new View.OnClickListener() {
 				
@@ -253,9 +261,38 @@ public class MainActivity extends Activity {
 					setDefaultView();
 				}
 			});
+			
+			back.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					setClass_Selection_Page();
+				}
+			});
+			
+			//TODO: based on the course information, display its announcements 
+
+				ListView lview = (ListView) findViewById(R.id.listView1);
+				//TODO: when needed this can be set to hold data pulled from database
+				
+				List<String> announcements = new ArrayList<String>();
+				
+				announcements.add("stuff due today");
+				announcements.add("stuff due tomorrow");
+				announcements.add("stuff due next week");
+				announcements.add("stuff due next month");
+				announcements.add("stuff due next year");
+				announcements.add("stuff due next decade");
+				announcements.add("stuff due next century");
+				
+				ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, announcements);
+				lview.setAdapter(la);
 		}
 	}
 
+	/**(Needs to implement database)
+	 * Page students use to request a new class
+	 */
 	public void setRequest_Page() {
 		if(username.equals(""))
 		{
@@ -264,36 +301,14 @@ public class MainActivity extends Activity {
 		}
 		else
 		{
-			setContentView(R.layout.request_page);
-			
-		      
+			setContentView(R.layout.request_page); 
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
 			Button Back = (Button) findViewById(R.id.button2);
-			
-			ListView lview = (ListView) findViewById(R.id.listView1);
-			//when needed this can be set to hold data pulled from database
-			List<String> classes = new ArrayList<String>();
-					
-					classes.add("101");
-					classes.add("102");
-					classes.add("103");
-					classes.add("104");
-					classes.add("105");
-					classes.add("106");
-					classes.add("107");
-					
-					ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
-					lview.setAdapter(la);  
+			Button submit = (Button) findViewById(R.id.submitbtn);
+			final EditText TeacherName = (EditText) findViewById(R.id.txtteachername);	
 			
 
-			lview.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
-					CharSequence msg = "You selected " + ((TextView) view).getText();
-					Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-				}
-			});
 			
 			LogOut.setOnClickListener(new View.OnClickListener() 
 			{
@@ -311,9 +326,47 @@ public class MainActivity extends Activity {
 					setClass_Selection_Page();
 				}
 			});
+			
+			submit.setOnClickListener(new View.OnClickListener() 
+			{
+				@Override
+				public void onClick(View v) {
+					ListView lview = (ListView) findViewById(R.id.listView1);
+					//TODO: when needed this can be set to hold data pulled from database
+					String Teachername = TeacherName.getText().toString();
+					
+					List<String> classes = new ArrayList<String>();
+					
+					classes.add("101");
+					classes.add("102");
+					classes.add("103");
+					classes.add("104");
+					classes.add("105");
+					classes.add("106");
+					classes.add("107");
+					
+					ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, classes);
+					lview.setAdapter(la);  
+					
+					lview.setOnItemClickListener(new OnItemClickListener() {
+								@Override
+								public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
+									CharSequence msg = "You selected " + ((TextView) view).getText();
+									Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+								}
+							});
+					
+
+					
+				}
+			});		
+					
 		}
 	}
 
+	/**(Needs to implement database)
+	 * Displays all of the student's announcements
+	 */
 	public void setSchedule_Page(){
 		if(username.equals(""))
 		{
@@ -346,9 +399,29 @@ public class MainActivity extends Activity {
 			});
 		}
 		
+		ListView lview = (ListView) findViewById(R.id.listView1);
+		//TODO: when needed this can be set to hold data pulled from database
+		
+		List<String> announcements = new ArrayList<String>();
+		
+		announcements.add("stuff due today");
+		announcements.add("stuff due tomorrow");
+		announcements.add("stuff due next week");
+		announcements.add("stuff due next month");
+		announcements.add("stuff due next year");
+		announcements.add("stuff due next decade");
+		announcements.add("stuff due next century");
+		
+		ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, announcements);
+		lview.setAdapter(la);
+		
 	}
 	
-	public void setTeacher_Main_Page()
+	/**(Needs to implement database)
+	 * Teacher's homepage
+	 * @param course
+	 */
+	public void setTeacher_Main_Page(final String course)
 	{
 		if(username.equals(""))
 		{
@@ -360,8 +433,10 @@ public class MainActivity extends Activity {
 
 			setContentView(R.layout.teacher_main_page);
 			
-			Button notify = (Button) findViewById(R.id.back);
-			Button LogOut = (Button) findViewById(R.id.button4);
+			Button notify = (Button) findViewById(R.id.btnNotify);
+			Button LogOut = (Button) findViewById(R.id.logoutbtn);
+			Button back = (Button) findViewById(R.id.backbtn);
+			Button delete = (Button) findViewById(R.id.button2);
 			
 			// Add onClickListener
 			notify.setOnClickListener(new View.OnClickListener()
@@ -369,11 +444,27 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v) 
 				{
-					setTeacher_Notification_Page();
+					setTeacher_Notification_Page(course);
 				}
 			});
 			
-			//TODO: Add onClick events for the remaining buttons
+			back.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v) 
+				{
+					setTeacher_Selection_Page();
+				}
+			});
+			
+			delete.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v) 
+				{//TODO: delete course
+				}
+			});
+			
 			// Add onClickListener
 			LogOut.setOnClickListener(new View.OnClickListener()
 			{
@@ -388,11 +479,11 @@ public class MainActivity extends Activity {
 	}
 	
 
-	/**
+	/**(needs to implement database
 	 * Displays the students who are pending for
 	 * a given course the teacher teaches
 	 */
-	public void setTeacher_Notification_Page()
+	public void setTeacher_Notification_Page(final String course)
 	{
 		if(username.equals(""))
 		{
@@ -450,13 +541,11 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v)
 				{
-					setTeacher_Main_Page();
+					setTeacher_Main_Page(course);
 				}
 			});
-
-			ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView1);
 			
-			//TEST
+			//TODO: pull notifications from database
 			List<String> list = new ArrayList<String>();
 		//	List<String> courseName = new ArrayList<String>();
 			//GetUser con = new GetUser(); 
@@ -507,13 +596,13 @@ public class MainActivity extends Activity {
 		
 				// Add check to layout
 				layout4Checks.addView(check);
-				//checks.add(check);
-				//counter++;
+				checks.add(check);
+				counter++;
 			}
 		}
 	}
 	
-	/**
+	/**(implement database)
 	 * Page which displays classes the teacher is teaching
 	 */
 	public void setTeacher_Selection_Page()
@@ -531,6 +620,7 @@ public class MainActivity extends Activity {
 			Button Create = (Button) findViewById(R.id.button2);
 			
 			ListView lview = (ListView) findViewById(R.id.listView1);
+			//TODO: pull teacher's coures from database
 			List<String> list = new ArrayList<String>();
 			
 			list.add("foo");
@@ -551,9 +641,10 @@ public class MainActivity extends Activity {
 			lview.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
-					// TODO Auto-generated method stub
-					CharSequence msg = "You selected " + ((TextView) view).getText();
-					Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+					
+					String course  = ((TextView) view).getText().toString();
+					setTeacher_Main_Page(course);
+					Toast.makeText(MainActivity.this, "You selected " + course, Toast.LENGTH_SHORT).show();
 				}
 			});
 		
@@ -579,6 +670,9 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	/**(implement database)
+	 * method to create a new course
+	 */
 	public void setCreate_Course()
 	{
 		if(username.equals(""))
@@ -589,6 +683,8 @@ public class MainActivity extends Activity {
 		else
 		{
 			Button LogOut = (Button) findViewById(R.id.button1);
+			Button back = (Button) findViewById(R.id.button2);
+			Button submit = (Button) findViewById(R.id.button3);
 			
 			LogOut.setOnClickListener(new View.OnClickListener()
 			{
@@ -599,10 +695,31 @@ public class MainActivity extends Activity {
 					setDefaultView();
 				}
 			});
+			
+			back.setOnClickListener(new View.OnClickListener() 
+			{
+				@Override
+				public void onClick(View v)
+				{
+					setTeacher_Selection_Page();
+				}
+			});
+			
+			submit.setOnClickListener(new View.OnClickListener() 
+			{
+				@Override
+				public void onClick(View v)
+				{
+					//TODO: add course to the database
+				}
+			});
+			
 		}
 	}
 
-
+	/**(implement database)
+	 * the master's notification/homepage
+	 */
 	public void setMaster_Notification_Page()
 	{
 
@@ -617,22 +734,9 @@ public class MainActivity extends Activity {
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
 			
-			// Create Linear layout
-			LinearLayout layout = new LinearLayout(this);
-			layout.setOrientation(LinearLayout.VERTICAL);
-			RelativeLayout.LayoutParams llp = new RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.FILL_PARENT,
-					RelativeLayout.LayoutParams.FILL_PARENT);
-			
-			ScrollView scrollView = new ScrollView(this);
-			ScrollView.LayoutParams slp = new ScrollView.LayoutParams(
-					ScrollView.LayoutParams.FILL_PARENT,
-					ScrollView.LayoutParams.FILL_PARENT);
-			scrollView.setLayoutParams(slp);
-			layout.addView(scrollView);
-			
+			//TODO: pull notifications from the database
 			List<String> list = new ArrayList<String>();
-			List<String> courseName = new ArrayList<String>();
+			List<String> courseNames = new ArrayList<String>();
 			
 			list.add("foo");
 			list.add("bar");
@@ -647,31 +751,23 @@ public class MainActivity extends Activity {
 			list.add("Bobo");
 			
 			// Create Linear layout for ScrollView
-			LinearLayout layout4Checks = new LinearLayout(this);
-			layout4Checks.setOrientation(LinearLayout.VERTICAL);
-			LinearLayout.LayoutParams llp2 = new LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.FILL_PARENT,
-					LinearLayout.LayoutParams.FILL_PARENT);
-			
-			
+			// Access Linear layout for ScrollView
+			LinearLayout layout4Checks = (LinearLayout) findViewById(R.id.linearLayout1);
+					
 			//Add Check Box to go next to requests' names
-			for (String students : courseName)
-			{
-				CheckBox check = new CheckBox(this);
-				check.setLayoutParams(new LayoutParams(
-						LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT));
-				check.setText(students);
-		
-				// Add check to layout
-				layout4Checks.addView(check);
+				for (String students : list)
+				{
+					CheckBox check = new CheckBox(this);
+					check.setLayoutParams(new LayoutParams(
+							LayoutParams.WRAP_CONTENT,
+							LayoutParams.WRAP_CONTENT));
+					check.setText(students);
+					
+					// Add heck to layout
+					layout4Checks.addView(check);
 				//checks.add(check);
 				//counter++;
 			}
-			
-			scrollView.addView(layout4Checks);
-			// Make inventory view visible
-			setContentView(layout,llp);
 			
 			LogOut.setOnClickListener(new View.OnClickListener()
 			{
