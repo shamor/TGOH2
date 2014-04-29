@@ -8,21 +8,20 @@
 	<servlet>
 		<servlet-name>Userpage</servlet-name>
 		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.Userpage</servlet-class>
-		
-		<servlet-name>CoursesPage</servlet-name>
-		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.CoursesPage</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetCoursesForUser</servlet-name>
+		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.GetCoursesForUser</servlet-class>
 	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
 	<servlet-mapping>
 	    <servlet-name>Userpage</servlet-name>
 		<url-pattern>/user/*</url-pattern>
-	    
-		<servlet-name>Userpage</servlet-name>
-		<url-pattern>/user/*/course/*</url-pattern>
-		
-		<servlet-name>CoursesPage</servlet-name>
-		<url-pattern>/courses/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>	
+		<servlet-name>GetCoursesForUser</servlet-name>
+		<url-pattern>/coursesforuser/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>
