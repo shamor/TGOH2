@@ -22,10 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
+import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class MainActivity extends Activity {
 	public String username = "";
 	public String coursename = "";
+	public User Currentuser = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends Activity {
      */
 	public void setDefaultView(){
 		username = "";
+		Currentuser = null;
 		
 		setContentView(R.layout.activity_main);
 		
@@ -74,12 +77,13 @@ public class MainActivity extends Activity {
 				GetUser controller = new GetUser();
         			//get a user object from the database
 					try {
-						if(controller.getUser(userName).getPassword().equals(passWord)){
+						Currentuser = controller.getUser(userName);
+						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
 										setMaster_Notification_Page();
 								}else{
-									if(controller.getUser(userName).getType()){
+									if(Currentuser.getType()){
 										//user is student, go to student page
 										setClass_Selection_Page();
 									}else{
