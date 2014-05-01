@@ -14,25 +14,25 @@ public class FakeDatabase implements IDatabase {
 	private List<Courses> courses;
 	private List<Registration> registrations;
 	private List<Notification> notifications;
-	
+
 	private int registrationCounter = 1;
 
 	public FakeDatabase() {
 		users = new ArrayList<User>();
-		User user = new User("d","d","d","d",false);
+		User user = new User("d","d","d","d",true);
 		user.setId(1);
 		User user1 = new User("c","c","c","c",false);
 		user1.setId(2);
 		users.add(user1);
 		users.add(user);
-		
+
 		courses = new ArrayList<Courses>();
 		Courses c = new Courses();
 		c.setId(1);
 		c.setCourse("Introduction to Something");
 		c.setTeacher("Babcock");
 		courses.add(c);
-		
+
 		registrations = new ArrayList<Registration>();
 		Registration reg = new Registration();
 		reg.setId(registrationCounter++);
@@ -40,7 +40,7 @@ public class FakeDatabase implements IDatabase {
 		reg.setCourseId(1);
 		reg.setStatus(RegistrationStatus.PENDING);
 		registrations.add(reg);
-		
+
 		notifications = new ArrayList<Notification>();
 		Notification not = new Notification();
 		not.setText("going for a hike");
@@ -72,7 +72,7 @@ public class FakeDatabase implements IDatabase {
 		else 
 			return false;
 	}
-	
+
 	public Courses getCourse(int coursename){
 		for(Courses x : courses){
 			if(x.getId() == coursename){
@@ -81,13 +81,13 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
-	
+
 	public Courses addCourse(String Coursename){
 		Courses course = new Courses(Coursename);
 		courses.add(course);
 		return course;
 	}
-	
+
 	public void deleteCourse(int Coursename){
 		courses.remove(Coursename);
 	}
@@ -101,12 +101,12 @@ public class FakeDatabase implements IDatabase {
 		registrations.add(reg);
 		return reg;
 	}
-	
+
 	public void RemovingUserFromCourse(User user, Courses course){
 		Registration reg = new Registration(user.getId(), course.getId());
 		registrations.remove(reg.getId());
 	}
-	
+
 	public Registration findpendingUserForCourse(User user, Courses course) {
 		Registration reg = new Registration(user.getId(), course.getId());
 		for(Registration temp : registrations){
@@ -116,7 +116,7 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
-	
+
 	public Registration findApproveUserForCourse(User user, Courses course) {
 		Registration reg = new Registration(user.getId(), course.getId());
 		for(Registration temp : registrations){
@@ -126,7 +126,7 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
-	
+
 	public Courses[] getCoursefromUser(int user){
 		Courses[] course = new Courses[7];
 		int count = 0;

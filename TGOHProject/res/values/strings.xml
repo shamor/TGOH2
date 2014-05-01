@@ -22,6 +22,11 @@
     <string name="btnNotifications">Notifications</string>
     <string name="btnQuiz">Make Quiz</string>
     <string name="btnLogOut">Log Out</string>
+    <string name="password2">Enter Password Again</string>
+    <string name="usertype">Are you a student or teacher?</string>
+    <string name="studentlbl">Student</string>
+    <string name="teacherlbl">Teacher</string>
+    <string name="Announcementslbl">Announcements</string>
     <string name="lblCourseHomePage">Course Home Page</string>
     <string name="btnDeleteCourse">Delete This Course</string>
     <string name="lblTeacherCourseSelectionPage">Select Your Course:</string>
@@ -30,13 +35,9 @@
     <string name="lblPendingTeachers">Pending Teachers:</string>
     <string name="btnAccept">Accept</string>
     <string name="btnDeny">Deny</string>
-    <string name="password2">Enter Password Again</string>
-    <string name="usertype">Are you a student or teacher?</string>
-    <string name="studentlbl">Student</string>
-    <string name="teacherlbl">Teacher</string>
-    <string name="Announcementslbl">Announcements</string>
-    <string name="lblDeny">Reject pending students</string>
     <string name="teachernotaccept">Add checked student(s)</string>
     <string name="teachernotdeny">"Deny checked student(s) "</string>
     <string name="teachernotopen">"Students awaiting approval to class"</string>
+    <string name="show">Show Classes</string>
+    <string name="Announcementslbl2">Important Announcements</string>
 </resources>

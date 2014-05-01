@@ -22,4 +22,30 @@
         android:text="@string/Announcementslbl"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/back" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/classlbl" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/classlbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+         android:layout_below="@+id/textView1"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </RelativeLayout>
