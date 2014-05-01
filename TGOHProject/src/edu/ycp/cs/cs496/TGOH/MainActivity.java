@@ -1,14 +1,7 @@
 package edu.ycp.cs.cs496.TGOH;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.http.client.ClientProtocolException;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,10 +15,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.ycp.cs.cs496.TGOH.controller.AddCourse;
