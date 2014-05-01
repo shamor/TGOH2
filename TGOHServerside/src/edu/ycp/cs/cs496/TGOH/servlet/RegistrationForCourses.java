@@ -48,21 +48,21 @@ private static final long serialVersionUID = 1L;
 		// Use a GetItemByName controller to find the item in the database
 		
 		findUserForCourse controller = new findUserForCourse();
-		int course = controller.findUserforCourse(userId, courseId);
+		//int course = controller.findUserforCourse(userId, courseId);
 		
-		if (course == null) {
+		//if (course == null) {
 			// No such item, so return a NOT FOUND response
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
 			resp.getWriter().println("Not a course: " + pathInfo);
 			return;
-		}
+		//}
 		// Set status code and content type
-		resp.setStatus(HttpServletResponse.SC_OK);
+		//resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");
 		
 		// Return the item in JSON format
-		JSON.getObjectMapper().writeValue(resp.getWriter(), course);
+		//JSON.getObjectMapper().writeValue(resp.getWriter(), course);
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -195,30 +195,6 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public Registration registerUserForCourse(User user, Courses course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void RemovingUserFromCourse(User user, Courses course) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Registration findpendingUserForCourse(User user, Courses course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Registration findApproveUserForCourse(User user, Courses course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Courses[] getCoursefromUser(int user) {
 		// TODO Auto-generated method stub
 		return null;
@@ -232,6 +208,42 @@ public class RealDatabase implements IDatabase{
 
 	@Override
 	public List<Courses> getAllCourse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Registration registerUserForCourse(String userId, String courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void RemovingUserFromCourse(String userId, String courseId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Registration findUserForCourse(String userId, String courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void RemovingUserFromCourse(int user, int course) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Registration findUserForCourse(int user, int course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Registration registerUserForCourse(int user, int course) {
 		// TODO Auto-generated method stub
 		return null;
 	}

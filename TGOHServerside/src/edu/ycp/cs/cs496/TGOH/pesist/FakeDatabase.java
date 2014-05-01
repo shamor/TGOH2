@@ -130,4 +130,22 @@ public class FakeDatabase implements IDatabase {
 		}
 		return course;
 	}
+
+	@Override
+	public Registration registerUserForCourse(String userId, String courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void RemovingUserFromCourse(String userId, String courseId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Registration findUserForCourse(String userId, String courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

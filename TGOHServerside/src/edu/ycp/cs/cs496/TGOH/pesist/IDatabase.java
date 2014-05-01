@@ -32,4 +32,10 @@ public interface IDatabase {
 	public Courses[] getCoursefromUser(int user);
 	
 	public List<Courses> getAllCourse();
+
+	public void RemovingUserFromCourse(int user, int course);
+
+	public Registration findUserForCourse(int user, int course);
+
+	public Registration registerUserForCourse(int user, int course);
 }
