@@ -62,13 +62,16 @@ public class FakeDatabase implements IDatabase {
 
 	// getting a user
 	public User getUser(String Username) {
+		System.out.println("Looking for user: " + Username);
 		for (User user1 : users) {
 			if (user1.getUserName().equals(Username)) {
 				// return a copy
+				System.out.println("Found it, yay");
 				return user1;
 			}
 		}
 		// no such user in database
+		System.out.println("Nope, not there");
 		return null;
 	}
 
@@ -101,26 +104,25 @@ public class FakeDatabase implements IDatabase {
 		courses.remove(Coursename);
 	}
 
-	public Registration registerUserForCourse(int userId, int courseId) {
+	public Registration registerUserForCourse(int user, int course) {
 		Registration reg = new Registration();
 		reg.setId(registrationCounter++);
-		reg.setUserId(userId);
-		reg.setCourseId(courseId);
+		reg.setUserId(user);
+		reg.setCourseId(course);
 		reg.setStatus(RegistrationStatus.PENDING);
 		registrations.add(reg);
 		return reg;
 	}
 
-	public void RemovingUserFromCourse(int userId, int courseId){
-		Registration reg = new Registration(userId, courseId);
+	public void RemovingUserFromCourse(int user, int course){
+		Registration reg = new Registration(user, course);
 		registrations.remove(reg.getId());
 	}
 
-	public Registration findUserForCourse(int userId, int courseId) {
-		Registration reg = new Registration(userId, courseId);
+	public Registration findUserForCourse(User user, Courses course) {
 		for(Registration temp : registrations){
-			if(temp.getId()==reg.getId()){
-				return reg;
+			if(temp.getCourseId()==course.getId() && temp.getUserId()==user.getId()){
+				return temp;
 			}
 		}
 		return null;
