@@ -213,19 +213,7 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public Registration registerUserForCourse(String userId, String courseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void RemovingUserFromCourse(String userId, String courseId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Registration findUserForCourse(String userId, String courseId) {
+	public Registration registerUserForCourse(int user, int course) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -237,16 +225,8 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public Registration findUserForCourse(int user, int course) {
+	public Registration findUserForCourse(User user, Courses course) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public Registration registerUserForCourse(int user, int course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 }
