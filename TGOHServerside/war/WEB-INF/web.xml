@@ -13,6 +13,10 @@
 		<servlet-name>GetCoursesForUser</servlet-name>
 		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.GetCoursesForUser</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>CoursesPage</servlet-name>
+		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.CoursesPage</servlet-class>
+	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
 	<servlet-mapping>
@@ -22,6 +26,10 @@
 	<servlet-mapping>	
 		<servlet-name>GetCoursesForUser</servlet-name>
 		<url-pattern>/coursesforuser/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>	
+		<servlet-name>CoursesPage</servlet-name>
+		<url-pattern>/courses/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>

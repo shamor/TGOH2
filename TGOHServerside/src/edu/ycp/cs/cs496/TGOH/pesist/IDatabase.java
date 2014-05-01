@@ -1,5 +1,7 @@
 package edu.ycp.cs.cs496.TGOH.pesist;
 
+import java.util.List;
+
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.Registration;
 import edu.ycp.cs.cs496.TGOH.temp.User;
@@ -17,26 +19,17 @@ public interface IDatabase {
 	
 	public Courses getCourse(int coursename);
 	
-	public Courses addCourse(String Coursename);
+	public void addCourse(Courses course);
 	
 	public void deleteCourse(int Coursename);
 	
-	public Registration registerUserForCourse(User user, Courses course);
+	public Registration registerUserForCourse(String userId, String courseId);
 
-	public void RemovingUserFromCourse(User user, Courses course);
+	public void RemovingUserFromCourse(String userId, String courseId);
 	
-	Registration findpendingUserForCourse(User user, Courses course);
-	
-	Registration findApproveUserForCourse(User user, Courses course);
+	Registration findUserForCourse(String userId, String courseId);
 	
 	public Courses[] getCoursefromUser(int user);
+	
+	public List<Courses> getAllCourse();
 }
-	/*
-	public void addACourse(String username, String course);
-	
-	public List<String> getAllCourse(String Username);
-
-	public String getCourse(String username, String course);
-	
-	public void deleteCourse(String Username, String Course);
-	*/

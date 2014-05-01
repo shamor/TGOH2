@@ -81,46 +81,38 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
+	
+	public List<Courses> getAllCourse(){
+		return new ArrayList<Courses>(courses);
+	}
 
-	public Courses addCourse(String Coursename){
-		Courses course = new Courses(Coursename);
+	public void addCourse(Courses course){
 		courses.add(course);
-		return course;
 	}
 
 	public void deleteCourse(int Coursename){
 		courses.remove(Coursename);
 	}
 
-	public Registration registerUserForCourse(User user, Courses course) {
+	public Registration registerUserForCourse(int userId, int courseId) {
 		Registration reg = new Registration();
 		reg.setId(registrationCounter++);
-		reg.setUserId(user.getId());
-		reg.setCourseId(course.getId());
+		reg.setUserId(userId);
+		reg.setCourseId(courseId);
 		reg.setStatus(RegistrationStatus.PENDING);
 		registrations.add(reg);
 		return reg;
 	}
 
-	public void RemovingUserFromCourse(User user, Courses course){
-		Registration reg = new Registration(user.getId(), course.getId());
+	public void RemovingUserFromCourse(int userId, int courseId){
+		Registration reg = new Registration(userId, courseId);
 		registrations.remove(reg.getId());
 	}
 
-	public Registration findpendingUserForCourse(User user, Courses course) {
-		Registration reg = new Registration(user.getId(), course.getId());
+	public Registration findUserForCourse(int userId, int courseId) {
+		Registration reg = new Registration(userId, courseId);
 		for(Registration temp : registrations){
-			if(temp.getId()==reg.getId()&&temp.getStatus()==RegistrationStatus.PENDING){
-				return reg;
-			}
-		}
-		return null;
-	}
-
-	public Registration findApproveUserForCourse(User user, Courses course) {
-		Registration reg = new Registration(user.getId(), course.getId());
-		for(Registration temp : registrations){
-			if(temp.getId()==reg.getId()&&temp.getStatus()==RegistrationStatus.APPROVED){
+			if(temp.getId()==reg.getId()){
 				return reg;
 			}
 		}
@@ -128,11 +120,12 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	public Courses[] getCoursefromUser(int user){
-		Courses[] course = new Courses[7];
 		int count = 0;
+		Courses[] course = new Courses[7];
 		for(Registration temp : registrations){
-			if(temp.getUserId() == user){
+			if(temp.getUserId() == user && count < 7){
 				course[count] = getCourse(temp.getCourseId());
+				count++;
 			}
 		}
 		return course;

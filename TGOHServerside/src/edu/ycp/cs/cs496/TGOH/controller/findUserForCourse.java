@@ -6,9 +6,9 @@ import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.Registration;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
-public class FindPendingUserForCourse {
-	public Registration findpendingUserForCourse(User user, Courses course){
+public class findUserForCourse {
+	public Registration findUserforCourse(int user, int course){
 		IDatabase db = Database.getInstance();
-		return db.findpendingUserForCourse(user, course);
+		return db.findUserForCourse(user, course);
 	}
 }
