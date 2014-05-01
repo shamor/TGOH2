@@ -31,8 +31,10 @@ import android.widget.Toast;
 import edu.ycp.cs.cs496.TGOH.controller.AddCourse;
 import edu.ycp.cs.cs496.TGOH.controller.GetCoursesfromUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
+import edu.ycp.cs.cs496.TGOH.controller.RegisterForCourse;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
+import edu.ycp.cs.cs496.TGOH.temp.Registration;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class MainActivity extends Activity {
@@ -346,21 +348,28 @@ public class MainActivity extends Activity {
 			
 			submit.setOnClickListener(new View.OnClickListener() 
 			{
+				Courses[] courses = null;
 				@Override
 				public void onClick(View v) {
 					ListView lview = (ListView) findViewById(R.id.listView1);
 					//TODO: when needed this can be set to hold data pulled from database
 					String Teachername = TeacherName.getText().toString();
 					
+					//pull the list of user courses from the database
+					GetCoursesfromUser con = new GetCoursesfromUser(); 
 					List<String> classes = new ArrayList<String>();
 					
-					classes.add("101");
-					classes.add("102");
-					classes.add("103");
-					classes.add("104");
-					classes.add("105");
-					classes.add("106");
-					classes.add("107");
+
+					try {
+						courses = con.getCourses(Currentuser.getId());
+						
+						for(int i = 0; i< courses.length; i++){
+							classes.add(courses[i].getCourse());
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						//Toast.makeText(MainActivity.this, "User does not have any courses." , Toast.LENGTH_SHORT).show();
+					} 
 					
 					ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, classes);
 					lview.setAdapter(la);  
@@ -369,6 +378,32 @@ public class MainActivity extends Activity {
 								@Override
 								public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
 									CharSequence msg = "You selected " + ((TextView) view).getText();
+									
+									Registration reg = new Registration();
+									RegisterForCourse con = new RegisterForCourse();
+									reg.setUserId(Currentuser.getId());
+									
+									for(int i = 0; i < 7;i++){
+										if(courses[i].getCourse() == ((TextView) view).getText().toString()){
+											reg.setCourseId(courses[i].getId());
+										}
+									}
+									
+									try {
+										con.postRegisterRequest(reg);
+									} catch (JsonGenerationException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (JsonMappingException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (URISyntaxException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
 									Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 								}
 							});
