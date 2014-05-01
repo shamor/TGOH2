@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
 								if(username.equals("master")){
 										setMaster_Notification_Page();
 								}else{
-									if(controller.getUser(userName).getType()){
+									if(Currentuser.getType()){
 										//user is student, go to student page
 										setClass_Selection_Page();
 									}else{
