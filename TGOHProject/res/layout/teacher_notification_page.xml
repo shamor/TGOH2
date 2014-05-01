@@ -11,24 +11,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="@string/btnLogOut" />
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView3" >
-
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-        </LinearLayout>
-    </ScrollView>
     
     <Button
         android:id="@+id/btnaccept"
@@ -42,6 +24,7 @@
         android:id="@+id/btnback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnlogout"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/btnlogout"
         android:text="@string/back" />
@@ -61,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/btnaccept"
+        android:layout_toLeftOf="@+id/textView1"
         android:text="@string/btnDeny" />
 
     <TextView
@@ -81,5 +65,21 @@
         android:layout_below="@+id/btndeny"
         android:text="@string/teachernotopen"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView3" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

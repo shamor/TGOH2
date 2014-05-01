@@ -51,10 +51,8 @@ private static final long serialVersionUID = 1L;
 		}
 		int courseId = Integer.parseInt(pathInfo);
 		// Use a GetItemByName controller to find the item in the database
-		
 		GetUserController con = new GetUserController();
 		User userId = con.getUser(user);
-		System.out.println(userId.getFirstName());
 		
 		gettingACourse cont = new gettingACourse();
 		Courses course = cont.getCourse(courseId);

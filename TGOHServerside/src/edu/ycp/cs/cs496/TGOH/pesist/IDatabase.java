@@ -23,13 +23,13 @@ public interface IDatabase {
 	
 	public void deleteCourse(int Coursename);
 	
-	public Registration registerUserForCourse(int user, int course);
-
-	public void RemovingUserFromCourse(int user, int course);
-	
 	public Registration findUserForCourse(User user, Courses course);
 	
 	public Courses[] getCoursefromUser(int user);
 	
 	public List<Courses> getAllCourse();
+
+	public void RemovingUserFromCourse(int user, int course);
+
+	public Registration registerUserForCourse(int user, int course);
 }
