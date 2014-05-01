@@ -16,6 +16,7 @@ public class FakeDatabase implements IDatabase {
 	private List<Notification> notifications;
 
 	private int registrationCounter = 1;
+	private int courseCounter = 1;
 
 	public FakeDatabase() {
 		users = new ArrayList<User>();
@@ -28,7 +29,7 @@ public class FakeDatabase implements IDatabase {
 
 		courses = new ArrayList<Courses>();
 		Courses c = new Courses();
-		c.setId(1);
+		c.setId(courseCounter++);
 		c.setCourse("Introduction to Something");
 		c.setTeacher("Babcock");
 		courses.add(c);
@@ -97,6 +98,7 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	public void addCourse(Courses course){
+		course.setId(courseCounter++);
 		courses.add(course);
 	}
 
