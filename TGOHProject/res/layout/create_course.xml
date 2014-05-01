@@ -21,13 +21,13 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/txtCourseNumber"
+        android:id="@+id/txtCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:ems="10"
-        android:inputType="text|textCapCharacters|textCapWords|number|numberSigned|numberDecimal"
+        android:inputType="text"
         android:maxLength="10" >
 
         <requestFocus />
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
-        android:layout_toRightOf="@+id/txtCourseNumber"
+        android:layout_toRightOf="@+id/txtCourse"
         android:text="@string/submit_string" />
 
 </RelativeLayout>

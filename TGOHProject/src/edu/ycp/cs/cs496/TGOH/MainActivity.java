@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,6 +28,7 @@ import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import edu.ycp.cs.cs496.TGOH.controller.AddCourse;
 import edu.ycp.cs.cs496.TGOH.controller.GetCoursesfromUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
@@ -700,6 +704,8 @@ public class MainActivity extends Activity {
 			Button LogOut = (Button) findViewById(R.id.button1);
 			Button back = (Button) findViewById(R.id.button2);
 			Button submit = (Button) findViewById(R.id.button3);
+			final EditText newCourse = (EditText) findViewById(R.id.txtCourse);
+			
 			
 			LogOut.setOnClickListener(new View.OnClickListener()
 			{
@@ -725,7 +731,18 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v)
 				{
-					//TODO: add course to the database
+					AddCourse con = new AddCourse(); 
+					Courses course = new Courses();
+					course.setCourse(newCourse.getText().toString());
+					Toast.makeText(MainActivity.this, newCourse.getText().toString() + ": added." , Toast.LENGTH_SHORT).show();
+					try {
+						con.postCourse(course);
+						
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+					
 				}
 			});
 			
