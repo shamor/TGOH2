@@ -22,7 +22,7 @@ import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class adduser {
 
-	public boolean postItem(String Username, String Password, String FirstName, String LastName, boolean type) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
+	public boolean postUser(String Username, String Password, String FirstName, String LastName, boolean type) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
 		return makePostRequest(Username, Password,FirstName, LastName, type);
 	}
 	
@@ -37,7 +37,7 @@ public class adduser {
 		HttpPost request = new HttpPost(uri);
 
 		if(Username != null && Password != null){
-			User user = new User(Username, Password, FirstName, LastName, type);
+			User user = new User(Username, FirstName, LastName, Password, type);
 			StringWriter sw = new StringWriter();
 			JSON.getObjectMapper().writeValue(sw, user);
 			

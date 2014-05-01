@@ -13,14 +13,6 @@
         android:text="@string/btnLogOut" />
 
     <Button
-        android:id="@+id/btnaccept"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/btnAccept" />
-
-    <Button
         android:id="@+id/btnback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,11 +20,43 @@
         android:layout_below="@+id/btnlogout"
         android:text="@string/back" />
 
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/teachernotopen"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/btnaccept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:text="@string/btnAccept" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/btnback"
         android:layout_toRightOf="@+id/btnaccept"
         android:text="@string/teachernotaccept"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -43,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/btnaccept"
-        android:layout_toLeftOf="@+id/textView2"
+        android:layout_toLeftOf="@+id/textView1"
         android:text="@string/btnDeny" />
 
     <TextView
@@ -51,23 +75,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/btnaccept"
+        android:layout_alignTop="@+id/btndeny"
         android:text="@string/lblDeny"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/btndeny"
-        android:layout_below="@+id/btndeny" >
-
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-        </LinearLayout>
-    </ScrollView>
 
 </RelativeLayout>
