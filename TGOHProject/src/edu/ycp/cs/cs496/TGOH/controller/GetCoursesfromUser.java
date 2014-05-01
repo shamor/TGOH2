@@ -13,11 +13,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
-public class GetCourses {
+public class GetCoursesfromUser {
 	public Courses[] getCourses(int UserId) throws ClientProtocolException, URISyntaxException, IOException {
 		return makeGetRequest(UserId);
 	}
@@ -33,6 +34,7 @@ public class GetCourses {
 		
 		// Execute request
 		HttpResponse response = client.execute(request);
+		System.out.println("" + response.getStatusLine().getStatusCode());
 		
 		// Parse response
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
