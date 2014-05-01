@@ -682,6 +682,8 @@ public class MainActivity extends Activity {
 		}
 		else
 		{
+			setContentView(R.layout.create_course);
+			
 			Button LogOut = (Button) findViewById(R.id.button1);
 			Button back = (Button) findViewById(R.id.button2);
 			Button submit = (Button) findViewById(R.id.button3);
