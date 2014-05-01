@@ -23,11 +23,11 @@ public interface IDatabase {
 	
 	public void deleteCourse(int Coursename);
 	
-	public Registration registerUserForCourse(String userId, String courseId);
+	public Registration registerUserForCourse(int user, int course);
 
-	public void RemovingUserFromCourse(String userId, String courseId);
+	public void RemovingUserFromCourse(int user, int course);
 	
-	Registration findUserForCourse(String userId, String courseId);
+	public Registration findUserForCourse(User user, Courses course);
 	
 	public Courses[] getCoursefromUser(int user);
 	

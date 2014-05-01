@@ -8,11 +8,6 @@ public class Courses {
 	private int id;
 	private String Coursename;
 	private String Teacher; // maybe should be user id of instructor?
-	/*
-	private List<String> Notification;
-	private List<String> AcceptStudent;
-	private List<String> PendingStudent;
-	*/
 	
 	public Courses(){
 		
@@ -20,9 +15,6 @@ public class Courses {
 	
 	public Courses(String Coursename){
 		this.Coursename = Coursename;
-//		this.Notification = new ArrayList<String>();
-//		this.AcceptStudent = new ArrayList<String>();
-//		this.PendingStudent = new ArrayList<String>();
 	}
 	
 	public void setId(int id) {

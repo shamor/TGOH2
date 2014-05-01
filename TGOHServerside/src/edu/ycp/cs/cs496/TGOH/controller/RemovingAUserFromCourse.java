@@ -6,8 +6,8 @@ import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class RemovingAUserFromCourse {
-	public void RemovingUserFromCourse(int user, int course){
+	public void RemovingUserFromCourse(int i, int j){
 		IDatabase db = Database.getInstance();
-		db.RemovingUserFromCourse(user, course);
+		db.RemovingUserFromCourse(i, j);
 	}
 }

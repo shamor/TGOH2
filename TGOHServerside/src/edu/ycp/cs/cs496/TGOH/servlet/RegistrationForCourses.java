@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.controller.AddingANewCourse;
+import edu.ycp.cs.cs496.TGOH.controller.AddingCoursesToUser;
+import edu.ycp.cs.cs496.TGOH.controller.GetUserController;
 import edu.ycp.cs.cs496.TGOH.controller.RemovingACourse;
+import edu.ycp.cs.cs496.TGOH.controller.RemovingAUserFromCourse;
 import edu.ycp.cs.cs496.TGOH.controller.findUserForCourse;
 import edu.ycp.cs.cs496.TGOH.controller.getAllCourses;
 import edu.ycp.cs.cs496.TGOH.controller.gettingACourse;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
+import edu.ycp.cs.cs496.TGOH.temp.Registration;
+import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class RegistrationForCourses extends HttpServlet{
 private static final long serialVersionUID = 1L;
@@ -39,18 +44,27 @@ private static final long serialVersionUID = 1L;
 		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);
 		}
-		int userId = Integer.parseInt(pathInfo);
+		String user = pathInfo.substring(0, pathInfo.indexOf('/'));
 		
 		if (pathInfo.contains("/")){
-			pathInfo = pathInfo.substring(pathInfo.indexOf('/'), pathInfo.length());
+			pathInfo = pathInfo.substring(pathInfo.indexOf('/')+1, pathInfo.length());
 		}
 		int courseId = Integer.parseInt(pathInfo);
 		// Use a GetItemByName controller to find the item in the database
 		
-		findUserForCourse controller = new findUserForCourse();
-		int course = controller.findUserforCourse(userId, courseId);
+		GetUserController con = new GetUserController();
+		User userId = con.getUser(user);
+		System.out.println(userId.getFirstName());
 		
-		if (course == null) {
+		gettingACourse cont = new gettingACourse();
+		Courses course = cont.getCourse(courseId);
+		System.out.println(course.getId());
+		
+		
+		findUserForCourse controller = new findUserForCourse();
+		Registration reg = controller.findUserforCourse(userId, course);
+		
+		if (reg == null) {
 			// No such item, so return a NOT FOUND response
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("text/plain");
@@ -62,29 +76,29 @@ private static final long serialVersionUID = 1L;
 		resp.setContentType("application/json");
 		
 		// Return the item in JSON format
-		JSON.getObjectMapper().writeValue(resp.getWriter(), course);
+		JSON.getObjectMapper().writeValue(resp.getWriter(), reg);
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		Courses course = JSON.getObjectMapper().readValue(req.getReader(), Courses.class);
+		Registration reg = JSON.getObjectMapper().readValue(req.getReader(), Registration.class);
 		// Use a GetUser controller to find the item in the database
-		AddingANewCourse controller = new AddingANewCourse();
-		controller.addCourse(course);
+		AddingCoursesToUser con = new AddingCoursesToUser();
+		con.addingRegistrationToUser(reg.getUserId(), reg.getCourseId());
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");
 		
 		// writing the operation out.
-		JSON.getObjectMapper().writeValue(resp.getWriter(), course);
+		JSON.getObjectMapper().writeValue(resp.getWriter(), reg);
 	}
 
 	
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Courses course = JSON.getObjectMapper().readValue(req.getReader(), Courses.class);
+		Registration reg = JSON.getObjectMapper().readValue(req.getReader(), Registration.class);
 		
-		RemovingACourse deleteUser = new RemovingACourse();
-		deleteUser.removingACourse(course.getId());
+		RemovingAUserFromCourse con = new RemovingAUserFromCourse();
+		con.RemovingUserFromCourse(reg.getUserId(), reg.getCourseId());
 		
 		// send response
 		resp.setStatus(HttpServletResponse.SC_OK);
@@ -92,6 +106,6 @@ private static final long serialVersionUID = 1L;
 		
 		gettingACourse controller = new gettingACourse();
 		
-		JSON.getObjectMapper().writeValue(resp.getWriter(), controller.getCourse(course.getId()));
+		JSON.getObjectMapper().writeValue(resp.getWriter(), controller.getCourse(reg.getId()));
 	}
 }
