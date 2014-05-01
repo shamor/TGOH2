@@ -18,15 +18,15 @@ import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class GetCourses {
-	public Courses[] getCourses(String UserName) throws ClientProtocolException, URISyntaxException, IOException {
-		return makeGetRequest(UserName);
+	public Courses[] getCourses(int UserId) throws ClientProtocolException, URISyntaxException, IOException {
+		return makeGetRequest(UserId);
 	}
 	
-	private Courses[] makeGetRequest(String Username) throws URISyntaxException, ClientProtocolException, IOException{
+	private Courses[] makeGetRequest(int UserId) throws URISyntaxException, ClientProtocolException, IOException{
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		// Construct URI
-		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/courses/"+ Username, null, null);
+		URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/coursesforuser/"+ UserId, null, null);
 
 		// Construct request
 		HttpGet request = new HttpGet(uri);

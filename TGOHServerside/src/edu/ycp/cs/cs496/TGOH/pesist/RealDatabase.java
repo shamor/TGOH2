@@ -189,12 +189,6 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public Courses addCourse(String Coursename) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void deleteCourse(int Coursename) {
 		// TODO Auto-generated method stub
 		
@@ -226,6 +220,18 @@ public class RealDatabase implements IDatabase{
 
 	@Override
 	public Courses[] getCoursefromUser(int user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addCourse(Courses course) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Courses> getAllCourse() {
 		// TODO Auto-generated method stub
 		return null;
 	}
