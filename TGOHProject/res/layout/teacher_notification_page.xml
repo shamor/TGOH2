@@ -16,8 +16,10 @@
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btndeny" >
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView3" >
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -76,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/scrollView1"
+        android:layout_below="@+id/btndeny"
         android:text="@string/teachernotopen"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

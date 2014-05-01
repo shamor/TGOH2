@@ -564,23 +564,7 @@ public class MainActivity extends Activity {
 			//TODO: pull notifications from database
 			List<String> list = new ArrayList<String>();
 		//	List<String> courseName = new ArrayList<String>();
-			//GetUser con = new GetUser(); 
-	//		try {
-	//			list = con.getUser("d").getCourse();
-	//			for(Courses c : list){
-	//				courseName.add(c.getCourse(0));
-	//			}
-	//			
-	//		} catch (ClientProtocolException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		} catch (URISyntaxException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		} catch (IOException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
+		
 			list.add("foo");
 			list.add("bar");
 			list.add("baz");
@@ -734,12 +718,11 @@ public class MainActivity extends Activity {
 					AddCourse con = new AddCourse(); 
 					Courses course = new Courses();
 					course.setCourse(newCourse.getText().toString());
-					Toast.makeText(MainActivity.this, newCourse.getText().toString() + ": added." , Toast.LENGTH_SHORT).show();
+					
 					try {
 						con.postCourse(course);
-						
+						Toast.makeText(MainActivity.this, "Added: " + newCourse.getText().toString(), Toast.LENGTH_SHORT).show();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} 
 					
