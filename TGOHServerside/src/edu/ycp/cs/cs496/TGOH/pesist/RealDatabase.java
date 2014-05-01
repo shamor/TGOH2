@@ -194,7 +194,6 @@ public class RealDatabase implements IDatabase{
 		
 	}
 
-
 	@Override
 	public Courses[] getCoursefromUser(int user) {
 		// TODO Auto-generated method stub
@@ -230,6 +229,4 @@ public class RealDatabase implements IDatabase{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }

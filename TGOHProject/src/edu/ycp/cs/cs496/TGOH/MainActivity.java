@@ -38,7 +38,6 @@ import edu.ycp.cs.cs496.TGOH.temp.User;
 public class MainActivity extends Activity {
 	public String username = "";
 	public User Currentuser = null;
-	public String coursename = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +57,7 @@ public class MainActivity extends Activity {
      */
 	public void setDefaultView(){
 		username = "";
+		Currentuser = null;
 		
 		setContentView(R.layout.activity_main);
 		
@@ -70,6 +70,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// setting a new account to the Database.
 				setSignupPage();
+				//setTeacher_Selection_Page();
 			}
 		});
 		
@@ -135,7 +136,7 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				if(Password.getText().toString().equals(Passwordcheck.getText().toString())){//check to see if passwords entered are equal
+				if(Password.getText().toString().equals(Passwordcheck.getText().toString())){   //check to see if passwords entered are equal
 					adduser controller = new adduser();
 					boolean type = isStudent.isChecked();
 					try {
