@@ -11,18 +11,29 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="@string/btnLogOut" />
-
+    
     <Button
         android:id="@+id/btnaccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:text="@string/btnAccept" />
+
+    <Button
+        android:id="@+id/btnback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnlogout"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnlogout"
+        android:text="@string/back" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/btnaccept"
         android:text="@string/teachernotaccept"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -60,6 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/textView3" >
 
         <LinearLayout

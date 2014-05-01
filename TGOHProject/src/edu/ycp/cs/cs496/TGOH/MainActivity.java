@@ -57,6 +57,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// setting a new account to the Database.
 				setSignupPage();
+				//setTeacher_Selection_Page();
 			}
 		});
 		
