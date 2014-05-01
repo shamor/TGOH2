@@ -32,6 +32,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="@string/First_Name"
+        android:maxLength="30" 
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -41,6 +42,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/FirstName"
         android:ems="10"
+        android:maxLength="30" 
         android:inputType="text|textPersonName" >
 
         <requestFocus />
@@ -53,6 +55,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/FirstNameSignup"
         android:text="@string/Last_Name"
+        android:maxLength="30"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -62,6 +65,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/LastName"
         android:ems="10"
+        android:maxLength="30"
         android:inputType="text|textPersonName" > </EditText>
 
     <TextView
@@ -81,6 +85,7 @@
         android:layout_alignRight="@+id/PassSignUp"
         android:layout_below="@+id/UserName"
         android:ems="10"
+        android:maxLength="30"
         android:inputType="text|textNoSuggestions" />
 
     <TextView
@@ -99,6 +104,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/Password"
         android:ems="10"
+        android:maxLength="30"
         android:inputType="textPassword" />
 
     <TextView
@@ -117,6 +123,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
         android:ems="10"
+        android:maxLength="30"
         android:inputType="textPassword" />
 
     <TextView
