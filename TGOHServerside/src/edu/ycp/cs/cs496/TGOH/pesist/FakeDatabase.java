@@ -40,6 +40,13 @@ public class FakeDatabase implements IDatabase {
 		reg.setCourseId(1);
 		reg.setStatus(RegistrationStatus.PENDING);
 		registrations.add(reg);
+		
+		Registration reg2 = new Registration();
+		reg2.setId(registrationCounter++);
+		reg2.setUserId(2);
+		reg2.setCourseId(1);
+		reg2.setStatus(RegistrationStatus.APPROVED);
+		registrations.add(reg2);
 
 		notifications = new ArrayList<Notification>();
 		Notification not = new Notification();
@@ -129,5 +136,23 @@ public class FakeDatabase implements IDatabase {
 			}
 		}
 		return course;
+	}
+
+	@Override
+	public Registration registerUserForCourse(String userId, String courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void RemovingUserFromCourse(String userId, String courseId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Registration findUserForCourse(String userId, String courseId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

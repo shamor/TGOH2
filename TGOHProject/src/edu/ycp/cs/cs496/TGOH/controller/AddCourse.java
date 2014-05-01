@@ -17,28 +17,29 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 
 public class AddCourse {
-	public boolean postCourse(String Username, String Course) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
-		return makePostRequest(Username, Course);
+	public boolean postCourse(Courses Course) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
+		return makePostRequest(Course);
 	}
 	
-	public boolean makePostRequest(String Username, String Course) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
+	public boolean makePostRequest(Courses Course) throws URISyntaxException, JsonGenerationException, JsonMappingException, IOException {
 	HttpClient client = new DefaultHttpClient();
 	
 	// Construct URI
-	URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/" + Username + "/" + Course, null, null);
+	URI uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/courses/" , null, null);
 	
 	// Construct request
 	HttpPost request = new HttpPost(uri);
 
-	if(Username != null && Course != null){
-		User user = new User();
-		//User.addCourse(Course);
+	if(Course != null){
+		Courses course = Course;
+
 		StringWriter sw = new StringWriter();
-		JSON.getObjectMapper().writeValue(sw, user);
+		JSON.getObjectMapper().writeValue(sw, course);
 		
 		// Add JSON object to request
 		StringEntity reqEntity = new StringEntity(sw.toString());

@@ -1,7 +1,12 @@
 package edu.ycp.cs.cs496.TGOH;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,11 +25,15 @@ import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import edu.ycp.cs.cs496.TGOH.controller.GetCoursesfromUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
+import edu.ycp.cs.cs496.TGOH.temp.Courses;
+import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class MainActivity extends Activity {
 	public String username = "";
+	public User Currentuser = null;
 	public String coursename = "";
 	
 	@Override
@@ -73,7 +82,8 @@ public class MainActivity extends Activity {
 				GetUser controller = new GetUser();
         			//get a user object from the database
 					try {
-						if(controller.getUser(userName).getPassword().equals(passWord)){
+						Currentuser = controller.getUser(userName);
+						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
 										setMaster_Notification_Page();
@@ -157,7 +167,7 @@ public class MainActivity extends Activity {
 		});
 	}
 	
-	/**(Needs to implement database) 
+	/**DONE(FOR NOW)
 	 * This is for students to select a class and view their schedule
 	 */
 	public void setClass_Selection_Page(){
@@ -177,16 +187,21 @@ public class MainActivity extends Activity {
 			ListView lview = (ListView) findViewById(R.id.listView1);
 			Button LogOut = (Button) findViewById(R.id.button1);
 			
-			//TODO: when needed this can be set to hold data pulled from database
+			//pull the list of user courses from the database
+			GetCoursesfromUser con = new GetCoursesfromUser(); 
 			List<String> classes = new ArrayList<String>();
-			
-			classes.add("101");
-			classes.add("102");
-			classes.add("103");
-			classes.add("104");
-			classes.add("105");
-			classes.add("106");
-			classes.add("107");
+			Courses[] courses = null;
+
+			try {
+				courses = con.getCourses(Currentuser.getId());
+				
+				for(int i = 0; i< courses.length; i++){
+					classes.add(courses[i].getCourse());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				//Toast.makeText(MainActivity.this, "User does not have any courses." , Toast.LENGTH_SHORT).show();
+			} 
 			
 			ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
 			lview.setAdapter(la);      
@@ -199,9 +214,6 @@ public class MainActivity extends Activity {
 					
 					coursename = ((TextView) view).getText().toString();
 					setStudent_Home_Page(coursename);
-					Toast.makeText(MainActivity.this, "You've selected: " + coursename, Toast.LENGTH_SHORT).show();
-					
-					
 				}
 			});
 
@@ -602,7 +614,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	/**(implement database)
+	/**DONE(FOR NOW)
 	 * Page which displays classes the teacher is teaching
 	 */
 	public void setTeacher_Selection_Page()
@@ -618,24 +630,25 @@ public class MainActivity extends Activity {
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
 			Button Create = (Button) findViewById(R.id.button2);
-			
 			ListView lview = (ListView) findViewById(R.id.listView1);
-			//TODO: pull teacher's coures from database
-			List<String> list = new ArrayList<String>();
 			
-			list.add("foo");
-			list.add("bar");
-			list.add("baz");
-			list.add("boz");
-			list.add("gaz");
-			list.add("goz");
-			list.add("roz");
-			list.add("Carl");
-			list.add("Cody");
-			list.add("codyhh09");
-			list.add("Bobo");
+			//pull the list of user courses from the database
+			GetCoursesfromUser con = new GetCoursesfromUser(); 
+			List<String> classes = new ArrayList<String>();
+			Courses[] courses = null;
+
+			try {
+				courses = con.getCourses(Currentuser.getId());
+				
+				for(int i = 0; i< courses.length; i++){
+					classes.add(courses[i].getCourse());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				//Toast.makeText(MainActivity.this, "User does not have any courses." , Toast.LENGTH_SHORT).show();
+			} 
 			
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
 			lview.setAdapter(adapter);
 			
 			lview.setOnItemClickListener(new OnItemClickListener() {
@@ -738,7 +751,7 @@ public class MainActivity extends Activity {
 			
 			//TODO: pull notifications from the database
 			List<String> list = new ArrayList<String>();
-			List<String> courseNames = new ArrayList<String>();
+			List<String> notifications = new ArrayList<String>();
 			
 			list.add("foo");
 			list.add("bar");
