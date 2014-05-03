@@ -421,4 +421,10 @@ public class RealDatabase implements IDatabase{
 		db.loadCourseInitialUserData();
 		System.out.println("Done!");
 	}
+
+	@Override
+	public Courses getCourseByName(String coursename) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

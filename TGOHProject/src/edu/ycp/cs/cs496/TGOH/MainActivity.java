@@ -1,7 +1,14 @@
 package edu.ycp.cs.cs496.TGOH;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -20,13 +27,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.ycp.cs.cs496.TGOH.controller.AddCourse;
+import edu.ycp.cs.cs496.TGOH.controller.DeleteCourse;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUser;
+import edu.ycp.cs.cs496.TGOH.controller.GetCourseByName;
 import edu.ycp.cs.cs496.TGOH.controller.GetCoursesfromUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.RegisterForCourse;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.Registration;
+import edu.ycp.cs.cs496.TGOH.temp.RegistrationStatus;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class MainActivity extends Activity {
@@ -82,13 +92,12 @@ public class MainActivity extends Activity {
 				DeleteUser con	= new DeleteUser();
         			//get a user object from the database
 					try {
-						
-						if(con.deleteUser(userName)){
+						/*if(con.deleteUser(userName)){
 							System.out.println("right");
 						}else{
 							System.out.println("wrong");
-						}
-						/*Currentuser = controller.getUser(userName);
+						}*/
+						Currentuser = controller.getUser(userName);
 						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
@@ -105,7 +114,7 @@ public class MainActivity extends Activity {
 						}else{
 							//check to make sure the userName and passWord for the user are both correct
 							Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
-						}*/
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 						Toast.makeText(MainActivity.this, "User does not exsist" , Toast.LENGTH_SHORT).show();
@@ -198,6 +207,7 @@ public class MainActivity extends Activity {
 			List<String> classes = new ArrayList<String>();
 			Courses[] courses = null;
 
+
 			try {
 				courses = con.getCourses(Currentuser.getId());
 				
@@ -207,8 +217,9 @@ public class MainActivity extends Activity {
 			} catch (Exception e) {
 				e.printStackTrace();
 				//Toast.makeText(MainActivity.this, "User does not have any courses." , Toast.LENGTH_SHORT).show();
-			} 
+			}
 			
+			final Courses[] courses2 = courses;
 			ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
 			lview.setAdapter(la);      
 			
@@ -216,10 +227,11 @@ public class MainActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
 					//pull item from listview - go to homepage associated with the class
-					String coursename = "";
-					
-					coursename = ((TextView) view).getText().toString();
-					setStudent_Home_Page(coursename);
+
+					Courses course = new Courses();
+					course = courses2[arg2]; 
+	
+					setStudent_Home_Page(course);
 				}
 			});
 
@@ -236,8 +248,8 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					setRequest_Page();
-				}
-			});
+				}}
+			);
 			
 			LogOut.setOnClickListener(new View.OnClickListener() {
 				
@@ -247,14 +259,14 @@ public class MainActivity extends Activity {
 					setDefaultView();
 				}
 			});
-		}
+			}
 	}
 
-	/**(Needs to implement database)
+	/**(Needs to implement database) Announcements
 	 * Displays a student's course homepage 
-	 * @param coursename name of the course that homepage is displayed for
+	 * @param course name of the course that homepage is displayed for
 	 */
-	public void setStudent_Home_Page(String coursename)
+	public void setStudent_Home_Page(Courses course)
 	{
 		if(username.equals(""))
 		{
@@ -266,7 +278,7 @@ public class MainActivity extends Activity {
 			setContentView(R.layout.studenthomepage);
 			
 			TextView classlbl = (TextView) findViewById(R.id.classlbl);
-			classlbl.setText("for: " + coursename); 
+			classlbl.setText("for: " + course.getCourse()); 
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
 			Button back = (Button) findViewById(R.id.button2);
@@ -459,11 +471,11 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	/**(Needs to implement database)
+	/**(DONE FOR NOW)
 	 * Teacher's homepage
 	 * @param course
 	 */
-	public void setTeacher_Main_Page(final String course)
+	public void setTeacher_Main_Page(final Courses course)
 	{
 		if(username.equals(""))
 		{
@@ -503,7 +515,16 @@ public class MainActivity extends Activity {
 			{
 				@Override
 				public void onClick(View v) 
-				{//TODO: delete course
+				{
+					//delete course
+					DeleteCourse con = new DeleteCourse(); 
+					try {
+						con.deleteCourse(course.getId());
+						Toast.makeText(MainActivity.this, "Course Deleted!" , Toast.LENGTH_SHORT).show();
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			});
 			
@@ -525,7 +546,7 @@ public class MainActivity extends Activity {
 	 * Displays the students who are pending for
 	 * a given course the teacher teaches
 	 */
-	public void setTeacher_Notification_Page(final String course)
+	public void setTeacher_Notification_Page(final Courses course)
 	{
 		if(username.equals(""))
 		{
@@ -662,6 +683,7 @@ public class MainActivity extends Activity {
 				//Toast.makeText(MainActivity.this, "User does not have any courses." , Toast.LENGTH_SHORT).show();
 			} 
 			
+			final Courses[] courses2 = courses;
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
 			lview.setAdapter(adapter);
 			
@@ -669,9 +691,12 @@ public class MainActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
 					
-					String course  = ((TextView) view).getText().toString();
+					
+					Courses course = new Courses();
+					course = courses2[arg2]; 
+	
 					setTeacher_Main_Page(course);
-					Toast.makeText(MainActivity.this, "You selected " + course, Toast.LENGTH_SHORT).show();
+
 				}
 			});
 		
@@ -744,6 +769,7 @@ public class MainActivity extends Activity {
 					AddCourse con = new AddCourse(); 
 					Courses course = new Courses();
 					course.setCourse(newCourse.getText().toString());
+					course.setTeacher(username);
 					
 					try {
 						con.postCourse(course);
@@ -751,7 +777,33 @@ public class MainActivity extends Activity {
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
+					/*Registration reg = new Registration(); 
+					reg.setUserId(Currentuser.getId());
+					RegistrationStatus regStat = null; 
+					reg.setStatus(regStat.APPROVED); 
+					GetCourseByName con1 = new GetCourseByName();
 					
+					Courses course2 = new Courses(); 
+					try {
+						course2 = con1.getCourse(newCourse.getText().toString());
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
+					
+					reg.setCourseId(course2.getId());
+					RegisterForCourse con2  = new RegisterForCourse();
+					try {
+						con2.postRegisterRequest(reg);
+					} catch (JsonGenerationException e) {
+						e.printStackTrace();
+					} catch (JsonMappingException e) {
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}*/
 				}
 			});
 			

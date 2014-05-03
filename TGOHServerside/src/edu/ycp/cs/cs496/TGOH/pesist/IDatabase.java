@@ -37,5 +37,5 @@ public interface IDatabase {
 	
 	public User[] getPendingUserforCourse(int course);
 
-	
+	public Courses getCourseByName(String coursename);
 }

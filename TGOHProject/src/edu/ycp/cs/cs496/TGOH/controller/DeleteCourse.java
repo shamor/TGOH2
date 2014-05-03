@@ -12,22 +12,19 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-/**
- * Controller to get an {@link Item} given the item name.
- */
-public class DeleteUser {
-	public boolean deleteUser(String userName) throws ClientProtocolException, URISyntaxException, IOException {
-		return makeDeleteRequest(userName);
+
+public class DeleteCourse {
+	public boolean deleteCourse(int courseId) throws ClientProtocolException, URISyntaxException, IOException {
+		return makeDeleteRequest(courseId);
 	}
 	
-	private boolean makeDeleteRequest(String userName) throws URISyntaxException, ClientProtocolException, IOException {
-		// Implement method to issue delete inventory request
+	private boolean makeDeleteRequest(int courseId) throws URISyntaxException, ClientProtocolException, IOException {
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		
 		// Construct URI
 		URI uri;
-		uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/" + "delete-" +  userName, null, null);
+		uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/courses/" + courseId, null, null);
 
 		// Construct request
 		HttpDelete request = new HttpDelete(uri);

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.controller.AddingANewCourse;
+import edu.ycp.cs.cs496.TGOH.controller.AddingCoursesToUser;
+import edu.ycp.cs.cs496.TGOH.controller.GetCourseByName;
+import edu.ycp.cs.cs496.TGOH.controller.GetUserController;
 import edu.ycp.cs.cs496.TGOH.controller.RemovingACourse;
 import edu.ycp.cs.cs496.TGOH.controller.getAllCourses;
 import edu.ycp.cs.cs496.TGOH.controller.gettingACourse;
@@ -38,11 +41,12 @@ private static final long serialVersionUID = 1L;
 		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);
 		}
-		
-		// Use a GetItemByName controller to find the item in the database
-		int courseId = Integer.parseInt(pathInfo);
-		gettingACourse controller = new gettingACourse();
-		Courses course = controller.getCourse(courseId);
+		GetCourseByName con = new GetCourseByName(); 
+		Courses course = con.getCourseByName(pathInfo);
+		// Use a GettingACourse controller to find the item in the database
+		//int courseId = Integer.parseInt(pathInfo);
+		//gettingACourse controller = new gettingACourse();
+		//Courses course = controller.getCourse(courseId);
 		
 		if (course == null) {
 			// No such item, so return a NOT FOUND response
@@ -75,10 +79,23 @@ private static final long serialVersionUID = 1L;
 
 	
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Courses course = JSON.getObjectMapper().readValue(req.getReader(), Courses.class);
+		String pathInfo = req.getPathInfo();
+		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
+			// Set status code and content type
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			resp.setContentType("application/json");
+			return;
+		}
+		
+		// Get the item name
+		if (pathInfo.startsWith("/")){
+			pathInfo = pathInfo.substring(1);
+		}
+		
+		int courseId = Integer.parseInt(pathInfo);
 		
 		RemovingACourse deleteUser = new RemovingACourse();
-		deleteUser.removingACourse(course.getId());
+		deleteUser.removingACourse(courseId);
 		
 		// send response
 		resp.setStatus(HttpServletResponse.SC_OK);
@@ -86,6 +103,6 @@ private static final long serialVersionUID = 1L;
 		
 		gettingACourse controller = new gettingACourse();
 		
-		JSON.getObjectMapper().writeValue(resp.getWriter(), controller.getCourse(course.getId()));
+		JSON.getObjectMapper().writeValue(resp.getWriter(), controller.getCourse(courseId));
 	}
 }

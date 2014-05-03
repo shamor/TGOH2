@@ -108,7 +108,7 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	public void deleteCourse(int Coursename){
-		courses.remove(Coursename);
+		courses.remove(Coursename-1);
 	}
 
 	public Registration registerUserForCourse(int user, int course) {
@@ -165,6 +165,14 @@ public class FakeDatabase implements IDatabase {
 		return user;
 	}
 	
+	public Courses getCourseByName(String coursename){
+		for(Courses x : courses){
+			if(x.getCourse() == coursename){
+				return x;
+			}
+		}
+		return null;
+	}
 	
 
 }
