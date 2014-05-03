@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.ycp.cs.cs496.TGOH.controller.AddCourse;
+import edu.ycp.cs.cs496.TGOH.controller.DeleteUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetCoursesfromUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.RegisterForCourse;
@@ -78,9 +79,16 @@ public class MainActivity extends Activity {
 				String passWord = Password.getText().toString();
         		
 				GetUser controller = new GetUser();
+				DeleteUser con	= new DeleteUser();
         			//get a user object from the database
 					try {
-						Currentuser = controller.getUser(userName);
+						
+						if(con.deleteUser(userName)){
+							System.out.println("right");
+						}else{
+							System.out.println("wrong");
+						}
+						/*Currentuser = controller.getUser(userName);
 						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
@@ -97,7 +105,7 @@ public class MainActivity extends Activity {
 						}else{
 							//check to make sure the userName and passWord for the user are both correct
 							Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
-						}
+						}*/
 					} catch (Exception e) {
 						e.printStackTrace();
 						Toast.makeText(MainActivity.this, "User does not exsist" , Toast.LENGTH_SHORT).show();
@@ -382,16 +390,7 @@ public class MainActivity extends Activity {
 									
 									try {
 										con.postRegisterRequest(reg);
-									} catch (JsonGenerationException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									} catch (JsonMappingException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									} catch (URISyntaxException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									} catch (IOException e) {
+									} catch (Exception e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}

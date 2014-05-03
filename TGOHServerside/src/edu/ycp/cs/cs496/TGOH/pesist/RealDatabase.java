@@ -14,7 +14,7 @@ import edu.ycp.cs.cs496.TGOH.temp.User;
 public class RealDatabase implements IDatabase{
 	static {
 		try {
-			Class.forName("org.sqlite.JDBC");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (Exception e) {
 			throw new IllegalStateException("Could not load sqlite driver");
 		}
@@ -36,7 +36,7 @@ public class RealDatabase implements IDatabase{
 				
 				try {
 					stmt = conn.prepareStatement(
-							"insert into users (username, firstname, lastname, password) values (?, ?, ?, ?)",
+							"insert into users (username, firstname, lastname, password, type) values (?, ?, ?, ?, ?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 					);
 					
@@ -48,7 +48,7 @@ public class RealDatabase implements IDatabase{
 					// Determine the auto-generated id
 					generatedKeys = stmt.getGeneratedKeys();
 					if (!generatedKeys.next()) {
-						throw new SQLException("Could not get auto-generated key for inserted Item");
+						throw new SQLException("Could not get auto-generated key for inserted Users");
 					}
 					
 					user.setId(generatedKeys.getInt(1));
@@ -64,9 +64,26 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public boolean deleteUser(User user) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteUser(final User user) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement("Delete from users where users.username = ?");
+					stmt.setString(1, user.getUserName());
+					
+					stmt.executeQuery().deleteRow();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -108,7 +125,7 @@ public class RealDatabase implements IDatabase{
 				ResultSet resultSet = null;
 				
 				try {
-					stmt = conn.prepareStatement("select courses.* from users where cousres.id = ?");
+					stmt = conn.prepareStatement("select courses.* from courses where courses.id = ?");
 					stmt.setInt(1, coursename);
 					
 					resultSet = stmt.executeQuery();
@@ -259,7 +276,7 @@ public class RealDatabase implements IDatabase{
 	}
 
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+		Connection conn = DriverManager.getConnection("jdbc:derby:test.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -273,6 +290,7 @@ public class RealDatabase implements IDatabase{
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
 				
 				try {
 					// Note that the 'id' column is an autoincrement primary key,
@@ -280,16 +298,52 @@ public class RealDatabase implements IDatabase{
 					// are inserted.
 					stmt = conn.prepareStatement(
 							"create table users (" +
-							"  id integer primary key autoincrement," +
+							"  id integer primary key not null generated always as identity," +
 							"  username varchar(30) unique," +
 							"  firstname varchar(30) unique," +
 							"  lastname varchar(30) unique," +
 							"  password varchar(30) unique," +
-							"  type boolean not null default 1" +
+							"  type boolean not null " +
 							")"
+
 					);
 					
 					stmt.executeUpdate();
+					
+					stmt2 = conn.prepareStatement(
+							"create table courses (" +
+							"  id integer primary key not null generated always as identity," +
+							"  coursename varchar(10) unique" +
+							")"
+					);
+					
+					stmt2.executeUpdate();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+	}	
+	
+	public void loadInitialUserData() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("insert into users (username, firstname, lastname, password, type) values (?, ?, ?, ?, ?)");
+					storeUserNoId(new User("Apples","Apples","Apples","Apples", true), stmt, 1);
+					stmt.addBatch();
+					storeUserNoId(new User("Oranges","Oranges","Oranges","Oranges",false), stmt, 1);
+					stmt.addBatch();
+					storeUserNoId(new User("Pomegranates","Pomegranates","Pomegranates","Pomegranates",true), stmt, 1);
+					stmt.addBatch();
+					
+					stmt.executeBatch();
 					
 					return true;
 				} finally {
@@ -299,19 +353,19 @@ public class RealDatabase implements IDatabase{
 		});
 	}
 	
-	public void loadInitialData() {
+	public void loadCourseInitialUserData() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				
 				try {
-					stmt = conn.prepareStatement("insert into items (name, quantity) values (?, ?)");
-					storeItemNoId(new User("Apples","Apples","Apples","Apples",true), stmt, 1);
+					stmt = conn.prepareStatement("insert into courses (coursename) values (?)");
+					storeCourseNoId(new Courses("CS360"), stmt, 1);
 					stmt.addBatch();
-					storeItemNoId(new User("Oranges","Oranges","Oranges","Oranges",false), stmt, 1);
+					storeCourseNoId(new Courses("CS101"), stmt, 1);
 					stmt.addBatch();
-					storeItemNoId(new User("Pomegranates","Pomegranates","Pomegranates","Pomegranates",true), stmt, 1);
+					storeCourseNoId(new Courses("CS201"), stmt, 1);
 					stmt.addBatch();
 					
 					stmt.executeBatch();
@@ -333,6 +387,7 @@ public class RealDatabase implements IDatabase{
 		stmt.setString(index++, user.getFirstName());
 		stmt.setString(index++, user.getLastName());
 		stmt.setString(index++, user.getPassword());
+		stmt.setBoolean(index++, user.getType());
 	}
 	
 	protected void storeCourseNoId(Courses course, PreparedStatement stmt, int index) throws SQLException {
@@ -344,13 +399,16 @@ public class RealDatabase implements IDatabase{
 	}
 	
 	protected void loadUser(User item, ResultSet resultSet, int index) throws SQLException {
+		item.setId(resultSet.getInt(index++));
 		item.setUserName(resultSet.getString(index++));
 		item.setFirstName(resultSet.getString(index++));
 		item.setLastName(resultSet.getString(index++));
 		item.setPassword(resultSet.getString(index++));
+		item.setType(resultSet.getBoolean(index++));
 	}
 	
 	protected void loadCourse(Courses item, ResultSet resultSet, int index) throws SQLException {
+		item.setId(resultSet.getInt(index++));
 		item.setCourse(resultSet.getString(index++));
 	}
 	
@@ -359,7 +417,8 @@ public class RealDatabase implements IDatabase{
 		System.out.println("Creating tables...");
 		db.createTables();
 		System.out.println("Loading initial data...");
-		db.loadInitialData();
+		db.loadInitialUserData();
+		db.loadCourseInitialUserData();
 		System.out.println("Done!");
 	}
 }

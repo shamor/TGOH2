@@ -13,9 +13,9 @@ public interface IDatabase {
  */
 	public void addUser(User user);
 	
-	public boolean deleteUser(User user);
-	
 	public User getUser(String Username);
+	
+	public boolean deleteUser(User user);
 	
 	public Courses getCourse(int coursename);
 	
@@ -36,4 +36,6 @@ public interface IDatabase {
 	public Registration AcceptingUserforCourse(User user, Courses course);
 	
 	public User[] getPendingUserforCourse(int course);
+
+	
 }
