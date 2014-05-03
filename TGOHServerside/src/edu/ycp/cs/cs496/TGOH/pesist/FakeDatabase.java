@@ -60,19 +60,24 @@ public class FakeDatabase implements IDatabase {
 		//add user to the list
 		users.add(user);
 	}
+	
+	public User getUserfromRegistration(int userId){
+		for(User user : users){
+			if(user.getId()==userId){
+				return user;
+			}
+		}
+		return null;
+	}
 
 	// getting a user
 	public User getUser(String Username) {
-		System.out.println("Looking for user: " + Username);
 		for (User user1 : users) {
 			if (user1.getUserName().equals(Username)) {
 				// return a copy
-				System.out.println("Found it, yay");
 				return user1;
 			}
 		}
-		// no such user in database
-		System.out.println("Nope, not there");
 		return null;
 	}
 
@@ -129,6 +134,12 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
+	
+	public Registration AcceptingUserforCourse(User user, Courses course){
+		Registration reg = findUserForCourse(user, course);
+		reg.setStatus(RegistrationStatus.APPROVED);
+		return reg;
+	}
 
 	public Courses[] getCoursefromUser(int user){
 		int count = 0;
@@ -141,5 +152,19 @@ public class FakeDatabase implements IDatabase {
 		}
 		return course;
 	}
+	
+	public User[] getPendingUserforCourse(int course){
+		int count = 0;
+		User[] user = new User[30];
+		for(Registration temp : registrations){
+			if(temp.getCourseId() == course && count < 30 && temp.getStatus()==RegistrationStatus.APPROVED){
+				user[count] = getUserfromRegistration(temp.getUserId());
+				count++;
+			}
+		}
+		return user;
+	}
+	
+	
 
 }

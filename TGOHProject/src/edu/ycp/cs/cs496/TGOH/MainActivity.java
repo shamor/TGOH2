@@ -1,14 +1,7 @@
 package edu.ycp.cs.cs496.TGOH;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.http.client.ClientProtocolException;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,17 +15,18 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.ycp.cs.cs496.TGOH.controller.AddCourse;
+import edu.ycp.cs.cs496.TGOH.controller.DeleteUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetCoursesfromUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
+import edu.ycp.cs.cs496.TGOH.controller.RegisterForCourse;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
+import edu.ycp.cs.cs496.TGOH.temp.Registration;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class MainActivity extends Activity {
@@ -85,9 +79,16 @@ public class MainActivity extends Activity {
 				String passWord = Password.getText().toString();
         		
 				GetUser controller = new GetUser();
+				DeleteUser con	= new DeleteUser();
         			//get a user object from the database
 					try {
-						Currentuser = controller.getUser(userName);
+						
+						if(con.deleteUser(userName)){
+							System.out.println("right");
+						}else{
+							System.out.println("wrong");
+						}
+						/*Currentuser = controller.getUser(userName);
 						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
@@ -104,7 +105,7 @@ public class MainActivity extends Activity {
 						}else{
 							//check to make sure the userName and passWord for the user are both correct
 							Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
-						}
+						}*/
 					} catch (Exception e) {
 						e.printStackTrace();
 						Toast.makeText(MainActivity.this, "User does not exsist" , Toast.LENGTH_SHORT).show();
@@ -136,7 +137,7 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				if(Password.getText().toString().equals(Passwordcheck.getText().toString())){//check to see if passwords entered are equal
+				if(Password.getText().toString().equals(Passwordcheck.getText().toString())){   //check to see if passwords entered are equal
 					adduser controller = new adduser();
 					boolean type = isStudent.isChecked();
 					try {
@@ -346,21 +347,28 @@ public class MainActivity extends Activity {
 			
 			submit.setOnClickListener(new View.OnClickListener() 
 			{
+				Courses[] courses = null;
 				@Override
 				public void onClick(View v) {
 					ListView lview = (ListView) findViewById(R.id.listView1);
 					//TODO: when needed this can be set to hold data pulled from database
 					String Teachername = TeacherName.getText().toString();
 					
+					//pull the list of user courses from the database
+					GetCoursesfromUser con = new GetCoursesfromUser(); 
 					List<String> classes = new ArrayList<String>();
 					
-					classes.add("101");
-					classes.add("102");
-					classes.add("103");
-					classes.add("104");
-					classes.add("105");
-					classes.add("106");
-					classes.add("107");
+
+					try {
+						courses = con.getCourses(Currentuser.getId());
+						
+						for(int i = 0; i< courses.length; i++){
+							classes.add(courses[i].getCourse());
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						//Toast.makeText(MainActivity.this, "User does not have any courses." , Toast.LENGTH_SHORT).show();
+					} 
 					
 					ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, classes);
 					lview.setAdapter(la);  
@@ -369,6 +377,23 @@ public class MainActivity extends Activity {
 								@Override
 								public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
 									CharSequence msg = "You selected " + ((TextView) view).getText();
+									
+									Registration reg = new Registration();
+									RegisterForCourse con = new RegisterForCourse();
+									reg.setUserId(Currentuser.getId());
+									
+									for(int i = 0; i < 7;i++){
+										if(courses[i].getCourse() == ((TextView) view).getText().toString()){
+											reg.setCourseId(courses[i].getId());
+										}
+									}
+									
+									try {
+										con.postRegisterRequest(reg);
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
 									Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 								}
 							});

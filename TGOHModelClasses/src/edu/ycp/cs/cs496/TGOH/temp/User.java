@@ -1,9 +1,5 @@
 package edu.ycp.cs.cs496.TGOH.temp;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
 	private int id;
 	private String Username;
@@ -22,7 +18,6 @@ public class User {
 		this.LastName = LastName;
 		this.Password = Password;
 		this.type = type;
-		//this.course = new ArrayList<String>();
 	}
 	
 	public void setId(int id) {
