@@ -21,6 +21,10 @@
 		<servlet-name>RegistrationForCourses</servlet-name>
 		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.RegistrationForCourses</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GetPendingUserForCourse</servlet-name>
+		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.GetPendingUserForCourse</servlet-class>
+	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
 	<servlet-mapping>
@@ -39,5 +43,8 @@
 		<servlet-name>RegistrationForCourses</servlet-name>
 		<url-pattern>/regforcourses/*</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>	
+		<servlet-name>GetPendingUserForCourse</servlet-name>
+		<url-pattern>/usersforcourse/*</url-pattern>
+	</servlet-mapping>
 </web-app>

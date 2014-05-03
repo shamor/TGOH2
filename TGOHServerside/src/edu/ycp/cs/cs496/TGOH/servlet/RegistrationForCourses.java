@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
-import edu.ycp.cs.cs496.TGOH.controller.AddingANewCourse;
+import edu.ycp.cs.cs496.TGOH.controller.AcceptingUserforCourse;
 import edu.ycp.cs.cs496.TGOH.controller.AddingCoursesToUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetUserController;
-import edu.ycp.cs.cs496.TGOH.controller.RemovingACourse;
 import edu.ycp.cs.cs496.TGOH.controller.RemovingAUserFromCourse;
 import edu.ycp.cs.cs496.TGOH.controller.findUserForCourse;
 import edu.ycp.cs.cs496.TGOH.controller.getAllCourses;
@@ -56,8 +58,6 @@ private static final long serialVersionUID = 1L;
 		
 		gettingACourse cont = new gettingACourse();
 		Courses course = cont.getCourse(courseId);
-		System.out.println(course.getId());
-		
 		
 		findUserForCourse controller = new findUserForCourse();
 		Registration reg = controller.findUserforCourse(userId, course);
@@ -105,5 +105,44 @@ private static final long serialVersionUID = 1L;
 		gettingACourse controller = new gettingACourse();
 		
 		JSON.getObjectMapper().writeValue(resp.getWriter(), controller.getCourse(reg.getId()));
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, JsonGenerationException, JsonMappingException {
+		
+		String pathInfo = req.getPathInfo();
+		
+		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			resp.setContentType("application/json");
+			return;
+		}else{
+			// Get the item name
+			if (pathInfo.startsWith("/")){
+				pathInfo = pathInfo.substring(1);
+			}
+			String user = pathInfo.substring(0, pathInfo.indexOf('/'));
+			
+			if (pathInfo.contains("/")){
+				pathInfo = pathInfo.substring(pathInfo.indexOf('/')+1, pathInfo.length());
+			}
+			int courseId = Integer.parseInt(pathInfo);
+			// Use a GetItemByName controller to find the item in the database
+			GetUserController con = new GetUserController();
+			User userId = con.getUser(user);
+			
+			gettingACourse cont = new gettingACourse();
+			Courses course = cont.getCourse(courseId);
+			
+			AcceptingUserforCourse controller = new AcceptingUserforCourse();
+			Registration reg = controller.acceptingUserforCourse(userId, course);
+			
+			// Set status code and content type
+			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setContentType("application/json");
+			
+			// writing the operation out.
+			JSON.getObjectMapper().writeValue(resp.getWriter(), reg);
+		}
 	}
 }

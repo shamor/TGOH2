@@ -32,4 +32,8 @@ public interface IDatabase {
 	public void RemovingUserFromCourse(int user, int course);
 
 	public Registration registerUserForCourse(int user, int course);
+	
+	public Registration AcceptingUserforCourse(User user, Courses course);
+	
+	public User[] getPendingUserforCourse(int course);
 }
