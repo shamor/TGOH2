@@ -71,18 +71,21 @@ public class Userpage extends HttpServlet{
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.setContentType("text/plain");
-			resp.getWriter().println("Getting entire UserList not supported yet");
+			resp.getWriter().println("No user listed");
 			return;
 		}
+		if (pathInfo.startsWith("/")){
+			pathInfo = pathInfo.substring(1);
+		}
+		
+		// Use a GetItemByName controller to find the item in the database
+		GetUserController controller = new GetUserController();
+		User user = controller.getUser(pathInfo);
 		
 		// Get the item name
 		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);
 		}
-
-		// Use a GetItemByName controller to find the item in the database
-		GetUserController controller = new GetUserController();
-		User user = controller.getUser(pathInfo);
 	
 		DeleteUserController deleteUser = new DeleteUserController();
 		deleteUser.deleteUser(user);
