@@ -37,7 +37,8 @@
         android:layout_below="@+id/button1"
         android:layout_toLeftOf="@+id/submitbtn"
         android:ems="10"
-        android:inputType="text" >
+        android:inputType="text"
+        android:maxLength="30" >
 
         <requestFocus />
     </EditText>

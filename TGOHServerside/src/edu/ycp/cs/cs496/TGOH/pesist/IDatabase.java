@@ -45,4 +45,6 @@ public interface IDatabase {
 	public List<Notification> getNotificationForCourse(int courseId);
 	
 	public Notification getNotification(int id);
+	
+	public void changePass(String password);
 }

@@ -166,6 +166,11 @@ public class FakeDatabase implements IDatabase {
 		}
 		return user;
 	}
+
+	@Override
+	public void changePass(String password) {
+		//TODO: Implement
+	}
 	
 	public Notification getNotification(int id){
 		for(Notification not : notifications){

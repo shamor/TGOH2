@@ -1,7 +1,14 @@
 package edu.ycp.cs.cs496.TGOH;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -23,6 +30,7 @@ import edu.ycp.cs.cs496.TGOH.controller.AddCourse;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetCoursesfromUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
+import edu.ycp.cs.cs496.TGOH.controller.PutPassword;
 import edu.ycp.cs.cs496.TGOH.controller.RegisterForCourse;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
@@ -88,7 +96,7 @@ public class MainActivity extends Activity {
 						}else{
 							System.out.println("wrong");
 						}
-						/*Currentuser = controller.getUser(userName);
+						Currentuser = controller.getUser(userName);
 						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
@@ -105,7 +113,7 @@ public class MainActivity extends Activity {
 						}else{
 							//check to make sure the userName and passWord for the user are both correct
 							Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
-						}*/
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 						Toast.makeText(MainActivity.this, "User does not exsist" , Toast.LENGTH_SHORT).show();
@@ -192,6 +200,7 @@ public class MainActivity extends Activity {
 			Button Req = (Button) findViewById(R.id.btnRequestClass);
 			ListView lview = (ListView) findViewById(R.id.listView1);
 			Button LogOut = (Button) findViewById(R.id.button1);
+			Button Settings = (Button) findViewById(R.id.button2);
 			
 			//pull the list of user courses from the database
 			GetCoursesfromUser con = new GetCoursesfromUser(); 
@@ -247,6 +256,15 @@ public class MainActivity extends Activity {
 				public void onClick(View v) {
 					// Logs the user out and brings back to sign-in page.
 					setDefaultView();
+				}
+			});
+			
+			Settings.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// Logs the user out and brings back to sign-in page.
+					setSettings_Page();
 				}
 			});
 		}
@@ -509,7 +527,6 @@ public class MainActivity extends Activity {
 				}
 			});
 			
-			// Add onClickListener
 			LogOut.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
@@ -646,6 +663,7 @@ public class MainActivity extends Activity {
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
 			Button Create = (Button) findViewById(R.id.button2);
+			Button Settings = (Button) findViewById(R.id.button3);
 			ListView lview = (ListView) findViewById(R.id.listView1);
 			
 			//pull the list of user courses from the database
@@ -694,6 +712,15 @@ public class MainActivity extends Activity {
 				public void onClick(View v) 
 				{
 					setCreate_Course();
+				}
+			});
+			
+			Settings.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// Logs the user out and brings back to sign-in page.
+					setSettings_Page();
 				}
 			});
 		}
@@ -765,7 +792,6 @@ public class MainActivity extends Activity {
 	 */
 	public void setMaster_Notification_Page()
 	{
-
 		if(username.equals(""))
 		{
 			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
@@ -819,6 +845,106 @@ public class MainActivity extends Activity {
 				public void onClick(View v) 
 				{
 					setDefaultView();
+				}
+			});
+		}
+	}
+	
+	public void setSettings_Page()
+	{
+		if(username.equals(""))
+		{
+			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
+			setDefaultView();
+		}
+		else
+		{
+			setContentView(R.layout.settings);
+			
+			Button Submit = (Button) findViewById(R.id.button1);	
+			Button LogOut = (Button) findViewById(R.id.button2);
+			Button Delete = (Button) findViewById(R.id.button3);			
+			Button Back = (Button) findViewById(R.id.button4);
+			
+	        final EditText Password = (EditText) findViewById(R.id.editText1);
+	        final EditText Passwordcheck = (EditText) findViewById(R.id.editText2);
+	        
+			Submit.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				// Changes the user's password
+				public void onClick(View v) 
+				{
+					//TODO: Change the user's password
+					if(Password.getText().toString().equals(Passwordcheck.getText().toString())) 				//check to see if passwords entered are equal
+					{
+						PutPassword newPass = new PutPassword();
+						
+						try {
+							newPass.putPassword(Currentuser);
+						} catch (JsonGenerationException e) {
+							e.printStackTrace();
+						} catch (JsonMappingException e) {
+							e.printStackTrace();
+						} catch (URISyntaxException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					else																						//Inform users that their passwords do not match each other
+					{
+						Toast.makeText(MainActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+	        
+			LogOut.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				// Logs the user out and brings back to sign-in page.
+				public void onClick(View v) 
+				{
+					setDefaultView();
+				}
+			});
+			
+			Delete.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				// Deletes the user's account FOREVER!!!
+				public void onClick(View v) 
+				{
+					//TODO: Delete the user's account FOREVER!!!
+					DeleteUser delU = new DeleteUser();
+					
+					try {
+						delU.deleteUser(username);
+					} catch (ClientProtocolException e) {
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			
+			Back.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					if(Currentuser.getType())
+					{
+						//user is student, go to student page
+						setClass_Selection_Page();
+					}
+					else
+					{
+						//user is teacher, go to teacher page
+						setTeacher_Selection_Page();
+					}
 				}
 			});
 		}

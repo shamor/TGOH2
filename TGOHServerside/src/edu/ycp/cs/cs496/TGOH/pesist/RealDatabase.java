@@ -542,4 +542,10 @@ public class RealDatabase implements IDatabase{
 		db.loadCourseInitialUserData();
 		System.out.println("Done!");
 	}
+
+	@Override
+	public void changePass(String password) {
+		// TODO Auto-generated method stub
+		
+	}
 }
