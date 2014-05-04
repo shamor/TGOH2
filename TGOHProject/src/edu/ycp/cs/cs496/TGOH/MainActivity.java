@@ -196,10 +196,10 @@ public class MainActivity extends Activity {
 			//pull the list of user courses from the database
 			GetCoursesfromUser con = new GetCoursesfromUser(); 
 			List<String> classes = new ArrayList<String>();
-			Courses[] courses = null;
+			Courses[]courses = null;
 
 			try {
-				courses = con.getCourses(Currentuser.getId());
+				 courses = con.getCourses(Currentuser.getId());
 				
 				for(int i = 0; i< courses.length; i++){
 					classes.add(courses[i].getCourse());
@@ -208,7 +208,7 @@ public class MainActivity extends Activity {
 				e.printStackTrace();
 				//Toast.makeText(MainActivity.this, "User does not have any courses." , Toast.LENGTH_SHORT).show();
 			} 
-			
+			final Courses[] temp = courses;
 			ArrayAdapter<String> la = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, classes);
 			lview.setAdapter(la);      
 			
@@ -218,8 +218,10 @@ public class MainActivity extends Activity {
 					//pull item from listview - go to homepage associated with the class
 					String coursename = "";
 					
-					coursename = ((TextView) view).getText().toString();
-					setStudent_Home_Page(coursename);
+					coursename = temp[arg2].getCourse();
+					
+
+					setStudent_Home_Page(temp[arg2]);
 				}
 			});
 
@@ -254,7 +256,7 @@ public class MainActivity extends Activity {
 	 * Displays a student's course homepage 
 	 * @param coursename name of the course that homepage is displayed for
 	 */
-	public void setStudent_Home_Page(String coursename)
+	public void setStudent_Home_Page(Courses course)
 	{
 		if(username.equals(""))
 		{
@@ -266,7 +268,7 @@ public class MainActivity extends Activity {
 			setContentView(R.layout.studenthomepage);
 			
 			TextView classlbl = (TextView) findViewById(R.id.classlbl);
-			classlbl.setText("for: " + coursename); 
+			classlbl.setText("for: " + course.getCourse()); 
 			
 			Button LogOut = (Button) findViewById(R.id.button1);
 			Button back = (Button) findViewById(R.id.button2);

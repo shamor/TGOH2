@@ -17,6 +17,7 @@ public class FakeDatabase implements IDatabase {
 
 	private int registrationCounter = 1;
 	private int courseCounter = 1;
+	private int notCounter = 1;
 
 	public FakeDatabase() {
 		users = new ArrayList<User>();
@@ -31,7 +32,7 @@ public class FakeDatabase implements IDatabase {
 		Courses c = new Courses();
 		c.setId(courseCounter++);
 		c.setCourse("Introduction to Something");
-		c.setTeacher("Babcock");
+		c.setTeacher(1);
 		courses.add(c);
 
 		registrations = new ArrayList<Registration>();
@@ -54,6 +55,7 @@ public class FakeDatabase implements IDatabase {
 		not.setText("going for a hike");
 		not.setId(1);
 		not.setCourseId(1);
+		notifications.add(not);
 	}
 
 	public void addUser(User user) {
@@ -121,8 +123,8 @@ public class FakeDatabase implements IDatabase {
 		return reg;
 	}
 
-	public void RemovingUserFromCourse(int user, int course){
-		Registration reg = new Registration(user, course);
+	public void RemovingUserFromCourse(User user, Courses course){
+		Registration reg = findUserForCourse(user, course);
 		registrations.remove(reg.getId());
 	}
 
@@ -165,6 +167,35 @@ public class FakeDatabase implements IDatabase {
 		return user;
 	}
 	
+	public Notification getNotification(int id){
+		for(Notification not : notifications){
+			if(not.getId() == id){
+				return not;
+			}
+		}
+		return null;
+	}
 	
-
+	public List<Notification> getNotificationForCourse(int courseId){
+		List<Notification> not = new ArrayList<Notification>();
+		for(Notification temp : notifications){
+			if(temp.getCourseId() == courseId){
+				not.add(getNotification(temp.getId()));
+			}
+		}
+		return not;
+	}
+	
+	public Notification addNotification(int courseId, String text){
+		Notification not = new Notification();
+		not.setCourseId(courseId);
+		not.setText(text);
+		not.setId(notCounter++);
+		notifications.add(not);
+		return not;
+	}
+	
+	public void removeNotification(int id){
+		notifications.remove(id);
+	}
 }

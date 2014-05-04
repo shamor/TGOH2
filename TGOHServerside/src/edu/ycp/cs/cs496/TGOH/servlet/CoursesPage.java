@@ -75,17 +75,23 @@ private static final long serialVersionUID = 1L;
 
 	
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Courses course = JSON.getObjectMapper().readValue(req.getReader(), Courses.class);
+		String pathInfo = req.getPathInfo();
+		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
+			resp.getWriter().write("we delete nothing");
+		}else{
 		
-		RemovingACourse deleteUser = new RemovingACourse();
-		deleteUser.removingACourse(course.getId());
-		
-		// send response
-		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.setContentType("application/json");	
-		
-		gettingACourse controller = new gettingACourse();
-		
-		JSON.getObjectMapper().writeValue(resp.getWriter(), controller.getCourse(course.getId()));
+			int courseid = Integer.parseInt(pathInfo);	
+				
+			RemovingACourse deleteUser = new RemovingACourse();
+			deleteUser.removingACourse(courseid);
+			
+			// send response
+			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setContentType("application/json");	
+			
+			gettingACourse controller = new gettingACourse();
+			
+			JSON.getObjectMapper().writeValue(resp.getWriter(), controller.getCourse(courseid));
+		}
 	}
 }

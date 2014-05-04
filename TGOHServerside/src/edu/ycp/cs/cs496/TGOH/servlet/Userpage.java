@@ -67,18 +67,32 @@ public class Userpage extends HttpServlet{
 
 	
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		User user = JSON.getObjectMapper().readValue(req.getReader(), User.class);
+		String pathInfo = req.getPathInfo();
+		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			resp.setContentType("text/plain");
+			resp.getWriter().println("Getting entire UserList not supported yet");
+			return;
+		}
 		
+		// Get the item name
+		if (pathInfo.startsWith("/")){
+			pathInfo = pathInfo.substring(1);
+		}
+
+		// Use a GetItemByName controller to find the item in the database
+		GetUserController controller = new GetUserController();
+		User user = controller.getUser(pathInfo);
+	
 		DeleteUserController deleteUser = new DeleteUserController();
 		deleteUser.deleteUser(user);
-		
-		// send response
+
+		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.setContentType("application/json");	
+		resp.setContentType("application/json");
 		
-		GetUserController getUser = new GetUserController();
-		
-		JSON.getObjectMapper().writeValue(resp.getWriter(), getUser.getUser(user.getUserName()));
+		// Return the item in JSON format
+		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
 	}
 }
 

@@ -25,6 +25,10 @@
 		<servlet-name>GetPendingUserForCourse</servlet-name>
 		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.GetPendingUserForCourse</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Notificationpage</servlet-name>
+		<servlet-class>edu.ycp.cs.cs496.TGOH.servlet.Notificationpage</servlet-class>
+	</servlet>
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
 	<servlet-mapping>
@@ -46,5 +50,9 @@
 	<servlet-mapping>	
 		<servlet-name>GetPendingUserForCourse</servlet-name>
 		<url-pattern>/usersforcourse/*</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>	
+		<servlet-name>Notificationpage</servlet-name>
+		<url-pattern>/notification/*</url-pattern>
 	</servlet-mapping>
 </web-app>

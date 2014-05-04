@@ -5,9 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
+import edu.ycp.cs.cs496.TGOH.temp.Notification;
 import edu.ycp.cs.cs496.TGOH.temp.Registration;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
@@ -75,7 +77,8 @@ public class RealDatabase implements IDatabase{
 					stmt = conn.prepareStatement("Delete from users where users.username = ?");
 					stmt.setString(1, user.getUserName());
 					
-					stmt.executeQuery().deleteRow();
+					
+					
 					
 					return true;
 				} finally {
@@ -198,18 +201,69 @@ public class RealDatabase implements IDatabase{
 
 	@Override
 	public List<Courses> getAllCourse() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<Courses>>() {
+			@Override
+			public List<Courses> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					// Note: no 'where' clause, so all items will be returned
+					stmt = conn.prepareStatement("select courses.* from courses");
+					
+					resultSet = stmt.executeQuery();
+
+					List<Courses> result = new ArrayList<Courses>();
+					while (resultSet.next()) {
+						Courses course = new Courses();
+						course.setId(resultSet.getInt(1));
+						course.setCourse(resultSet.getString(2));
+						result.add(course);
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 
 	@Override
-	public Registration registerUserForCourse(int user, int course) {
-		// TODO Auto-generated method stub
-		return null;
+	public Registration registerUserForCourse(final int user, final int course) {
+		return executeTransaction(new Transaction<Registration>() {
+			@Override
+			public Registration execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement("select registrations.* from registrations where registrations.userid = ? and registration.courseid = ?");
+					stmt.setInt(1, user);
+					stmt.setInt(2, course);
+					
+					resultSet = stmt.executeQuery();
+					
+					if (!resultSet.next()) {
+						// No such item
+						return null;
+					}
+					
+					Registration reg = new Registration();
+					//loadUser(user, resultSet, 1);
+					//return user;
+					return null;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 
 	@Override
-	public void RemovingUserFromCourse(int user, int course) {
+	public void RemovingUserFromCourse(User user, Courses course) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -228,6 +282,31 @@ public class RealDatabase implements IDatabase{
 
 	@Override
 	public User[] getPendingUserforCourse(int course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+	@Override
+	public void removeNotification(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Notification addNotification(int courseId, String text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Notification> getNotificationForCourse(int courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Notification getNotification(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -291,6 +370,8 @@ public class RealDatabase implements IDatabase{
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;
 				
 				try {
 					// Note that the 'id' column is an autoincrement primary key,
@@ -319,10 +400,33 @@ public class RealDatabase implements IDatabase{
 					
 					stmt2.executeUpdate();
 					
+					stmt3 = conn.prepareStatement(
+							"create table registration (" +
+							"  id integer primary key not null generated always as identity," +
+							"  userid integer unique," +
+							"  courseid integer unique," +
+							"  type enum('PENDING', 'ACCEPTED') not null default 'PENDING" +
+							")"
+					);
+					
+					stmt3.executeUpdate();
+					
+					stmt4 = conn.prepareStatement(
+							"create table notifications (" +
+							"  id integer primary key not null generated always as identity," +
+							"  courseid integer unique," +
+							"  text blob unique" +
+							")"
+					);
+					
+					stmt4.executeUpdate();
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt);
 					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(stmt4);
 				}
 			}
 		});
@@ -398,6 +502,15 @@ public class RealDatabase implements IDatabase{
 		stmt.setString(index++, course.getCourse());
 	}
 	
+	protected void storeRegistrationNoId(Registration reg, PreparedStatement stmt, int index) throws SQLException {
+		// Note that we are assuming that the Item does not have a valid id,
+		// and so are not attempting to store the (invalid) id.
+		// This is the preferred approach when inserting a new row into
+		// a table in which a unique id is automatically generated.
+		stmt.setInt(index++, reg.getUserId());
+		stmt.setInt(index++, reg.getCourseId());
+	}
+	
 	protected void loadUser(User item, ResultSet resultSet, int index) throws SQLException {
 		item.setId(resultSet.getInt(index++));
 		item.setUserName(resultSet.getString(index++));
@@ -406,6 +519,14 @@ public class RealDatabase implements IDatabase{
 		item.setPassword(resultSet.getString(index++));
 		item.setType(resultSet.getBoolean(index++));
 	}
+	
+	protected void loadCourse(Registration reg, ResultSet resultSet, int index) throws SQLException {
+		reg.setId(resultSet.getInt(index++));
+		reg.setUserId(resultSet.getInt(index++));
+		reg.setCourseId(resultSet.getInt(index++));
+		//reg.setStatus(resultSet.get(index++));
+	}
+	
 	
 	protected void loadCourse(Courses item, ResultSet resultSet, int index) throws SQLException {
 		item.setId(resultSet.getInt(index++));

@@ -3,6 +3,7 @@ package edu.ycp.cs.cs496.TGOH.pesist;
 import java.util.List;
 
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
+import edu.ycp.cs.cs496.TGOH.temp.Notification;
 import edu.ycp.cs.cs496.TGOH.temp.Registration;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
@@ -29,7 +30,7 @@ public interface IDatabase {
 	
 	public List<Courses> getAllCourse();
 
-	public void RemovingUserFromCourse(int user, int course);
+	public void RemovingUserFromCourse(User user, Courses course);
 
 	public Registration registerUserForCourse(int user, int course);
 	
@@ -37,5 +38,11 @@ public interface IDatabase {
 	
 	public User[] getPendingUserforCourse(int course);
 
+	public void removeNotification(int id);
 	
+	public Notification addNotification(int courseId, String text);
+	
+	public List<Notification> getNotificationForCourse(int courseId);
+	
+	public Notification getNotification(int id);
 }

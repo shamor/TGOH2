@@ -6,7 +6,11 @@ public class Notification {
 	private String text;
 
 	public Notification() {
-		// TODO Auto-generated constructor stub
+
+	}
+	
+	public Notification(String text) {
+		this.text = text;
 	}
 	
 	public void setId(int id) {
