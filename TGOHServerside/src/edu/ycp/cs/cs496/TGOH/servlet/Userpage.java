@@ -34,7 +34,7 @@ public class Userpage extends HttpServlet{
 		
 		// Use a GetItemByName controller to find the item in the database
 		GetUserController controller = new GetUserController();
-		User user = controller.getUser(pathInfo);
+		User user = controller.getUser(Integer.parseInt(pathInfo));
 		
 		if (user == null) {
 			// No such item, so return a NOT FOUND response
@@ -80,7 +80,7 @@ public class Userpage extends HttpServlet{
 		
 		// Use a GetItemByName controller to find the item in the database
 		GetUserController controller = new GetUserController();
-		User user = controller.getUser(pathInfo);
+		User user = controller.getUser(Integer.parseInt(pathInfo));
 		
 		// Get the item name
 		if (pathInfo.startsWith("/")){

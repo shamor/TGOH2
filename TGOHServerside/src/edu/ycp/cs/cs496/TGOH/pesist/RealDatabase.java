@@ -65,7 +65,8 @@ public class RealDatabase implements IDatabase{
 		});
 	}
 
-	@Override
+	// fixing
+	@Override 
 	public boolean deleteUser(final User user) {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -90,7 +91,7 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public User getUser(final String Username) {
+	public User getUser(final int Username) {
 		return executeTransaction(new Transaction<User>() {
 			@Override
 			public User execute(Connection conn) throws SQLException {
@@ -98,8 +99,8 @@ public class RealDatabase implements IDatabase{
 				ResultSet resultSet = null;
 				
 				try {
-					stmt = conn.prepareStatement("select users.* from users where users.username = ?");
-					stmt.setString(1, Username);
+					stmt = conn.prepareStatement("select users.* from users where users.id = ?");
+					stmt.setInt(1, Username);
 					
 					resultSet = stmt.executeQuery();
 					
@@ -156,9 +157,33 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public Courses[] getCoursefromUser(int user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Courses> getCoursefromUser(final int user) {
+		return executeTransaction(new Transaction<List<Courses>>() {
+			@Override
+			public List<Courses> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					// Note: no 'where' clause, so all items will be returned
+					stmt = conn.prepareStatement("select registrations.* from registrations where registrations.userid = ?");
+					stmt.setInt(1, user);
+					resultSet = stmt.executeQuery();
+
+					List<Courses> result = new ArrayList<Courses>();
+					while (resultSet.next()) {
+						Courses course = new Courses();
+						course = getCourse(resultSet.getInt(3));
+						result.add(course);
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -236,12 +261,56 @@ public class RealDatabase implements IDatabase{
 			@Override
 			public Registration execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
+				ResultSet generatedKeys = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"insert into registrations (userid, courseid) values (?, ?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+					);
+					Registration reg = new Registration(user,course);
+					storeRegistrationNoId(reg, stmt, 1);
+
+					// Attempt to insert the item
+					stmt.executeUpdate();
+
+					// Determine the auto-generated id
+					generatedKeys = stmt.getGeneratedKeys();
+					if (!generatedKeys.next()) {
+						throw new SQLException("Could not get auto-generated key for inserted Users");
+					}
+					
+					reg.setId(generatedKeys.getInt(1));
+					System.out.println("New item has id " + reg.getId());
+					
+					return reg;
+				} finally {
+					DBUtil.closeQuietly(generatedKeys);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+	//fixme
+	@Override
+	public void RemovingUserFromCourse(User user, Courses course) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Registration findUserForCourse(final User user, final Courses course) {
+		return executeTransaction(new Transaction<Registration>() {
+			@Override
+			public Registration execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
 				try {
 					stmt = conn.prepareStatement("select registrations.* from registrations where registrations.userid = ? and registration.courseid = ?");
-					stmt.setInt(1, user);
-					stmt.setInt(2, course);
+					stmt.setObject(1, user);
+					stmt.setObject(2, course);
 					
 					resultSet = stmt.executeQuery();
 					
@@ -251,9 +320,8 @@ public class RealDatabase implements IDatabase{
 					}
 					
 					Registration reg = new Registration();
-					//loadUser(user, resultSet, 1);
-					//return user;
-					return null;
+					loadRegistration(reg, resultSet, 1);
+					return reg;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
@@ -262,18 +330,7 @@ public class RealDatabase implements IDatabase{
 		});
 	}
 
-	@Override
-	public void RemovingUserFromCourse(User user, Courses course) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Registration findUserForCourse(User user, Courses course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	// updating
 	@Override
 	public Registration AcceptingUserforCourse(User user, Courses course) {
 		// TODO Auto-generated method stub
@@ -281,9 +338,33 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public User[] getPendingUserforCourse(int course) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> getPendingUserforCourse(final int course) {
+		return executeTransaction(new Transaction<List<User>>() {
+			@Override
+			public List<User> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					// Note: no 'where' clause, so all items will be returned
+					stmt = conn.prepareStatement("select registrations.* from registrations where registrations.courseid = ?");
+					stmt.setInt(1, course);
+					resultSet = stmt.executeQuery();
+
+					List<User> result = new ArrayList<User>();
+					while (resultSet.next()) {
+						User user = new User();
+						user = getUser(resultSet.getInt(1));
+						result.add(user);
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 	
 
@@ -294,21 +375,103 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public Notification addNotification(int courseId, String text) {
-		// TODO Auto-generated method stub
-		return null;
+	public Notification addNotification(final int courseId, final String text) {
+		return executeTransaction(new Transaction<Notification>() {
+			@Override
+			public Notification execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet generatedKeys = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"insert into notifications (courseid, text) values (?, ?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+					);
+					Notification not = new Notification(courseId, text);
+					storeNotNoId(not, stmt, 1);
+
+					// Attempt to insert the item
+					stmt.executeUpdate();
+
+					// Determine the auto-generated id
+					generatedKeys = stmt.getGeneratedKeys();
+					if (!generatedKeys.next()) {
+						throw new SQLException("Could not get auto-generated key for inserted Item");
+					}
+					
+					not.setId(generatedKeys.getInt(1));
+					System.out.println("New item has id " + not.getId());
+					
+					return not;
+				} finally {
+					DBUtil.closeQuietly(generatedKeys);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 
 	@Override
-	public List<Notification> getNotificationForCourse(int courseId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Notification> getNotificationForCourse(final int courseId) {
+		return executeTransaction(new Transaction<List<Notification>>() {
+			@Override
+			public List<Notification> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					// Note: no 'where' clause, so all items will be returned
+					stmt = conn.prepareStatement("select notifications.* from notifications where notifications.courseid = ?");
+					stmt.setInt(1, courseId);
+					
+					resultSet = stmt.executeQuery();
+
+					List<Notification> result = new ArrayList<Notification>();
+					while (resultSet.next()) {
+						Notification not = new Notification();
+						not.setId(resultSet.getInt(1));
+						not.setCourseId(resultSet.getInt(2));
+						not.setText(resultSet.getString(3));
+						result.add(not);
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 
 	@Override
-	public Notification getNotification(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Notification getNotification(final int id) {
+		return executeTransaction(new Transaction<Notification>() {
+			@Override
+			public Notification execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement("select notifications.* from notifications where notifications.id = ?");
+					stmt.setInt(1, id);
+					
+					resultSet = stmt.executeQuery();
+					
+					if (!resultSet.next()) {
+						// No such item
+						return null;
+					}
+					
+					Notification not = new Notification();
+					loadNot(not, resultSet, 1);
+					return not;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -364,14 +527,11 @@ public class RealDatabase implements IDatabase{
 		return conn;
 	}
 
-	public void createTables() {
+	public void createUserTables() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
-				PreparedStatement stmt2 = null;
-				PreparedStatement stmt3 = null;
-				PreparedStatement stmt4 = null;
 				
 				try {
 					// Note that the 'id' column is an autoincrement primary key,
@@ -390,43 +550,94 @@ public class RealDatabase implements IDatabase{
 					);
 					
 					stmt.executeUpdate();
-					
-					stmt2 = conn.prepareStatement(
+							
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}	
+	
+	public void createCourseTables() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					// Note that the 'id' column is an autoincrement primary key,
+					// so SQLite will automatically assign an id when rows
+					// are inserted.				
+					stmt = conn.prepareStatement(
 							"create table courses (" +
 							"  id integer primary key not null generated always as identity," +
 							"  coursename varchar(10) unique" +
 							")"
 					);
 					
-					stmt2.executeUpdate();
-					
-					stmt3 = conn.prepareStatement(
-							"create table registration (" +
-							"  id integer primary key not null generated always as identity," +
-							"  userid integer unique," +
-							"  courseid integer unique," +
-							"  type enum('PENDING', 'ACCEPTED') not null default 'PENDING" +
-							")"
-					);
-					
-					stmt3.executeUpdate();
-					
-					stmt4 = conn.prepareStatement(
-							"create table notifications (" +
-							"  id integer primary key not null generated always as identity," +
-							"  courseid integer unique," +
-							"  text blob unique" +
-							")"
-					);
-					
-					stmt4.executeUpdate();
+					stmt.executeUpdate();
 					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt);
-					DBUtil.closeQuietly(stmt2);
-					DBUtil.closeQuietly(stmt3);
-					DBUtil.closeQuietly(stmt4);
+				}
+			}
+		});
+	}	
+	
+	public void createNotificationTables() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					// Note that the 'id' column is an autoincrement primary key,
+					// so SQLite will automatically assign an id when rows
+					// are inserted.				
+					stmt = conn.prepareStatement(
+							"create table notifications (" +
+							"  id integer primary key not null generated always as identity," +
+							"  courseid integer unique," +
+							"  text varchar(100) unique" +
+							")"
+					);
+					
+					stmt.executeUpdate();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}	
+	
+	public void createRegistrationTables() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					// Note that the 'id' column is an autoincrement primary key,
+					// so SQLite will automatically assign an id when rows
+					// are inserted.				
+					stmt = conn.prepareStatement(
+							"create table registrations (" +
+							"  id integer primary key not null generated always as identity," +
+							"  userid integer unique," +
+							"  courseid integer unique" +
+							//"  type enum('PENDING', 'ACCEPTED') not null default 'PENDING" +  // ask for help for this one.
+							")"
+					);
+					
+					stmt.executeUpdate();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
 				}
 			}
 		});
@@ -481,6 +692,48 @@ public class RealDatabase implements IDatabase{
 			}
 		});
 	}
+	
+	public void loadRegInitialUserData() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("insert into registrations (userid, courseid) values (?,?)");
+					storeRegistrationNoId(new Registration(1,1), stmt, 1);
+					stmt.addBatch();
+					
+					stmt.executeBatch();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	public void loadNoteInitialUserData() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("insert into notifications (courseid, text) values (?,?)");
+					storeNotNoId(new Notification(1,"going to hike"), stmt, 1);
+					stmt.addBatch();
+					
+					stmt.executeBatch();
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 
 	protected void storeUserNoId(User user, PreparedStatement stmt, int index) throws SQLException {
 		// Note that we are assuming that the Item does not have a valid id,
@@ -511,6 +764,15 @@ public class RealDatabase implements IDatabase{
 		stmt.setInt(index++, reg.getCourseId());
 	}
 	
+	protected void storeNotNoId(Notification not, PreparedStatement stmt, int index) throws SQLException {
+		// Note that we are assuming that the Item does not have a valid id,
+		// and so are not attempting to store the (invalid) id.
+		// This is the preferred approach when inserting a new row into
+		// a table in which a unique id is automatically generated.
+		stmt.setInt(index++, not.getCourseId());
+		stmt.setString(index++, not.getText());
+	}
+	
 	protected void loadUser(User item, ResultSet resultSet, int index) throws SQLException {
 		item.setId(resultSet.getInt(index++));
 		item.setUserName(resultSet.getString(index++));
@@ -520,7 +782,7 @@ public class RealDatabase implements IDatabase{
 		item.setType(resultSet.getBoolean(index++));
 	}
 	
-	protected void loadCourse(Registration reg, ResultSet resultSet, int index) throws SQLException {
+	protected void loadRegistration(Registration reg, ResultSet resultSet, int index) throws SQLException {
 		reg.setId(resultSet.getInt(index++));
 		reg.setUserId(resultSet.getInt(index++));
 		reg.setCourseId(resultSet.getInt(index++));
@@ -533,13 +795,24 @@ public class RealDatabase implements IDatabase{
 		item.setCourse(resultSet.getString(index++));
 	}
 	
+	protected void loadNot(Notification item, ResultSet resultSet, int index) throws SQLException {
+		item.setId(resultSet.getInt(index++));
+		item.setCourseId(resultSet.getInt(index++));
+		item.setText(resultSet.getString(index++));
+	}
+	
 	public static void main(String[] args) {
 		RealDatabase db = new RealDatabase();
 		System.out.println("Creating tables...");
-		db.createTables();
+		db.createCourseTables();
+		db.createNotificationTables();
+		db.createRegistrationTables();
+		db.createUserTables();
 		System.out.println("Loading initial data...");
 		db.loadInitialUserData();
 		db.loadCourseInitialUserData();
+		db.loadRegInitialUserData();
+		db.loadNoteInitialUserData();
 		System.out.println("Done!");
 	}
 

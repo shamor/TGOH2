@@ -73,9 +73,9 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	// getting a user
-	public User getUser(String Username) {
+	public User getUser(int Username) {
 		for (User user1 : users) {
-			if (user1.getUserName().equals(Username)) {
+			if (user1.getId()==Username) {
 				// return a copy
 				return user1;
 			}
@@ -85,7 +85,7 @@ public class FakeDatabase implements IDatabase {
 
 	// deleting a user
 	public boolean deleteUser(User user) {
-		if(users.remove(getUser(user.getUserName())))
+		if(users.remove(getUser(user.getId())))
 			return true;
 		else 
 			return false;
@@ -143,24 +143,24 @@ public class FakeDatabase implements IDatabase {
 		return reg;
 	}
 
-	public Courses[] getCoursefromUser(int user){
+	public List<Courses> getCoursefromUser(int user){
 		int count = 0;
-		Courses[] course = new Courses[7];
+		List<Courses> course = new ArrayList<Courses>();
 		for(Registration temp : registrations){
 			if(temp.getUserId() == user && count < 7){
-				course[count] = getCourse(temp.getCourseId());
+				course.add(getCourse(temp.getCourseId()));
 				count++;
 			}
 		}
 		return course;
 	}
 	
-	public User[] getPendingUserforCourse(int course){
+	public List<User> getPendingUserforCourse(int course){
 		int count = 0;
-		User[] user = new User[30];
+		List<User> user = new ArrayList<User>();
 		for(Registration temp : registrations){
 			if(temp.getCourseId() == course && count < 30 && temp.getStatus()==RegistrationStatus.APPROVED){
-				user[count] = getUserfromRegistration(temp.getUserId());
+				user.add(getUserfromRegistration(temp.getUserId()));
 				count++;
 			}
 		}

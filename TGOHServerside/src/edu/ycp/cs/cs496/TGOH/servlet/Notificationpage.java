@@ -21,12 +21,17 @@ private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
-		String text = null;
-				// Get the item name
+		if(pathInfo == null){
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			resp.setContentType("text/plain");
+			resp.getWriter().println("Need to get a course id");
+			return;
+		}
+		
+		// Get the item name
 		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);
 		}
-		text = pathInfo;
 		if (pathInfo.contains("/")){
 			pathInfo = pathInfo.substring(pathInfo.indexOf('/')+1, pathInfo.length());
 		}else {

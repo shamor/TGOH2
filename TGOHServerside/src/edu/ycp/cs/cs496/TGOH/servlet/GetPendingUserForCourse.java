@@ -1,6 +1,7 @@
 package edu.ycp.cs.cs496.TGOH.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +27,7 @@ private static final long serialVersionUID = 1L;
 		}
 		int courseId = Integer.parseInt(pathInfo);
 		getPendingUserForCourse con = new getPendingUserForCourse();
-		User[] user = con.getPendingUserforCourse(courseId);
+		List<User> user = con.getPendingUserforCourse(courseId);
 		
 		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);

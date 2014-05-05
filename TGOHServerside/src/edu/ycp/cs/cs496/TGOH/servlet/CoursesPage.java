@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.controller.AddingANewCourse;
-import edu.ycp.cs.cs496.TGOH.controller.AddingCoursesToUser;
-import edu.ycp.cs.cs496.TGOH.controller.GetUserController;
 import edu.ycp.cs.cs496.TGOH.controller.RemovingACourse;
 import edu.ycp.cs.cs496.TGOH.controller.getAllCourses;
 import edu.ycp.cs.cs496.TGOH.controller.gettingACourse;

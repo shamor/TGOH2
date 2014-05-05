@@ -14,7 +14,7 @@ public interface IDatabase {
  */
 	public void addUser(User user);
 	
-	public User getUser(String Username);
+	public User getUser(int Username);
 	
 	public boolean deleteUser(User user);
 	
@@ -26,7 +26,7 @@ public interface IDatabase {
 	
 	public Registration findUserForCourse(User user, Courses course);
 	
-	public Courses[] getCoursefromUser(int user);
+	public List<Courses> getCoursefromUser(int user);
 	
 	public List<Courses> getAllCourse();
 
@@ -36,7 +36,7 @@ public interface IDatabase {
 	
 	public Registration AcceptingUserforCourse(User user, Courses course);
 	
-	public User[] getPendingUserforCourse(int course);
+	public List<User> getPendingUserforCourse(int course);
 
 	public void removeNotification(int id);
 	

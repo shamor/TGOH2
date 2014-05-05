@@ -1,6 +1,7 @@
 package edu.ycp.cs.cs496.TGOH.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,7 @@ public class GetCoursesForUser extends HttpServlet{
 		
 		int userId = Integer.parseInt(pathInfo);
 		GetCoursefromUser controller = new GetCoursefromUser();
-		Courses[] courses = controller.getCoursefromUser(userId);/* find courses for user using controller */{};
+		List<Courses> courses = controller.getCoursefromUser(userId);/* find courses for user using controller */
 				
 		resp.setContentType("application/json");
 		JSON.getObjectMapper().writeValue(resp.getWriter(), courses);

@@ -9,7 +9,8 @@ public class Notification {
 
 	}
 	
-	public Notification(String text) {
+	public Notification(int courseid, String text) {
+		this.courseId = courseid;
 		this.text = text;
 	}
 	
