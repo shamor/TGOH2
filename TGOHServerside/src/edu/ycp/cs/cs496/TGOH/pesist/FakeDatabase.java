@@ -36,12 +36,12 @@ public class FakeDatabase implements IDatabase {
 		courses.add(c);
 
 		registrations = new ArrayList<Registration>();
-		Registration reg = new Registration();
-		reg.setId(registrationCounter++);
-		reg.setUserId(1);
-		reg.setCourseId(1);
-		reg.setStatus(RegistrationStatus.PENDING);
-		registrations.add(reg);
+//		Registration reg = new Registration();
+//		reg.setId(registrationCounter++);
+//		reg.setUserId(1);
+//		//reg.setCourseId(1);
+//		reg.setStatus(RegistrationStatus.PENDING);
+//		registrations.add(reg);
 		
 		Registration reg2 = new Registration();
 		reg2.setId(registrationCounter++);

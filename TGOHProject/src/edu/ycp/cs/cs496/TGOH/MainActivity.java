@@ -198,7 +198,6 @@ public class MainActivity extends Activity {
 		{
 			setContentView(R.layout.class_selection_page);
 				
-			
 			Button viewSchedule = (Button) findViewById(R.id.btnback);
 			Button Req = (Button) findViewById(R.id.btnRequestClass);
 			ListView lview = (ListView) findViewById(R.id.listView1);
@@ -271,8 +270,7 @@ public class MainActivity extends Activity {
 					setSettings_Page();
 				}
 			});
-
-			}
+		}
 	}
 
 	/**(Needs to implement database) Announcements
@@ -566,65 +564,19 @@ public class MainActivity extends Activity {
 			setDefaultView();
 		}
 		else
-		{	
+		{
 			setContentView(R.layout.teacher_notification_page);
 			
-			//Log Off Button
-			Button logOutButton = (Button) findViewById(R.id.btnlogout);
-			// Add log-off button onClickListener
-			logOutButton.setOnClickListener(new View.OnClickListener() 
-			{
-				@Override
-				public void onClick(View v)
-				{
-					// Logs the user out and brings back to sign-in page.
-					setDefaultView();
-				}
-			});		
-			
-			//Accept Button
 			Button acceptButton = (Button) findViewById(R.id.btnaccept);
-			// Add accept button onClickListener
-			acceptButton.setOnClickListener(new View.OnClickListener()
-			{
-				@Override
-				public void onClick(View v) 
-				{
-					//TODO: Adds the course to the user's list of courses.  Removes user from list.
-				}
-			});
-			
-			
-			//Add Deny Button
 			Button denyButton = (Button) findViewById(R.id.btndeny);
-			// Add Deny button onClickListener
-			denyButton.setOnClickListener(new View.OnClickListener()
-			{
-				@Override
-				public void onClick(View v)
-				{
-					//TODO: Removes user from list.  Sends sad message to user.
-				}
-			});
-			
-			
-			//Add Back Button
+			Button logOutButton = (Button) findViewById(R.id.btnlogout);
 			Button backButton = (Button) findViewById(R.id.btnback);
-			// Add back button onClickListener
-			backButton.setOnClickListener(new View.OnClickListener() 
-			{
-				@Override
-				public void onClick(View v)
-				{
-					setTeacher_Main_Page(course);
-				}
-			});
 			
 			//TODO: pull notifications from database
 			List<String> list = new ArrayList<String>();
 		//	List<String> courseName = new ArrayList<String>();
-		
-			list.add("foo");
+			
+			list.add("d");
 			list.add("bar");
 			list.add("baz");
 			list.add("boz");
@@ -637,27 +589,111 @@ public class MainActivity extends Activity {
 			list.add("Bobo");
 			
 			int counter = 0;
-			ArrayList<View> checks = new ArrayList<View>();
-			
+			ArrayList<CheckBox> checks = new ArrayList<CheckBox>();
 			
 			// Access Linear layout for ScrollView
 			LinearLayout layout4Checks = (LinearLayout) findViewById(R.id.linearLayout1);
-		
+			
 			//Add Check Box to go next to requests' names
 			for (String students : list)
-	
 			{
 				CheckBox check = new CheckBox(this);
 				check.setLayoutParams(new LayoutParams(
 						LayoutParams.WRAP_CONTENT,
 						LayoutParams.WRAP_CONTENT));
 				check.setText(students);
-		
-				// Add check to layout
-				layout4Checks.addView(check);
 				checks.add(check);
+				
+				// Add check to layout
+				layout4Checks.addView(checks.get(counter));
 				counter++;
 			}
+			
+			final ArrayList<CheckBox> checkL2 = checks;
+			
+			//Accept Button
+			// Add accept button onClickListener
+			acceptButton.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v) 
+				{
+					//TODO: Adds the course to the user's list of courses.  Removes user from list.
+					for (CheckBox students : checkL2)
+					{
+						if(students.isChecked())
+						{
+							GetUser UConn = new GetUser();
+							Registration reg = new Registration(); 
+							try {
+								User user = UConn.getUser(students.getText().toString());	
+								reg.setUserId(user.getId());
+								reg.setCourseId(course.getId()); 
+								reg.setStatus(RegistrationStatus.APPROVED);
+							} catch (ClientProtocolException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
+
+							
+							
+							RegisterForCourse con2  = new RegisterForCourse();
+							try {
+								con2.postRegisterRequest(reg);
+							} catch (JsonGenerationException e) {
+								e.printStackTrace();
+							} catch (JsonMappingException e) {
+								e.printStackTrace();
+							} catch (URISyntaxException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+			});
+			
+			//Add Deny Button
+			// Add Deny button onClickListener
+			denyButton.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					//TODO: Removes user from list.  Sends sad message to user.
+				}
+			});
+			
+			//Log Off Button
+			// Add log-off button onClickListener
+			logOutButton.setOnClickListener(new View.OnClickListener() 
+			{
+				@Override
+				public void onClick(View v)
+				{
+					// Logs the user out and brings back to sign-in page.
+					setDefaultView();
+				}
+			});		
+		
+			//Add Back Button
+			// Add back button onClickListener
+			backButton.setOnClickListener(new View.OnClickListener() 
+			{
+				@Override
+				public void onClick(View v)
+				{
+					setTeacher_Main_Page(course);
+				}
+			});
 		}
 	}
 	
@@ -799,10 +835,11 @@ public class MainActivity extends Activity {
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
-					/*Registration reg = new Registration(); 
+					Registration reg = new Registration(); 
 					reg.setUserId(Currentuser.getId());
 					RegistrationStatus regStat = null; 
 					reg.setStatus(regStat.APPROVED); 
+					
 					GetCourseByName con1 = new GetCourseByName();
 					
 					Courses course2 = new Courses(); 
@@ -825,7 +862,7 @@ public class MainActivity extends Activity {
 						e.printStackTrace();
 					} catch (IOException e) {
 						e.printStackTrace();
-					}*/
+					}
 				}
 			});
 			
