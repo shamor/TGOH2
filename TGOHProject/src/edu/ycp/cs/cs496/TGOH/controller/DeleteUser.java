@@ -27,7 +27,7 @@ public class DeleteUser {
 		
 		// Construct URI
 		URI uri;
-		uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/" + "delete-" +  userName, null, null);
+		uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/" +  userName, null, null);
 
 		// Construct request
 		HttpDelete request = new HttpDelete(uri);

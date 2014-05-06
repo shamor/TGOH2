@@ -93,12 +93,12 @@ public class MainActivity extends Activity {
 				DeleteUser con	= new DeleteUser();
         			//get a user object from the database
 					try {
-						/*if(con.deleteUser(userName)){
+						if(con.deleteUser(userName)){
 							System.out.println("right");
 						}else{
 							System.out.println("wrong");
-						}*/
-						Currentuser = controller.getUser(userName);
+						}
+						/*Currentuser = controller.getUser(userName);
 						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
 						}else{
 							//check to make sure the userName and passWord for the user are both correct
 							Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
-						}
+						}*/
 					} catch (Exception e) {
 						e.printStackTrace();
 						Toast.makeText(MainActivity.this, "User does not exsist" , Toast.LENGTH_SHORT).show();

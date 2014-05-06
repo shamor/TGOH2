@@ -19,6 +19,7 @@ import edu.ycp.cs.cs496.TGOH.controller.RemovingAUserFromCourse;
 import edu.ycp.cs.cs496.TGOH.controller.findUserForCourse;
 import edu.ycp.cs.cs496.TGOH.controller.getAllCourses;
 import edu.ycp.cs.cs496.TGOH.controller.getPendingUserForCourse;
+import edu.ycp.cs.cs496.TGOH.controller.getUserfromRegistration;
 import edu.ycp.cs.cs496.TGOH.controller.gettingACourse;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.Registration;
@@ -54,8 +55,8 @@ private static final long serialVersionUID = 1L;
 		}
 		int courseId = Integer.parseInt(pathInfo);
 		// Use a GetItemByName controller to find the item in the database
-		GetUserController con = new GetUserController();
-		User userId = con.getUser(user);
+		getUserfromRegistration con = new getUserfromRegistration();
+		User userId = con.getUserfromRegistration(Integer.parseInt(user));
 		
 		gettingACourse cont = new gettingACourse();
 		Courses course = cont.getCourse(courseId);

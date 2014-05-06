@@ -84,11 +84,13 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	// deleting a user
-	public boolean deleteUser(User user) {
-		if(users.remove(getUser(user.getUserName())))
-			return true;
-		else 
-			return false;
+	public boolean deleteUser(String user) {
+		for(User temp : users){
+			if(temp.getUserName().equals(user)){
+				return users.remove(getUser(user));
+			}
+		}
+		return false;
 	}
 
 	public Courses getCourse(int coursename){
