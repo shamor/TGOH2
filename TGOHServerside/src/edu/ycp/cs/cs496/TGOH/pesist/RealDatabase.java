@@ -91,7 +91,7 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-	public User getUser(final int Username) {
+	public User getUser(final String Username) {
 		return executeTransaction(new Transaction<User>() {
 			@Override
 			public User execute(Connection conn) throws SQLException {
@@ -99,8 +99,8 @@ public class RealDatabase implements IDatabase{
 				ResultSet resultSet = null;
 				
 				try {
-					stmt = conn.prepareStatement("select users.* from users where users.id = ?");
-					stmt.setInt(1, Username);
+					stmt = conn.prepareStatement("select users.* from users where users.username = ?");
+					stmt.setString(1, Username);
 					
 					resultSet = stmt.executeQuery();
 					
@@ -298,6 +298,36 @@ public class RealDatabase implements IDatabase{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public User getUserfromRegistration(final int Username) {
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement("select users.* from users where users.id = ?");
+					stmt.setInt(1, Username);
+					
+					resultSet = stmt.executeQuery();
+					
+					if (!resultSet.next()) {
+						// No such item
+						return null;
+					}
+					
+					User user = new User();
+					loadUser(user, resultSet, 1);
+					return user;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 
 	@Override
 	public Registration findUserForCourse(final User user, final Courses course) {
@@ -354,7 +384,7 @@ public class RealDatabase implements IDatabase{
 					List<User> result = new ArrayList<User>();
 					while (resultSet.next()) {
 						User user = new User();
-						user = getUser(resultSet.getInt(1));
+						user = getUserfromRegistration(resultSet.getInt(1));
 						result.add(user);
 					}
 					
@@ -472,6 +502,12 @@ public class RealDatabase implements IDatabase{
 				}
 			}
 		});
+	}
+	
+	@Override
+
+	public void changePass(String password) {
+		// TODO Auto-generated method stub
 	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -817,12 +853,8 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
-
 	public Courses getCourseByName(String coursename) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	public void changePass(String password) {
-		// TODO Auto-generated method stub
 	}
 }

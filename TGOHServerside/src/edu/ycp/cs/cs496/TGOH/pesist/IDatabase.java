@@ -14,7 +14,9 @@ public interface IDatabase {
  */
 	public void addUser(User user);
 	
-	public User getUser(int Username);
+	public User getUser(String Username);
+	
+	public User getUserfromRegistration(int Username);
 	
 	public boolean deleteUser(User user);
 	
