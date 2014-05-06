@@ -149,7 +149,7 @@ public class FakeDatabase implements IDatabase {
 		int count = 0;
 		List<Courses> course = new ArrayList<Courses>();
 		for(Registration temp : registrations){
-			if(temp.getUserId() == user && count < 7){
+			if(temp.getUserId() == user && temp.getStatus() == RegistrationStatus.APPROVED){
 				course.add(getCourse(temp.getCourseId()));
 				count++;
 			}
@@ -158,19 +158,17 @@ public class FakeDatabase implements IDatabase {
 	}
 	
 	public List<User> getPendingUserforCourse(int course){
-		int count = 0;
 		List<User> user = new ArrayList<User>();
 		for(Registration temp : registrations){
-			if(temp.getCourseId() == course && count < 30 && temp.getStatus()==RegistrationStatus.APPROVED){
+			if(temp.getCourseId() == course && temp.getStatus()==RegistrationStatus.PENDING){
 				user.add(getUserfromRegistration(temp.getUserId()));
-				count++;
 			}
 		}
 		return user;
 	}
 
 	@Override
-	public void changePass(String password) {
+	public void changePass(String username, String password) {
 		//TODO: Implement
 	}
 	

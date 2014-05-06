@@ -1,8 +1,6 @@
 package edu.ycp.cs.cs496.TGOH.servlet;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +33,7 @@ public class Userpage extends HttpServlet{
 		// Use a GetItemByName controller to find the item in the database
 		GetUserController controller = new GetUserController();
 		User user = controller.getUser(pathInfo);
+		
 		
 		if (user == null) {
 			// No such item, so return a NOT FOUND response

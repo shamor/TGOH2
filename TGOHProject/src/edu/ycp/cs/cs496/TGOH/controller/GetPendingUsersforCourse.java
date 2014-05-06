@@ -3,6 +3,7 @@ package edu.ycp.cs.cs496.TGOH.controller;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,11 +18,11 @@ import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class GetPendingUsersforCourse {
-	public User[] getUser(int courseId) throws ClientProtocolException, URISyntaxException, IOException {
+	public List<User> getUser(int courseId) throws ClientProtocolException, URISyntaxException, IOException {
 		return makeGetRequest(courseId);
 	}
 	
-	private User[] makeGetRequest(int courseId) throws URISyntaxException, ClientProtocolException, IOException{
+	private List<User> makeGetRequest(int courseId) throws URISyntaxException, ClientProtocolException, IOException{
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		// Construct URI
@@ -37,7 +38,7 @@ public class GetPendingUsersforCourse {
 			// Add JSON object to request
 			HttpEntity entity = response.getEntity();
 			// Parse JSON
-			return JSON.getObjectMapper().readValue(entity.getContent(), User[].class);
+			return JSON.getObjectMapper().readValue(entity.getContent(), List<User>.class);
 		} 
 		
 		// Return null if invalid response
