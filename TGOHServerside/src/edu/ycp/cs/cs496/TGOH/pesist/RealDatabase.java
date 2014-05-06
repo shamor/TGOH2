@@ -201,6 +201,36 @@ public class RealDatabase implements IDatabase{
 			}
 		});
 	}
+	
+	@Override
+	public Courses getCourseByName(final String coursename) {
+		return executeTransaction(new Transaction<Courses>() {
+			@Override
+			public Courses execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement("select courses.* from courses where courses.coursename = ?");
+					stmt.setString(1, coursename);
+					
+					resultSet = stmt.executeQuery();
+					
+					if (!resultSet.next()) {
+						// No such item
+						return null;
+					}
+					
+					Courses course = new Courses();
+					loadCourse(course, resultSet, 1);
+					return course;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 
 	@Override
 	public void addCourse(final Courses course) {
@@ -465,7 +495,7 @@ public class RealDatabase implements IDatabase{
 							"insert into notifications (courseid, text) values (?, ?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 					);
-					Notification not = new Notification(courseId, text);
+					Notification not = new Notification();
 					storeNotNoId(not, stmt, 1);
 
 					// Attempt to insert the item
@@ -807,7 +837,7 @@ public class RealDatabase implements IDatabase{
 				
 				try {
 					stmt = conn.prepareStatement("insert into notifications (courseid, text) values (?,?)");
-					storeNotNoId(new Notification(1,"going to hike"), stmt, 1);
+					storeNotNoId(new Notification(), stmt, 1);
 					stmt.addBatch();
 					
 					stmt.executeBatch();

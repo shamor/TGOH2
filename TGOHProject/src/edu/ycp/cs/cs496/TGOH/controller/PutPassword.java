@@ -32,33 +32,30 @@ public class PutPassword {
 		
 		// Construct URI
 		URI uri;
-		uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user", null, null);
+		uri = URIUtils.createURI("http", "10.0.2.2", 8081, "/user/" + user.getUserName(), null, null);
 
 		// Construct request
 		HttpPut request = new HttpPut(uri);
 		
-		if(user != null)
-		{
+		if(user != null){
 			// Create JSON object from Item
 			User cloneUser = user;
 			cloneUser.setPassword(user.getPassword());
 		
 			StringWriter sw = new StringWriter();
 			JSON.getObjectMapper().writeValue(sw, cloneUser);
-
+			
 			// Add JSON object to request
 			StringEntity reqEntity = new StringEntity(sw.toString());
 			reqEntity.setContentType("application/json");
 			request.setEntity(reqEntity);
-			
-			// Execute request
-			HttpResponse response = client.execute(request);
-			
-			if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
-				return true;
-			else
-				return false;
 		}
-		return false;
+		// Execute request
+		HttpResponse response = client.execute(request);
+		
+		if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+			return true;
+		else
+			return false;
 	}
 }

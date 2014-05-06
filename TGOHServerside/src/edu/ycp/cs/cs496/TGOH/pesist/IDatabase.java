@@ -40,6 +40,8 @@ public interface IDatabase {
 	
 	public List<User> getPendingUserforCourse(int course);
 
+	public Courses getCourseByName(String coursename);
+
 	public void removeNotification(int id);
 	
 	public Notification addNotification(int courseId, String text);
@@ -49,4 +51,5 @@ public interface IDatabase {
 	public Notification getNotification(int id);
 	
 	public void changePass(String password);
+
 }

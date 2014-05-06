@@ -74,10 +74,6 @@ public class Userpage extends HttpServlet{
 			resp.getWriter().println("No user listed");
 			return;
 		}
-		if (pathInfo.startsWith("/")){
-			pathInfo = pathInfo.substring(1);
-		}
-		
 		// Get the item name
 		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);

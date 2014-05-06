@@ -75,7 +75,7 @@ public class FakeDatabase implements IDatabase {
 	// getting a user
 	public User getUserfromRegistration(int Username) {
 		for (User user1 : users) {
-			if (user1.getId()==Username) {
+			if (user1.getUserName().equals(Username)) {
 				// return a copy
 				return user1;
 			}
@@ -204,5 +204,16 @@ public class FakeDatabase implements IDatabase {
 	
 	public void removeNotification(int id){
 		notifications.remove(id);
+	}
+
+	@Override
+	public Courses getCourseByName(String coursename) {
+		// TODO Auto-generated method stub
+		for(Courses x : courses){
+			if(x.getCourse().equals(coursename)){
+				return x;
+			}
+		}
+		return null;
 	}
 }
