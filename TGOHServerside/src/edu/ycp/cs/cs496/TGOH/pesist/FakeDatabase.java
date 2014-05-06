@@ -73,9 +73,9 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	// getting a user
-	public User getUser(int Username) {
+	public User getUser(String Username) {
 		for (User user1 : users) {
-			if (user1.getId()==Username) {
+			if (user1.getUserName().equals(Username)) {
 				// return a copy
 				return user1;
 			}
@@ -85,7 +85,7 @@ public class FakeDatabase implements IDatabase {
 
 	// deleting a user
 	public boolean deleteUser(User user) {
-		if(users.remove(getUser(user.getId())))
+		if(users.remove(getUser(user.getUserName())))
 			return true;
 		else 
 			return false;
@@ -207,6 +207,11 @@ public class FakeDatabase implements IDatabase {
 	@Override
 	public Courses getCourseByName(String coursename) {
 		// TODO Auto-generated method stub
+		for(Courses x : courses){
+			if(x.getCourse().equals(coursename)){
+				return x;
+			}
+		}
 		return null;
 	}
 }

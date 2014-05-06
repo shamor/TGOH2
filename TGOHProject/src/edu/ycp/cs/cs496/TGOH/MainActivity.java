@@ -100,6 +100,7 @@ public class MainActivity extends Activity {
 						}*/
 
 						Currentuser = controller.getUser(userName);
+						Toast.makeText(MainActivity.this, Currentuser.getPassword().toString(), Toast.LENGTH_SHORT).show();
 						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
@@ -431,7 +432,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/**(Needs to implement database)
+	/**(Needs to implement database)announcements
 	 * Displays all of the student's announcements
 	 */
 	public void setSchedule_Page(){
@@ -484,7 +485,7 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	/**(DONE FOR NOW)
+	/**DONE(FOR NOW)
 	 * Teacher's homepage
 	 * @param course
 	 */
@@ -744,7 +745,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	/**(implement database)
+	/**DONE(FOR NOW)
 	 * method to create a new course
 	 */
 	public void setCreate_Course()
@@ -788,6 +789,7 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v)
 				{
+					//add the course to the courses database
 					AddCourse con = new AddCourse(); 
 					Courses course = new Courses();
 					course.setCourse(newCourse.getText().toString());
@@ -799,40 +801,36 @@ public class MainActivity extends Activity {
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
-					/*Registration reg = new Registration(); 
+					//Add the teacher to the course
+					Registration reg = new Registration(); 
 					reg.setUserId(Currentuser.getId());
 					RegistrationStatus regStat = null; 
 					reg.setStatus(regStat.APPROVED); 
+					
 					GetCourseByName con1 = new GetCourseByName();
 					
 					Courses course2 = new Courses(); 
 					try {
 						course2 = con1.getCourse(newCourse.getText().toString());
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} 
 					
 					reg.setCourseId(course2.getId());
 					RegisterForCourse con2  = new RegisterForCourse();
+					
 					try {
 						con2.postRegisterRequest(reg);
-					} catch (JsonGenerationException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
-					} catch (JsonMappingException e) {
-						e.printStackTrace();
-					} catch (URISyntaxException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}*/
+					} 
 				}
 			});
 			
 		}
 	}
 
-	/**(implement database)
+	/**(implement database)notifications
 	 * the master's notification/homepage
 	 */
 	public void setMaster_Notification_Page()
