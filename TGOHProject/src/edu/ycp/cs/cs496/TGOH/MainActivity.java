@@ -93,14 +93,14 @@ public class MainActivity extends Activity {
 				DeleteUser con	= new DeleteUser();
         			//get a user object from the database
 					try {
-						/*if(con.deleteUser(userName)){
+						if(con.deleteUser(userName)){
 							System.out.println("right");
 						}else{
 							System.out.println("wrong");
-						}*/
+						}
 
 						Currentuser = controller.getUser(userName);
-						Toast.makeText(MainActivity.this, Currentuser.getPassword().toString(), Toast.LENGTH_SHORT).show();
+						
 						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){

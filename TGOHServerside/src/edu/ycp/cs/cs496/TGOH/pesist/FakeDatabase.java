@@ -63,9 +63,9 @@ public class FakeDatabase implements IDatabase {
 		users.add(user);
 	}
 	
-	public User getUserfromRegistration(int userId){
+	public User getUser(String username){
 		for(User user : users){
-			if(user.getId()==userId){
+			if(user.getUserName().equals(username)){
 				return user;
 			}
 		}
@@ -73,7 +73,7 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	// getting a user
-	public User getUser(String Username) {
+	public User getUserfromRegistration(int Username) {
 		for (User user1 : users) {
 			if (user1.getUserName().equals(Username)) {
 				// return a copy
@@ -84,11 +84,13 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	// deleting a user
-	public boolean deleteUser(User user) {
-		if(users.remove(getUser(user.getUserName())))
-			return true;
-		else 
-			return false;
+	public boolean deleteUser(String user) {
+		for(User temp : users){
+			if(temp.getUserName().equals(user)){
+				return users.remove(getUser(user));
+			}
+		}
+		return false;
 	}
 
 	public Courses getCourse(int coursename){
