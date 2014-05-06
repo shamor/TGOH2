@@ -22,7 +22,7 @@
     <string name="btnNotifications">Notifications</string>
     <string name="btnQuiz">Make Quiz</string>
     <string name="btnLogOut">Log Out</string>
-    <string name="password2">Enter Password Again</string>
+    <string name="password2">Confirm New Password</string>
     <string name="usertype">Are you a student or teacher?</string>
     <string name="studentlbl">Student</string>
     <string name="teacherlbl">Teacher</string>
@@ -40,4 +40,7 @@
     <string name="teachernotopen">"Students awaiting approval to class"</string>
     <string name="show">Show Classes</string>
     <string name="Announcementslbl2">Important Announcements</string>
+    <string name="lblSettings">Settings</string>
+    <string name="btnNewPass">Change Password</string>
+    <string name="btnDeleteUser">Delete Account</string>
 </resources>

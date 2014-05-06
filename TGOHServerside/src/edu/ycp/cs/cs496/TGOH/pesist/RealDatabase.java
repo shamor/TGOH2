@@ -423,8 +423,13 @@ public class RealDatabase implements IDatabase{
 	}
 
 	@Override
+
 	public Courses getCourseByName(String coursename) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public void changePass(String password) {
+		// TODO Auto-generated method stub
+		
 	}
 }

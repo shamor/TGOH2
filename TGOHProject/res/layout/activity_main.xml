@@ -24,7 +24,9 @@
         android:layout_alignLeft="@+id/lblUserName"
         android:layout_below="@+id/lblUserName"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:maxLength="30" />
+
     	<requestFocus />
 
 
@@ -45,7 +47,9 @@
         android:layout_alignRight="@+id/txtUserName"
         android:layout_below="@+id/lblPassword"
         android:ems="10"
-        android:inputType="textPassword" >
+        android:inputType="textPassword"
+        android:maxLength="30" >
+
     </EditText>
 
     <Button
