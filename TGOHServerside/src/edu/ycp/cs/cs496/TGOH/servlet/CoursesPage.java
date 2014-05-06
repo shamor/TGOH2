@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.controller.AddingANewCourse;
-import edu.ycp.cs.cs496.TGOH.controller.AddingCoursesToUser;
-import edu.ycp.cs.cs496.TGOH.controller.GetCourseByName;
-import edu.ycp.cs.cs496.TGOH.controller.GetUserController;
 import edu.ycp.cs.cs496.TGOH.controller.RemovingACourse;
 import edu.ycp.cs.cs496.TGOH.controller.getAllCourses;
 import edu.ycp.cs.cs496.TGOH.controller.gettingACourse;
@@ -41,12 +38,10 @@ private static final long serialVersionUID = 1L;
 		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);
 		}
-		GetCourseByName con = new GetCourseByName(); 
-		Courses course = con.getCourseByName(pathInfo);
 		// Use a GettingACourse controller to find the item in the database
-		//int courseId = Integer.parseInt(pathInfo);
-		//gettingACourse controller = new gettingACourse();
-		//Courses course = controller.getCourse(courseId);
+		int courseId = Integer.parseInt(pathInfo);
+		gettingACourse controller = new gettingACourse();
+		Courses course = controller.getCourse(courseId);
 		
 		if (course == null) {
 			// No such item, so return a NOT FOUND response
@@ -81,6 +76,8 @@ private static final long serialVersionUID = 1L;
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
 		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
+			resp.getWriter().write("we delete nothing");
+		}else{
 			// Set status code and content type
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			resp.setContentType("application/json");
@@ -93,16 +90,17 @@ private static final long serialVersionUID = 1L;
 		}
 		
 		int courseId = Integer.parseInt(pathInfo);
-		
+				
 		RemovingACourse deleteUser = new RemovingACourse();
 		deleteUser.removingACourse(courseId);
-		
+			
 		// send response
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("application/json");	
-		
+			
 		gettingACourse controller = new gettingACourse();
-		
+			
 		JSON.getObjectMapper().writeValue(resp.getWriter(), controller.getCourse(courseId));
+
 	}
 }

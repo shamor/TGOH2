@@ -34,7 +34,7 @@ public class Userpage extends HttpServlet{
 		
 		// Use a GetItemByName controller to find the item in the database
 		GetUserController controller = new GetUserController();
-		User user = controller.getUser(pathInfo);
+		User user = controller.getUser(Integer.parseInt(pathInfo));
 		
 		if (user == null) {
 			// No such item, so return a NOT FOUND response
@@ -80,18 +80,22 @@ public class Userpage extends HttpServlet{
 		
 		// Use a GetItemByName controller to find the item in the database
 		GetUserController controller = new GetUserController();
-		User user = controller.getUser(pathInfo);
+		User user = controller.getUser(Integer.parseInt(pathInfo));
 		
+		// Get the item name
+		if (pathInfo.startsWith("/")){
+			pathInfo = pathInfo.substring(1);
+		}
+	
 		DeleteUserController deleteUser = new DeleteUserController();
 		deleteUser.deleteUser(user);
-		
-		// send response
+
+		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.setContentType("application/json");	
+		resp.setContentType("application/json");
 		
-		GetUserController getUser = new GetUserController();
-		
-		JSON.getObjectMapper().writeValue(resp.getWriter(), getUser.getUser(user.getUserName()));
+		// Return the item in JSON format
+		JSON.getObjectMapper().writeValue(resp.getWriter(), user);
 	}
 }
 

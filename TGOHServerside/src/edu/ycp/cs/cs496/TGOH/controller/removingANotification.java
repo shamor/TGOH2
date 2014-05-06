@@ -2,11 +2,10 @@ package edu.ycp.cs.cs496.TGOH.controller;
 
 import edu.ycp.cs.cs496.TGOH.pesist.Database;
 import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
-import edu.ycp.cs.cs496.TGOH.temp.Courses;
 
-public class GetCourseByName {
-	public Courses getCourseByName(String coursename){
+public class removingANotification {
+	public void RemovingANotification(int id){
 		IDatabase db = Database.getInstance();
-		return db.getCourseByName(coursename);
+		db.removeNotification(id);
 	}
 }

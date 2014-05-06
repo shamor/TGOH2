@@ -4,12 +4,11 @@ import java.util.List;
 
 import edu.ycp.cs.cs496.TGOH.pesist.Database;
 import edu.ycp.cs.cs496.TGOH.pesist.IDatabase;
-import edu.ycp.cs.cs496.TGOH.temp.Courses;
-import edu.ycp.cs.cs496.TGOH.temp.User;
+import edu.ycp.cs.cs496.TGOH.temp.Notification;
 
-public class GetCoursefromUser {
-	public List<Courses> getCoursefromUser(int user){
+public class getAllNotifications {
+	public List<Notification> getAllNotifications(int coursename){
 		IDatabase db = Database.getInstance();
-		return db.getCoursefromUser(user);
+		return db.getNotificationForCourse(coursename);
 	}
 }

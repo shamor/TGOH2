@@ -18,6 +18,7 @@ import edu.ycp.cs.cs496.TGOH.controller.GetUserController;
 import edu.ycp.cs.cs496.TGOH.controller.RemovingAUserFromCourse;
 import edu.ycp.cs.cs496.TGOH.controller.findUserForCourse;
 import edu.ycp.cs.cs496.TGOH.controller.getAllCourses;
+import edu.ycp.cs.cs496.TGOH.controller.getPendingUserForCourse;
 import edu.ycp.cs.cs496.TGOH.controller.gettingACourse;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
 import edu.ycp.cs.cs496.TGOH.temp.Registration;
@@ -54,7 +55,7 @@ private static final long serialVersionUID = 1L;
 		int courseId = Integer.parseInt(pathInfo);
 		// Use a GetItemByName controller to find the item in the database
 		GetUserController con = new GetUserController();
-		User userId = con.getUser(user);
+		User userId = con.getUser(Integer.parseInt(user));
 		
 		gettingACourse cont = new gettingACourse();
 		Courses course = cont.getCourse(courseId);
@@ -93,18 +94,40 @@ private static final long serialVersionUID = 1L;
 
 	
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Registration reg = JSON.getObjectMapper().readValue(req.getReader(), Registration.class);
+		String pathInfo = req.getPathInfo();
+		if (pathInfo == null || pathInfo.equals("") || pathInfo.equals("/")) {
+			resp.getWriter().println("Select a course to delete");
+			return;
+		}
 		
-		RemovingAUserFromCourse con = new RemovingAUserFromCourse();
-		con.RemovingUserFromCourse(reg.getUserId(), reg.getCourseId());
+		// Get the item name
+		if (pathInfo.startsWith("/")){
+			pathInfo = pathInfo.substring(1);
+		}
+		String user = pathInfo.substring(0, pathInfo.indexOf('/'));
 		
-		// send response
+		if (pathInfo.contains("/")){
+			pathInfo = pathInfo.substring(pathInfo.indexOf('/')+1, pathInfo.length());
+		}
+		int courseId = Integer.parseInt(pathInfo);
+		// Use a GetItemByName controller to find the item in the database
+		GetUserController con = new GetUserController();
+		User user1 = con.getUser(Integer.parseInt(user));
+
+		gettingACourse cont = new gettingACourse();
+		Courses course = cont.getCourse(courseId);
+		
+		RemovingAUserFromCourse controller = new RemovingAUserFromCourse();
+		controller.RemovingUserFromCourse(user1, course);
+		
+		findUserForCourse get = new findUserForCourse();
+		
+		// Set status code and content type
 		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.setContentType("application/json");	
+		resp.setContentType("application/json");
 		
-		gettingACourse controller = new gettingACourse();
-		
-		JSON.getObjectMapper().writeValue(resp.getWriter(), controller.getCourse(reg.getId()));
+		// Return the item in JSON format
+		JSON.getObjectMapper().writeValue(resp.getWriter(), get.findUserforCourse(user1, course));
 	}
 	
 	@Override
@@ -129,7 +152,7 @@ private static final long serialVersionUID = 1L;
 			int courseId = Integer.parseInt(pathInfo);
 			// Use a GetItemByName controller to find the item in the database
 			GetUserController con = new GetUserController();
-			User userId = con.getUser(user);
+			User userId = con.getUser(Integer.parseInt(user));
 			
 			gettingACourse cont = new gettingACourse();
 			Courses course = cont.getCourse(courseId);

@@ -99,7 +99,6 @@ public class MainActivity extends Activity {
 							System.out.println("wrong");
 						}*/
 
-
 						Currentuser = controller.getUser(userName);
 						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
@@ -209,11 +208,11 @@ public class MainActivity extends Activity {
 			//pull the list of user courses from the database
 			GetCoursesfromUser con = new GetCoursesfromUser(); 
 			List<String> classes = new ArrayList<String>();
-			Courses[] courses = null;
+			Courses[]courses = null;
 
 
 			try {
-				courses = con.getCourses(Currentuser.getId());
+				 courses = con.getCourses(Currentuser.getId());
 				
 				for(int i = 0; i< courses.length; i++){
 					classes.add(courses[i].getCourse());
@@ -272,6 +271,7 @@ public class MainActivity extends Activity {
 					setSettings_Page();
 				}
 			});
+
 			}
 	}
 

@@ -6,7 +6,12 @@ public class Notification {
 	private String text;
 
 	public Notification() {
-		// TODO Auto-generated constructor stub
+
+	}
+	
+	public Notification(int courseid, String text) {
+		this.courseId = courseid;
+		this.text = text;
 	}
 	
 	public void setId(int id) {
