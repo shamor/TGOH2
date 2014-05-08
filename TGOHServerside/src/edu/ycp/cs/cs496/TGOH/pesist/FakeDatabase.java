@@ -32,13 +32,13 @@ public class FakeDatabase implements IDatabase {
 		Courses c = new Courses();
 		c.setId(courseCounter++);
 		c.setCourse("Introduction to Something");
-		c.setTeacher(1);
+		c.setTeacher("Babcock");
 		courses.add(c);
 		
 		Courses c1 = new Courses();
 		c1.setId(courseCounter++);
 		c1.setCourse("Introduction to Something Else");
-		c1.setTeacher(2);
+		c1.setTeacher("Hovemeyer");
 		courses.add(c1);
 
 		registrations = new ArrayList<Registration>();

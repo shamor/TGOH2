@@ -914,6 +914,7 @@ public class MainActivity extends Activity {
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
+
 					//Add the teacher to the course
 					Registration reg = new Registration(); 
 					reg.setUserId(Currentuser.getId());
