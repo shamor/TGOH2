@@ -26,16 +26,20 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import edu.ycp.cs.cs496.TGOH.controller.AddAnnouncement;
 import edu.ycp.cs.cs496.TGOH.controller.AddCourse;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteCourse;
 import edu.ycp.cs.cs496.TGOH.controller.DeleteUser;
+import edu.ycp.cs.cs496.TGOH.controller.GetAnnouncements;
 import edu.ycp.cs.cs496.TGOH.controller.GetCourseByName;
 import edu.ycp.cs.cs496.TGOH.controller.GetCoursesfromUser;
 import edu.ycp.cs.cs496.TGOH.controller.GetUser;
 import edu.ycp.cs.cs496.TGOH.controller.PutPassword;
 import edu.ycp.cs.cs496.TGOH.controller.RegisterForCourse;
+import edu.ycp.cs.cs496.TGOH.controller.RemovingAnAnnouncement;
 import edu.ycp.cs.cs496.TGOH.controller.adduser;
 import edu.ycp.cs.cs496.TGOH.temp.Courses;
+import edu.ycp.cs.cs496.TGOH.temp.Notification;
 import edu.ycp.cs.cs496.TGOH.temp.Registration;
 import edu.ycp.cs.cs496.TGOH.temp.RegistrationStatus;
 import edu.ycp.cs.cs496.TGOH.temp.User;
@@ -75,7 +79,6 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// setting a new account to the Database.
 				setSignupPage();
-				//setTeacher_Selection_Page();
 			}
 		});
 		
@@ -90,11 +93,10 @@ public class MainActivity extends Activity {
 				String passWord = Password.getText().toString();
         		
 				GetUser controller = new GetUser();
-				DeleteUser con	= new DeleteUser();
         			//get a user object from the database
-					try {
+					try {	
 						Currentuser = controller.getUser(userName);
-						Toast.makeText(MainActivity.this, Currentuser.getPassword().toString(), Toast.LENGTH_SHORT).show();
+
 						if(Currentuser.getPassword().equals(passWord)){
 								username = userName;
 								if(username.equals("master")){
@@ -207,13 +209,12 @@ public class MainActivity extends Activity {
 			//pull the list of user courses from the database
 			GetCoursesfromUser con = new GetCoursesfromUser(); 
 			List<String> classes = new ArrayList<String>();
-			Courses[]courses = null;
+			Courses[] courses = null;
 
 
 			try {
 				 courses = con.getCourses(Currentuser.getId());
-				
-				for(int i = 0; i< courses.length; i++){
+				for(int i = 0; i < courses.length; i++){
 					classes.add(courses[i].getCourse());
 				}
 			} catch (Exception e) {
@@ -241,7 +242,7 @@ public class MainActivity extends Activity {
 	
 				@Override
 				public void onClick(View v) {
-					setSchedule_Page();
+					setSchedule_Page(courses2);
 				}
 			});
 			
@@ -273,7 +274,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/**(Needs to implement database) Announcements
+	/**DONE(FOR NOW)
 	 * Displays a student's course homepage 
 	 * @param course name of the course that homepage is displayed for
 	 */
@@ -310,21 +311,26 @@ public class MainActivity extends Activity {
 					setClass_Selection_Page();
 				}
 			});
-			
-			//TODO: based on the course information, display its announcements 
-
+				//view holding the announcements
 				ListView lview = (ListView) findViewById(R.id.listView1);
-				//TODO: when needed this can be set to hold data pulled from database
 				
+				//list of announcements
 				List<String> announcements = new ArrayList<String>();
+			
+				GetAnnouncements con = new GetAnnouncements();
 				
-				announcements.add("stuff due today");
-				announcements.add("stuff due tomorrow");
-				announcements.add("stuff due next week");
-				announcements.add("stuff due next month");
-				announcements.add("stuff due next year");
-				announcements.add("stuff due next decade");
-				announcements.add("stuff due next century");
+				Notification[]  announce = null;
+				
+				try {
+					announce = con.getAnnouncements(course.getId());
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				
+				//adding the announcements to the list
+				for(int i = 0; i< announce.length; i++){
+					announcements.add(announce[i].getText());
+				}
 				
 				ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, announcements);
 				lview.setAdapter(la);
@@ -374,7 +380,6 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					ListView lview = (ListView) findViewById(R.id.listView1);
-					//TODO: when needed this can be set to hold data pulled from database
 					String Teachername = TeacherName.getText().toString();
 					
 					//pull the list of user courses from the database
@@ -404,6 +409,7 @@ public class MainActivity extends Activity {
 									Registration reg = new Registration();
 									RegisterForCourse con = new RegisterForCourse();
 									reg.setUserId(Currentuser.getId());
+									reg.setStatus(RegistrationStatus.PENDING); 
 									
 									for(int i = 0; i < 7;i++){
 										if(courses[i].getCourse() == ((TextView) view).getText().toString()){
@@ -414,7 +420,6 @@ public class MainActivity extends Activity {
 									try {
 										con.postRegisterRequest(reg);
 									} catch (Exception e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 									Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -429,10 +434,11 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/**(Needs to implement database)announcements
+	/**DONE(FOR NOW)
 	 * Displays all of the student's announcements
+	 * @param courses 
 	 */
-	public void setSchedule_Page(){
+	public void setSchedule_Page(Courses[] courses){
 		if(username.equals(""))
 		{
 			Toast.makeText(MainActivity.this, "No one is logged in!" , Toast.LENGTH_SHORT).show();
@@ -465,17 +471,25 @@ public class MainActivity extends Activity {
 		}
 		
 		ListView lview = (ListView) findViewById(R.id.listView1);
-		//TODO: when needed this can be set to hold data pulled from database
 		
+		//list of announcements
 		List<String> announcements = new ArrayList<String>();
+	
+		GetAnnouncements con = new GetAnnouncements();
 		
-		announcements.add("stuff due today");
-		announcements.add("stuff due tomorrow");
-		announcements.add("stuff due next week");
-		announcements.add("stuff due next month");
-		announcements.add("stuff due next year");
-		announcements.add("stuff due next decade");
-		announcements.add("stuff due next century");
+		Notification[]  announce = null;
+		for(int i = 0; i <courses.length; i++){
+			try {
+				announce = con.getAnnouncements(courses[i].getId());
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			
+			//adding the announcements to the list
+			for(int j = 0; j < announce.length; j++){
+				announcements.add(announce[j].getText());
+			}
+		}
 		
 		ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, announcements);
 		lview.setAdapter(la);
@@ -502,6 +516,8 @@ public class MainActivity extends Activity {
 			Button LogOut = (Button) findViewById(R.id.logoutbtn);
 			Button back = (Button) findViewById(R.id.backbtn);
 			Button delete = (Button) findViewById(R.id.button2);
+			Button add = (Button) findViewById(R.id.button1);
+			final EditText announcmentText = (EditText) findViewById(R.id.editText1);
 			
 			// Add onClickListener
 			notify.setOnClickListener(new View.OnClickListener()
@@ -548,6 +564,83 @@ public class MainActivity extends Activity {
 					setDefaultView();
 				}
 			});
+			
+			// Add onClickListener
+			add.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v) 
+				{
+					//pull message from text box
+					Notification newNot = new Notification();
+					newNot.setText(announcmentText.getText().toString());
+					newNot.setCourseId(course.getId());
+					
+					//add to database through Add Announcement controller
+					AddAnnouncement controller = new AddAnnouncement();
+					try {
+						if(controller.postAnnouncement(newNot)){
+							Toast.makeText(MainActivity.this, "Announcement Added" , Toast.LENGTH_SHORT).show();
+							setTeacher_Main_Page(course);
+						}else{
+							Toast.makeText(MainActivity.this, "Internal Error. Try again later" , Toast.LENGTH_SHORT).show();
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						Toast.makeText(MainActivity.this, "Internal Error." , Toast.LENGTH_SHORT).show();
+					} 
+					
+				}
+			});
+			
+			ListView lview = (ListView) findViewById(R.id.listView1);
+			
+			//list of announcements
+			List<String> announcements = new ArrayList<String>();
+			
+			//controller for getting the Announcements
+			GetAnnouncements con = new GetAnnouncements();
+			
+			Notification[]  announce = null;
+				try {
+					announce = con.getAnnouncements(course.getId());
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				
+				//adding the announcements to the list
+				for(int j = 0; j < announce.length; j++){
+					announcements.add(announce[j].getText());
+				}
+				
+				//add strings to a list adapter to be displayed
+				announcements.add(announcmentText.getText().toString());
+				ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, announcements);
+				lview.setAdapter(la);
+				final Notification[] announce2 = announce;
+				lview.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
+						//pull item from listview - delete announcement
+						
+						RemovingAnAnnouncement removeCon = new RemovingAnAnnouncement();
+						Notification note = new Notification();
+						note = announce2[arg2]; 
+		
+						try {
+							if(removeCon.deleteAnnouncment(note.getId())){
+								setTeacher_Main_Page(course);
+							}else{
+								Toast.makeText(MainActivity.this, "Internal Error, Try Again" , Toast.LENGTH_SHORT).show();
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							Toast.makeText(MainActivity.this, "Internal Error." , Toast.LENGTH_SHORT).show();
+						}
+						
+					}
+				});
+				
 		}
 	}
 	
@@ -739,8 +832,6 @@ public class MainActivity extends Activity {
 			lview.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
-					
-					
 					Courses course = new Courses();
 					course = courses2[arg2]; 
 	
@@ -927,7 +1018,9 @@ public class MainActivity extends Activity {
 			});
 		}
 	}
-	
+	/**(Needs to implement database)password 
+	 * Allows User to change some of their options
+	 */
 	public void setSettings_Page()
 	{
 		if(username.equals(""))

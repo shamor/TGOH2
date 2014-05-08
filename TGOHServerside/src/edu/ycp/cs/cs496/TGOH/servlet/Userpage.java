@@ -25,12 +25,12 @@ public class Userpage extends HttpServlet{
 			return;
 		}
 		
-		// Get the item name
+		// Get the user name
 		if (pathInfo.startsWith("/")){
 			pathInfo = pathInfo.substring(1);
 		}
 		
-		// Use a GetItemByName controller to find the item in the database
+		// Use a GetUsercontroller to find the user in the database
 		GetUserController controller = new GetUserController();
 		User user = controller.getUser(pathInfo);
 		
