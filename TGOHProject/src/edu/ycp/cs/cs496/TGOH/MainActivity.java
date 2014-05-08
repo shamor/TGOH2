@@ -337,7 +337,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/**(Needs to implement database)
+	/**(Needs to implement database)registration
 	 * Page students use to request a new class
 	 */
 	public void setRequest_Page() {
@@ -385,44 +385,57 @@ public class MainActivity extends Activity {
 					//pull the list of user courses from the database
 					GetCoursesfromUser con = new GetCoursesfromUser(); 
 					List<String> classes = new ArrayList<String>();
+					GetUser getuse = new GetUser();
 					
-
+					User Teacher = new User();
 					try {
-						courses = con.getCourses(Currentuser.getId());
-						
-						for(int i = 0; i< courses.length; i++){
-							classes.add(courses[i].getCourse());
+						if(getuse.getUser(Teachername).getType() == false){
+							Teacher = getuse.getUser(Teachername);
+						}else{
+							Toast.makeText(MainActivity.this, "User is not an intructor." , Toast.LENGTH_SHORT).show();
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
-						//Toast.makeText(MainActivity.this, "User does not have any courses." , Toast.LENGTH_SHORT).show();
+						
+					} catch (Exception e1) {
+						Toast.makeText(MainActivity.this, "User does not have any courses." , Toast.LENGTH_SHORT).show();
+						e1.printStackTrace();
 					} 
+					
+					if(Teacher!=null){
+						try {
+							courses = con.getCourses(Teacher.getId());
+							
+							for(int i = 0; i< courses.length; i++){
+								classes.add(courses[i].getCourse());
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						} 
+					}else{
+						
+					}
 					
 					ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, classes);
 					lview.setAdapter(la);  
-					
+					final Courses[] courses2 = courses;
 					lview.setOnItemClickListener(new OnItemClickListener() {
 								@Override
 								public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
-									CharSequence msg = "You selected " + ((TextView) view).getText();
 									
 									Registration reg = new Registration();
 									RegisterForCourse con = new RegisterForCourse();
 									reg.setUserId(Currentuser.getId());
 									reg.setStatus(RegistrationStatus.PENDING); 
-									
-									for(int i = 0; i < 7;i++){
-										if(courses[i].getCourse() == ((TextView) view).getText().toString()){
-											reg.setCourseId(courses[i].getId());
-										}
-									}
+					
+									Courses course = new Courses();
+									course = courses2[arg2]; 
+									reg.setCourseId(course.getId());
 									
 									try {
 										con.postRegisterRequest(reg);
 									} catch (Exception e) {
 										e.printStackTrace();
 									}
-									Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+									Toast.makeText(MainActivity.this, "Request sent to teacher", Toast.LENGTH_SHORT).show();
 								}
 							});
 					
@@ -563,7 +576,7 @@ public class MainActivity extends Activity {
 					setDefaultView();
 				}
 			});
-			
+
 			// Add onClickListener
 			add.setOnClickListener(new View.OnClickListener()
 			{
@@ -592,7 +605,7 @@ public class MainActivity extends Activity {
 				}
 			});
 			
-			ListView lview = (ListView) findViewById(R.id.listView1);
+			final ListView lview = (ListView) findViewById(R.id.listView1);
 			
 			//list of announcements
 			List<String> announcements = new ArrayList<String>();
@@ -612,21 +625,20 @@ public class MainActivity extends Activity {
 					announcements.add(announce[j].getText());
 				}
 				
-				//add strings to a list adapter to be displayed
-				announcements.add(announcmentText.getText().toString());
 				ArrayAdapter<String> la = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, announcements);
 				lview.setAdapter(la);
+				
+				//When  an announcement is clicked, delete it
 				final Notification[] announce2 = announce;
 				lview.setOnItemClickListener(new OnItemClickListener() {
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
-						//pull item from listview - delete announcement
+						//pull item from listview - delete announcement	
 						
 						RemovingAnAnnouncement removeCon = new RemovingAnAnnouncement();
 						Notification note = new Notification();
 						note = announce2[arg2]; 
-						System.out.println("index = " + arg2);
-						System.out.println("index = " + note.getText());
+						
 						try {
 							if(removeCon.deleteAnnouncment(note.getId())){
 								setTeacher_Main_Page(course);
@@ -638,14 +650,13 @@ public class MainActivity extends Activity {
 							Toast.makeText(MainActivity.this, "Internal Error." , Toast.LENGTH_SHORT).show();
 						}
 						
-					}
+						}
 				});
-				announce = announce2;
-		}
+		}	
 	}
 	
 
-	/**(needs to implement database
+	/**(needs to implement database)registration
 	 * Displays the students who are pending for
 	 * a given course the teacher teaches
 	 */
@@ -945,7 +956,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/**(implement database)notifications
+	/**(implement database)registration
 	 * the master's notification/homepage
 	 */
 	public void setMaster_Notification_Page()
