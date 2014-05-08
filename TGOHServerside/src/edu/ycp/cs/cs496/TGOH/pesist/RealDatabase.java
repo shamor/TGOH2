@@ -267,7 +267,6 @@ public class RealDatabase implements IDatabase{
 				}
 			}
 		});
-		
 	}
 
 	@Override

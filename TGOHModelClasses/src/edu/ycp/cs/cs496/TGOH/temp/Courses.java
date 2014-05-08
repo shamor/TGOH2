@@ -33,8 +33,8 @@ public class Courses {
 		return Coursename;
 	}
 	
-	public void setTeacher(int teacher) {
-		Teacher = teacher;
+	public void setTeacher(int string) {
+		Teacher = string;
 	}
 	
 	public int getTeacher() {
