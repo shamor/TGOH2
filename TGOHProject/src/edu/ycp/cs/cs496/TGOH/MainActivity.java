@@ -145,19 +145,24 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				if(Password.getText().toString().equals(Passwordcheck.getText().toString())){   //check to see if passwords entered are equal
 					adduser controller = new adduser();
+					GetUser con = new GetUser();
 					boolean type = isStudent.isChecked();
 					try {
-						if(controller.postUser(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString(), type)){
-							// toast box: right
-							setDefaultView();
-							if(type == true){
-								Toast.makeText(MainActivity.this, "Welcome to TGOH. Please log in.", Toast.LENGTH_SHORT).show();
+						if(con.getUser(Username.getText().toString()).equals(null)){
+							if(controller.postUser(Username.getText().toString(), Password.getText().toString(),FirstName.getText().toString(), LastName.getText().toString(), type)){
+								// toast box: right
+								setDefaultView();
+								if(type == true){
+									Toast.makeText(MainActivity.this, "Welcome to TGOH. Please log in.", Toast.LENGTH_SHORT).show();
+								}else{
+									Toast.makeText(MainActivity.this, "You have requested to be a teacher. Your request is pending...", Toast.LENGTH_SHORT).show();
+								}
 							}else{
-								Toast.makeText(MainActivity.this, "You have requested to be a teacher. Your request is pending...", Toast.LENGTH_SHORT).show();
+								// toast box: error
+								Toast.makeText(MainActivity.this, "Error: try again", Toast.LENGTH_SHORT).show();
 							}
 						}else{
-							// toast box: error
-							Toast.makeText(MainActivity.this, "Error: try again", Toast.LENGTH_SHORT).show();
+							Toast.makeText(MainActivity.this, "Please select another username.", Toast.LENGTH_SHORT).show();
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

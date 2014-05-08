@@ -18,11 +18,11 @@ import edu.ycp.cs.cs496.TGOH.JSON.JSON;
 import edu.ycp.cs.cs496.TGOH.temp.User;
 
 public class GetPendingUsersforCourse {
-	public List<User> getUser(int courseId) throws ClientProtocolException, URISyntaxException, IOException {
+	public User[] getUser(int courseId) throws ClientProtocolException, URISyntaxException, IOException {
 		return makeGetRequest(courseId);
 	}
 	
-	private List<User> makeGetRequest(int courseId) throws URISyntaxException, ClientProtocolException, IOException{
+	private User[] makeGetRequest(int courseId) throws URISyntaxException, ClientProtocolException, IOException{
 		// Create HTTP client
  		HttpClient client = new DefaultHttpClient();
 		// Construct URI
@@ -38,7 +38,7 @@ public class GetPendingUsersforCourse {
 			// Add JSON object to request
 			HttpEntity entity = response.getEntity();
 			// Parse JSON
-			return JSON.getObjectMapper().readValue(entity.getContent(), List<User>.class);
+			return JSON.getObjectMapper().readValue(entity.getContent(), User[].class);
 		} 
 		
 		// Return null if invalid response
