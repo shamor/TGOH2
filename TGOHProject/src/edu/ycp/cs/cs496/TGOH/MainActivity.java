@@ -625,7 +625,8 @@ public class MainActivity extends Activity {
 						RemovingAnAnnouncement removeCon = new RemovingAnAnnouncement();
 						Notification note = new Notification();
 						note = announce2[arg2]; 
-		
+						System.out.println("index = " + arg2);
+						System.out.println("index = " + note.getText());
 						try {
 							if(removeCon.deleteAnnouncment(note.getId())){
 								setTeacher_Main_Page(course);
@@ -639,7 +640,7 @@ public class MainActivity extends Activity {
 						
 					}
 				});
-				
+				announce = announce2;
 		}
 	}
 	
